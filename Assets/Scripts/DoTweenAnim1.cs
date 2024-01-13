@@ -2,22 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Cysharp.Threading.Tasks;
+using UniRx;
+using System;
 
 public class DoTweenAnim1 : TweenBase
 {
-    private Tween _currentTween = default;
+    private Tween _currentTween = null;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
         transform.localScale = Vector3.zero;
+        PlayAnimation();
+    }
+
+    private void PlayAnimation()
+    {
         _currentTween = transform.DOScale(1, 1f)
                                  .SetEase(Ease.InSine)
-                                 .SetDelay(2)
-                                 .OnComplete(() =>
+                                 .SetDelay(0.5f)
+                                 .OnComplete(async () =>
                                  {
+                                     await AnimationDelay(1000);
                                      UiLoopAnimation();
                                  });
+    }
+
+
+    private async UniTask AnimationDelay(double delayTime)
+    {
+        await UniTask.Delay(TimeSpan.FromMilliseconds(delayTime));
     }
 
     protected override void UiLoopAnimation()
