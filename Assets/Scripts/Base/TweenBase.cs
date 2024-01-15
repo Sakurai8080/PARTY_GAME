@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,5 +22,22 @@ public abstract class TweenBase : MonoBehaviour
     [SerializeField]
     protected Image _targetImage = default;
 
+    protected Tween _currentScaleTween = null;
+    protected Tween _currentFadeTween = null;
+
+    protected abstract void PlayAnimation();
     protected abstract void UiLoopAnimation();
+
+    protected void ImageAlphaController(Image targetImage,float alphaAmount)
+    {
+        Color color = targetImage.color;
+        color.a = alphaAmount;
+        targetImage.color = color;
+    }
+
+    protected void KillTweens()
+    {
+        _currentFadeTween?.Kill();
+        _currentScaleTween?.Kill();
+    }
 }

@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 91157170}
   - component: {fileID: 91157169}
   m_Layer: 5
-  m_Name: FirstUIGroup
+  m_Name: InfoUIGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2469,7 +2469,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Linear
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c9039045a0ce14ce3ba6cdd0497e07a3, type: 2}
   m_sharedMaterial: {fileID: 817006570909355351, guid: c9039045a0ce14ce3ba6cdd0497e07a3, type: 2}
@@ -3121,6 +3121,7 @@ GameObject:
   - component: {fileID: 1927839137}
   - component: {fileID: 1927839136}
   - component: {fileID: 1927839135}
+  - component: {fileID: 1927839138}
   m_Layer: 5
   m_Name: Button2
   m_TagString: Untagged
@@ -3231,6 +3232,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1927839133}
   m_CullTransparentMesh: 1
+--- !u!114 &1927839138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927839133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce719d36b976425f9bc7ce5fd58fc70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1936071232
 GameObject:
   m_ObjectHideFlags: 0
