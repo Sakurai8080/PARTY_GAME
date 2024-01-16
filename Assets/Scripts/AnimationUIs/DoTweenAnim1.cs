@@ -42,10 +42,4 @@ public class DoTweenAnim1 : TweenBase
         _currentFadeTween = _targetImage.DOFade(0.5f, 1)
                                         .SetLoops(-1, LoopType.Yoyo);
     }
-
-    private async UniTask AnimationDelay(double delayTime)
-    {
-        await UniTask.Delay(TimeSpan.FromMilliseconds(delayTime));
-    }
-
 }
