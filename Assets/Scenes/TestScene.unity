@@ -489,8 +489,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5885ea5b9ab3141fe8ff4d58e42c50c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _testUIGroup: {fileID: 2052611932}
-  _testUIParent: {fileID: 1497555479}
   _activeSwitchButton: {fileID: 2068155593}
 --- !u!1 &207667955
 GameObject:
@@ -2829,6 +2827,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1837353464}
+  - component: {fileID: 1837353465}
   m_Layer: 0
   m_Name: HUD_Manager
   m_TagString: Untagged
@@ -2852,6 +2851,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1837353465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837353463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025d957f5c2e1459b94308ba44eca89d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _testUIActivator: {fileID: 2052611934}
+  _activeUIInput: {fileID: 149541197}
 --- !u!1 &1876412270
 GameObject:
   m_ObjectHideFlags: 0
@@ -3377,6 +3390,7 @@ GameObject:
   - component: {fileID: 2052611931}
   - component: {fileID: 2052611933}
   - component: {fileID: 2052611932}
+  - component: {fileID: 2052611934}
   m_Layer: 5
   m_Name: TestUIGroup
   m_TagString: Untagged
@@ -3425,6 +3439,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052611930}
   m_CullTransparentMesh: 1
+--- !u!114 &2052611934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052611930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fce35c4e0b19d4ff8b39c453662ea16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _testUIGroup: {fileID: 2052611932}
+  _testUIParent: {fileID: 1497555479}
 --- !u!1 &2068155591
 GameObject:
   m_ObjectHideFlags: 0
