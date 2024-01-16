@@ -25,5 +25,4 @@ public class UIPresenter : MonoBehaviour
                           _testUIActivator.ToggleUIsVisibility();
                       }).AddTo(this);
     }
-
 }

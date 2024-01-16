@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +29,11 @@ public abstract class TweenBase : MonoBehaviour
 
     protected abstract void PlayAnimation();
     protected abstract void UiLoopAnimation();
+
+    protected async UniTask AnimationDelay(double delayTime)
+    {
+        await UniTask.Delay(TimeSpan.FromMilliseconds(delayTime));
+    }
 
     protected void ImageAlphaController(Image targetImage,float alphaAmount)
     {
