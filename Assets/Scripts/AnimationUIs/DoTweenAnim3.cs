@@ -13,6 +13,7 @@ public class DoTweenAnim3 : TweenBase
     {
         ImageAlphaController(_targetImage, 0);
         PlayAnimation();
+        _initialColor = _targetImage.color;
     }
 
     private void OnDisable()
