@@ -6,6 +6,9 @@ using UnityEngine.UI;
 using UniRx;
 using Cysharp.Threading.Tasks;
 
+/// <summary>
+/// UIの操作をするクラス
+/// </summary>
 public class TweenUIsController : MonoBehaviour
 {
     [Header("Variable")]

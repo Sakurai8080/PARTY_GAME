@@ -6,6 +6,9 @@ using Cysharp.Threading;
 using UnityEngine.UI;
 using System;
 
+/// <summary>
+/// UIの押下を検知するクラス
+/// </summary>
 public sealed class ActiveUIInput : MonoBehaviour
 {
     public IObservable<Unit> OnClickObserver => _onClickSubject;
