@@ -33,6 +33,8 @@ public abstract class TweenBase : MonoBehaviour
     /// <summary>現在起動しているFadeに関わるTween操作用</summary>
     protected Tween _currentFadeTween = null;
 
+    protected Color _initialColor;
+
     protected abstract void PlayAnimation();
     protected abstract void UiLoopAnimation();
 
@@ -45,8 +47,10 @@ public abstract class TweenBase : MonoBehaviour
                          ImageAlphaController(_targetImage, 1);
                          KillTweens();
                          SelectedAnimation();
+                         ColorReset();
                      });
-                     
+        Debug.Log($"{_targetImage.color}");
+        _initialColor = _targetImage.color;             
     }
 
     //WARNING:引数はミリ秒
@@ -74,5 +78,15 @@ public abstract class TweenBase : MonoBehaviour
                                       .SetEase(Ease.OutQuint)
                                       .SetDelay(0.1f)
                                       .OnComplete(() => transform.DOPunchRotation(new Vector3(180f, 270, -45), 2f, 5, 1f));
+    }
+
+    protected void ColorReset()
+    {
+        if (_initialColor != null)
+        {
+            if (_initialColor.a != 1)
+                _initialColor.a = 1;
+            _targetImage.color = _initialColor;
+        }
     }
 }
