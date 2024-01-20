@@ -1751,7 +1751,7 @@ GameObject:
   - component: {fileID: 1056812751}
   - component: {fileID: 1056812752}
   m_Layer: 5
-  m_Name: TestUIPanel
+  m_Name: MainUIPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1932,7 +1932,7 @@ GameObject:
   - component: {fileID: 1305616819}
   - component: {fileID: 1305616820}
   m_Layer: 5
-  m_Name: Panel_Test
+  m_Name: Panel_Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2249,7 +2249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1497555480}
   m_Layer: 5
-  m_Name: DoTweenUIs
+  m_Name: SelectTweenUIs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3416,7 +3416,7 @@ GameObject:
   - component: {fileID: 2052611932}
   - component: {fileID: 2052611934}
   m_Layer: 5
-  m_Name: TestUIGroup
+  m_Name: SelectUIGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
