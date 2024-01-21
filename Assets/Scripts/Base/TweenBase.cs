@@ -38,7 +38,7 @@ public abstract class TweenBase : MonoBehaviour
     protected abstract void PlayAnimation();
     protected abstract void UiLoopAnimation();
 
-    protected void Start()
+    protected virtual void Start()
     {
         _tweensButton.OnClickAsObservable()
                      .TakeUntilDestroy(this)
