@@ -29,11 +29,6 @@ public class ActiveToggleButton : TweenBase
         UiLoopAnimation();
     }
 
-    private void OnDisable()
-    {
-        KillTweens();
-    }
-
     private void TextChange()
     {
         _isActeved = !_isActeved;
