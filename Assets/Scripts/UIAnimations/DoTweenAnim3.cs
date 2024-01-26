@@ -16,12 +16,6 @@ public class DoTweenAnim3 : TweenBase
         _initialColor = _targetImage.color;
     }
 
-    private void OnDisable()
-    {
-        ImageAlphaController(_targetImage, 0);
-        KillTweens();
-    }
-
     protected override void PlayAnimation()
     {
         _currentFadeTween = _targetImage.DOFade(1, 1.5f)
