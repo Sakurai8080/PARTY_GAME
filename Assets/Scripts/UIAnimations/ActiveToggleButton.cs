@@ -6,11 +6,22 @@ using Cysharp.Threading.Tasks;
 using UniRx;
 using System;
 using System.Linq;
+using UnityEngine.UI;
+using TMPro;
 
 public class ActiveToggleButton : TweenBase
 {
+
+    [SerializeField]
+    Button _button = default;
+
+    bool _isActeved = false;
+    TextMeshProUGUI _switchingText = default;
+
     protected override void Start()
     {
+        _switchingText = _button.GetComponentInChildren<TextMeshProUGUI>();
+        _button.onClick.AddListener(TextChange);
     }
 
     private void OnEnable()
@@ -18,9 +29,10 @@ public class ActiveToggleButton : TweenBase
         UiLoopAnimation();
     }
 
-    private void OnDisable()
+    private void TextChange()
     {
-        KillTweens();
+        _isActeved = !_isActeved;
+        _switchingText.text = _isActeved ? "ON" : "OFF";
     }
 
     protected override void PlayAnimation()

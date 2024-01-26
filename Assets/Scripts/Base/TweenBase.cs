@@ -38,6 +38,12 @@ public abstract class TweenBase : MonoBehaviour
     protected abstract void PlayAnimation();
     protected abstract void UiLoopAnimation();
 
+    protected virtual void OnDisable()
+    {
+        ImageAlphaController(_targetImage, 1);
+        KillTweens();
+    }
+
     protected virtual void Start()
     {
         _tweensButton.OnClickAsObservable()
@@ -70,6 +76,8 @@ public abstract class TweenBase : MonoBehaviour
     {
         _currentFadeTween?.Kill();
         _currentScaleTween?.Kill();
+        _currentFadeTween = null;
+        _currentScaleTween = null;
     }
 
     protected void SelectedAnimation()

@@ -15,12 +15,6 @@ public class DoTweenAnim2 : TweenBase
         PlayAnimation();
     }
 
-    private void OnDisable()
-    {
-        ImageAlphaController(_targetImage, 1);
-        KillTweens();
-    }
-
     protected override void PlayAnimation()
     {
         _currentScaleTween = transform.DOScale(1, 1)

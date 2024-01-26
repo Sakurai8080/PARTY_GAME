@@ -336,6 +336,7 @@ MonoBehaviour:
   _targetAmout: 1
   _targetImage: {fileID: 2068155594}
   _tweensButton: {fileID: 2068155593}
+  _button: {fileID: 2068155593}
 --- !u!1 &95938966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605,7 +1606,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DoTweenTest
+  m_text: OFF
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c9039045a0ce14ce3ba6cdd0497e07a3, type: 2}
   m_sharedMaterial: {fileID: 817006570909355351, guid: c9039045a0ce14ce3ba6cdd0497e07a3, type: 2}
@@ -2914,6 +2915,7 @@ GameObject:
   - component: {fileID: 1876412274}
   - component: {fileID: 1876412273}
   - component: {fileID: 1876412272}
+  - component: {fileID: 1876412275}
   m_Layer: 5
   m_Name: Button4
   m_TagString: Untagged
@@ -3024,6 +3026,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876412270}
   m_CullTransparentMesh: 1
+--- !u!114 &1876412275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876412270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bfd49830a7e14816b7031b397923f8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _delayTime: 2
+  _requiredTime: 1
+  _targetAmout: 1
+  _targetImage: {fileID: 1876412273}
+  _tweensButton: {fileID: 1876412272}
 --- !u!1 &1921197497
 GameObject:
   m_ObjectHideFlags: 0
