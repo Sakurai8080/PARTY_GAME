@@ -17,7 +17,7 @@ public class DoTweenAnim4 : TweenBase
 
     protected override void PlayAnimation()
     {
-        _currentFadeTween = _targetImage.DOFade(0.5f, 1)
+        _currentFadeTween = _targetImage.DOFade(0.1f, 1)
                                          .SetEase(Ease.OutFlash);
 
         _currentScaleTween = transform.DOScale(1, 1f)
