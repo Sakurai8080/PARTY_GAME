@@ -23,8 +23,8 @@ public class DoTweenAnim5 : TweenBase
 
     protected override void UiLoopAnimation()
     {
-        _currentScaleTween = transform.DOScale(0.1f, 1)
-                                      .SetLoops(-1, LoopType.Yoyo)
-                                      .SetEase(Ease.InBounce);
+        _currentScaleTween = transform.DOScale(0.6f, 1)
+                                      .SetEase(Ease.InBounce)
+                                      .SetLoops(-1, LoopType.Yoyo);
     }
 }
