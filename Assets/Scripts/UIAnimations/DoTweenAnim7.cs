@@ -14,14 +14,20 @@ namespace TweenGroup
 
         protected override void PlayAnimation()
         {
-            
+            _currentScaleTween = transform.DOScale(1f, 1f)
+                                          .SetEase(Ease.OutExpo)
+                                          .SetDelay(0.5f)
+                                          .OnComplete(async () =>
+                                          {
+                                              await AnimationDelay(1000);
+                                              UiLoopAnimation();
+                                          });
         }
 
         protected override void UiLoopAnimation()
         {
-            //_currentScaleTween = transform.DOBlendableScaleBy(_loopScaleAmount, 1f)
-            //                              .SetEase(Ease.InQuad)
-            //                              .SetLoops(-1, LoopType.Yoyo);
+            _currentScaleTween = transform.DOShakeScale(1f, 0.3f, 4)
+                                          .SetLoops(-1, LoopType.Yoyo);
         }
     }
 }
