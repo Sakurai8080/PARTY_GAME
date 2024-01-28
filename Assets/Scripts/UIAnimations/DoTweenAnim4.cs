@@ -9,12 +9,6 @@ using System.Linq;
 
 public class DoTweenAnim4 : TweenBase
 {
-    private void OnEnable()
-    {
-        transform.localScale = Vector3.zero;
-        PlayAnimation();
-    }
-
     protected override void PlayAnimation()
     {
         _currentFadeTween = _targetImage.DOFade(0.1f, 1)

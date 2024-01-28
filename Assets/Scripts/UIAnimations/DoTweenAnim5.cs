@@ -9,12 +9,6 @@ using System.Linq;
 
 public class DoTweenAnim5 : TweenBase
 {
-    private void OnEnable()
-    {
-        transform.localScale = Vector3.zero;
-        PlayAnimation();
-    }
-
     protected override void PlayAnimation()
     {
         _currentScaleTween = transform.DOScale(1, 1f)

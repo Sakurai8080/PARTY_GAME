@@ -13,12 +13,6 @@ namespace TweenGroup
     {
         private Vector3 _loopScaleAmount = new Vector3(0.1f, 0.1f, 0);
 
-        private void OnEnable()
-        {
-            transform.localScale = Vector3.zero;
-            PlayAnimation();
-        }
-
         protected override void PlayAnimation()
         {
             _currentScaleTween = transform.DOScale(1f, 1f)

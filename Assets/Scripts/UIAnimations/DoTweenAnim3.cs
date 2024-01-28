@@ -9,11 +9,11 @@ using System.Linq;
 
 public class DoTweenAnim3 : TweenBase
 {
-    private void OnEnable()
+    protected override void OnEnable()
     {
         ImageAlphaController(_targetImage, 0);
-        PlayAnimation();
         _initialColor = _targetImage.color;
+        PlayAnimation();
     }
 
     protected override void PlayAnimation()
