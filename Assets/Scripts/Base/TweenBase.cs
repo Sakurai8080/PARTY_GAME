@@ -38,6 +38,12 @@ public abstract class TweenBase : MonoBehaviour
     protected abstract void PlayAnimation();
     protected abstract void UiLoopAnimation();
 
+    protected virtual void OnEnable()
+    {
+        transform.localScale = Vector3.zero;
+        PlayAnimation();
+    }
+
     protected virtual void OnDisable()
     {
         ImageAlphaController(_targetImage, 1);

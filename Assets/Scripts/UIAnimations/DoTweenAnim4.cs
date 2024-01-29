@@ -9,17 +9,8 @@ using System.Linq;
 
 public class DoTweenAnim4 : TweenBase
 {
-    private void OnEnable()
-    {
-        transform.localScale = Vector3.zero;
-        PlayAnimation();
-    }
-
     protected override void PlayAnimation()
     {
-        _currentFadeTween = _targetImage.DOFade(0.5f, 1)
-                                         .SetEase(Ease.OutFlash);
-
         _currentScaleTween = transform.DOScale(1, 1f)
                                       .SetEase(Ease.OutQuint)
                                       .SetDelay(0.5f)
@@ -36,7 +27,7 @@ public class DoTweenAnim4 : TweenBase
                                       .SetLoops(-1, LoopType.Yoyo)
                                       .SetEase(Ease.OutCubic);
 
-        _currentFadeTween = _targetImage.DOFade(1f, 1)
+        _currentFadeTween = _targetImage.DOFade(0.9f, 1)
                                          .SetLoops(-1, LoopType.Yoyo);
     }
 }

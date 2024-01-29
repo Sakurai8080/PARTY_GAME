@@ -9,24 +9,22 @@ using System.Linq;
 
 public class DoTweenAnim5 : TweenBase
 {
-
-    private void OnEnable()
-    {
-
-    }
-
-    private void OnDisable()
-    {
-
-    }
-
     protected override void PlayAnimation()
     {
-
+        _currentScaleTween = transform.DOScale(1, 1f)
+                                      .SetEase(Ease.InOutBounce)
+                                      .SetDelay(0.5f)
+                                      .OnComplete(async () =>
+                                      {
+                                          await AnimationDelay(1000);
+                                          UiLoopAnimation();
+                                      });
     }
 
     protected override void UiLoopAnimation()
     {
-
+        _currentScaleTween = transform.DOScale(0.6f, 1)
+                                      .SetEase(Ease.InBounce)
+                                      .SetLoops(-1, LoopType.Yoyo);
     }
 }
