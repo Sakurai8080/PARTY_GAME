@@ -27,5 +27,9 @@ public class DoTweenAnim9 : TweenBase
         _currentScaleTween = transform.DORotate(new Vector3(0,0,540),1f,RotateMode.FastBeyond360)
                                       .SetEase(Ease.OutFlash)
                                       .SetLoops(-1, LoopType.Incremental);
+
+        _currentFadeTween = _targetImage.DOFade(0, 1)
+                                        .SetEase(Ease.OutFlash)
+                                        .SetLoops(-1, LoopType.Yoyo);
     }
 }
