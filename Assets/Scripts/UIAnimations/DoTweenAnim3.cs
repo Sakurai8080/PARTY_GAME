@@ -35,7 +35,7 @@ public class DoTweenAnim3 : TweenBase
                                         .SetLoops(-1, _tweenData.LoopType);
 
 
-        _currentScaleTween = transform.DOScale(0,1f)
+        _currentScaleTween = transform.DOScale(0.3f,1f)
                                       .SetEase(_tweenData.LoopEasing)
                                       .SetLoops(-1,_tweenData.LoopType);
 
