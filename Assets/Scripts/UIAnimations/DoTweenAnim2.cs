@@ -11,9 +11,9 @@ public class DoTweenAnim2 : TweenBase
 {
     protected override void PlayAnimation()
     {
-        _currentScaleTween = transform.DOScale(1, 1)
-                                      .SetEase(Ease.Flash)
-                                      .SetDelay(0.5f)
+        _currentScaleTween = transform.DOScale(1, _tweenData.ScaleDuration)
+                                      .SetEase(_tweenData.ScaleEasing)
+                                      .SetDelay(_tweenData.AnimationDelayTime)
                                       .OnComplete(async () =>
                                       {
                                           await AnimationDelay(1000);
@@ -23,13 +23,13 @@ public class DoTweenAnim2 : TweenBase
 
     protected override void UiLoopAnimation()
     {
-        _currentScaleTween = transform.DOScale(0.1f, 1)
-                                      .SetEase(Ease.InFlash)
-                                      .SetLoops(-1, LoopType.Yoyo);
+        _currentScaleTween = transform.DOScale(0.1f, _tweenData.ScaleDuration)
+                                      .SetEase(_tweenData.LoopEasing)
+                                      .SetLoops(-1,_tweenData.LoopType);
 
-        _currentFadeTween = _targetImage.DOFade(0.8f, 1)
-                                        .SetEase(Ease.InOutCirc)
-                                        .SetLoops(-1, LoopType.Yoyo);
+        _currentFadeTween = _targetImage.DOFade(0.8f, _tweenData.FadeDuration)
+                                        .SetEase(_tweenData.LoopEasing)
+                                        .SetLoops(-1, _tweenData.LoopType);
                                         
     }
 }
