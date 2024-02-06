@@ -8,16 +8,17 @@ using Cysharp.Threading.Tasks;
 using System.Linq;
 
 [Serializable]
-[CreateAssetMenu(fileName = "Tweens",menuName = "Scritable Data/Create TweenData")]
+[CreateAssetMenu(fileName = "TweenAnimation",menuName = "Scritable Data/Create TweenData")]
 public class TweenData : ScriptableObject
 {
-    public float FareDuration => _fadeDuration;
+    public float FadeDuration => _fadeDuration;
     public float ScaleDuration => _scaleDuration;
     public float AnimationDelayTime => _animationDelayTime;
     public Ease FadeEasing => _fadeEasing;
     public Ease ScaleEasing => _scaleEasing;
     public Ease LoopEasing => _loopEasing;
     public LoopType LoopType => _loopType;
+    public Color LoopColor => _loopColor;
 
     [Header("Variables")]
     [Tooltip("フェードにかける時間")]
@@ -47,4 +48,8 @@ public class TweenData : ScriptableObject
     [Tooltip("ループのタイプ")]
     [SerializeField]
     private LoopType _loopType = default;
+
+    [Tooltip("カラー変更")]
+    [SerializeField]
+    private Color _loopColor = default;
 }
