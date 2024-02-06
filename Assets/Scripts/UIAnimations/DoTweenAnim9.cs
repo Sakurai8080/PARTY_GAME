@@ -10,6 +10,13 @@ using DG.Tweening;
 public class DoTweenAnim9 : TweenBase
 {
 
+    protected override void OnEnable()
+    {
+        transform.localScale = Vector3.zero;
+        transform.localRotation = Quaternion.Euler(Vector3.zero);
+        PlayAnimation();
+    }
+
     protected override void PlayAnimation()
     {
         _currentScaleTween = transform.DOScale(1, 1)
