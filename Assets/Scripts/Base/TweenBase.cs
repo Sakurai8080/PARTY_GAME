@@ -51,7 +51,6 @@ public abstract class TweenBase : MonoBehaviour
                          SelectedAnimation();
                          ColorReset();
                      });
-        Debug.Log($"{_targetImage.color}");
         _initialColor = _targetImage.color;             
     }
 
@@ -65,7 +64,7 @@ public abstract class TweenBase : MonoBehaviour
     {
         Color color = targetImage.color;
         color.a = alphaAmount;
-        targetImage.color = color;
+        targetImage.color = _initialColor;
     }
 
     protected void KillTweens()
