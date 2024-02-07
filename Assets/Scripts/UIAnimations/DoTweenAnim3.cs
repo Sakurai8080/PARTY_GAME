@@ -6,18 +6,37 @@ using UniRx;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
 using System.Linq;
+using TMPro;
 
 public class DoTweenAnim3 : TweenBase
 {
+    TextMeshProUGUI _text;
+
+    private void Awake()
+    {
+        _text = GetComponentInChildren<TextMeshProUGUI>();
+    }
+
     protected override void OnEnable()
     {
-        ImageAlphaController(_targetImage, 0);
-        _initialColor = _targetImage.color;
+        _targetImage.DOFade(0, 0);
+        _text.DOFade(0, 0);
         PlayAnimation();
+    }
+
+    protected override void OnDisable()
+    {
+        ImageAlphaController(_targetImage, 1);
+        KillTweens();
+        transform.localScale = Vector3.one;
     }
 
     protected override void PlayAnimation()
     {
+        _text.DOFade(1, _tweenData.FadeDuration)
+            .SetEase(Ease.InExpo)
+            .SetDelay(_tweenData.AnimationDelayTime);
+
         _currentFadeTween = _targetImage.DOFade(1, _tweenData.FadeDuration)
                                         .SetEase(_tweenData.FadeEasing)
                                         .SetDelay(_tweenData.AnimationDelayTime)
@@ -26,6 +45,7 @@ public class DoTweenAnim3 : TweenBase
                                             await AnimationDelay(1000);
                                             UiLoopAnimation();
                                         });
+
     }
 
     protected override void UiLoopAnimation()
