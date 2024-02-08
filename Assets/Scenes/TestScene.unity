@@ -258,9 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f81ca88a8a77e459b8e5eecd7e165d0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayTime: 2
-  _requiredTime: 1
-  _targetAmout: 1
+  _tweenData: {fileID: 11400000, guid: e4de09a60093b40cb98297cfa57ee4e0, type: 2}
   _targetImage: {fileID: 12105566}
   _tweensButton: {fileID: 12105565}
 --- !u!1 &91157167
@@ -349,9 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03e0e6871cfad4a05a4d65348ec1bf78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayTime: 2
-  _requiredTime: 1
-  _targetAmout: 1
+  _tweenData: {fileID: 0}
   _targetImage: {fileID: 2068155594}
   _tweensButton: {fileID: 2068155593}
   _button: {fileID: 2068155593}
@@ -662,9 +658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 642a968e401a942d29491eb2d95fe2ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayTime: 2
-  _requiredTime: 1
-  _targetAmout: 1
+  _tweenData: {fileID: 11400000, guid: 3f6879ada484f4b298bbceea4c720435, type: 2}
   _targetImage: {fileID: 207667958}
   _tweensButton: {fileID: 207667957}
 --- !u!1 &231427126
@@ -1099,9 +1093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938058e800e79480c939958334f8d97d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayTime: 2
-  _requiredTime: 1
-  _targetAmout: 1
+  _tweenData: {fileID: 11400000, guid: d40789ea9ec5e4f6da5517f1a00f34ea, type: 2}
   _targetImage: {fileID: 298732057}
   _tweensButton: {fileID: 298732056}
 --- !u!1 &301879045
@@ -1239,9 +1231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7911b4178320b4bc5bbc0fe3eea2589a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayTime: 2
-  _requiredTime: 1
-  _targetAmout: 1
+  _tweenData: {fileID: 11400000, guid: b7d493bfa844e4f1d8166798e36047e7, type: 2}
   _targetImage: {fileID: 301879048}
   _tweensButton: {fileID: 301879047}
 --- !u!1 &400989770
@@ -1379,9 +1369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1af83be282cd64b7c9bbea7311e2b74e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayTime: 2
-  _requiredTime: 1
-  _targetAmout: 1
+  _tweenData: {fileID: 11400000, guid: 9ed8489fb0041496c93be7b68cee8ee5, type: 2}
   _targetImage: {fileID: 400989773}
   _tweensButton: {fileID: 400989772}
 --- !u!1 &592781870
@@ -2923,9 +2911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a045c8d446f482fac1a806f52063ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayTime: 2
-  _requiredTime: 1
-  _targetAmout: 1
+  _tweenData: {fileID: 11400000, guid: d611be13221bc419484cf0926cfbc6f6, type: 2}
   _targetImage: {fileID: 1720632933}
   _tweensButton: {fileID: 1720632932}
 --- !u!1 &1837353463
@@ -3110,9 +3096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfd49830a7e14816b7031b397923f8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayTime: 2
-  _requiredTime: 1
-  _targetAmout: 1
+  _tweenData: {fileID: 11400000, guid: 2e2c14e9c7d8f4c6fa1e405c35326c74, type: 2}
   _targetImage: {fileID: 1876412273}
   _tweensButton: {fileID: 1876412272}
 --- !u!1 &1921197497
@@ -3385,9 +3369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce719d36b976425f9bc7ce5fd58fc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayTime: 2
-  _requiredTime: 1
-  _targetAmout: 1
+  _tweenData: {fileID: 11400000, guid: ed78b7d0c1b7041f89e54165676c6f15, type: 2}
   _targetImage: {fileID: 1927839136}
   _tweensButton: {fileID: 1927839135}
 --- !u!1 &1936071232
@@ -3525,9 +3507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e29d531cae748412d888378f6466c549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayTime: 2
-  _requiredTime: 1
-  _targetAmout: 1
+  _tweenData: {fileID: 11400000, guid: 94107f38b00f746f6b54fbc41b1675ae, type: 2}
   _targetImage: {fileID: 1936071235}
   _tweensButton: {fileID: 1936071234}
 --- !u!1 &2052611930

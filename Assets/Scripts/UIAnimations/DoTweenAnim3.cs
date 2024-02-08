@@ -6,38 +6,58 @@ using UniRx;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
 using System.Linq;
+using TMPro;
 
 public class DoTweenAnim3 : TweenBase
 {
+    TextMeshProUGUI _text;
+
+    private void Awake()
+    {
+        _text = GetComponentInChildren<TextMeshProUGUI>();
+    }
+
     protected override void OnEnable()
     {
-        ImageAlphaController(_targetImage, 0);
-        _initialColor = _targetImage.color;
+        _targetImage.DOFade(0, 0);
+        _text.DOFade(0, 0);
         PlayAnimation();
+    }
+
+    protected override void OnDisable()
+    {
+        ImageAlphaController(_targetImage, 1);
+        KillTweens();
+        transform.localScale = Vector3.one;
     }
 
     protected override void PlayAnimation()
     {
-        _currentFadeTween = _targetImage.DOFade(1, 1f)
-                                        .SetEase(Ease.InBack)
-                                        .SetDelay(0.5f)
+        _text.DOFade(1, _tweenData.FadeDuration)
+            .SetEase(Ease.InExpo)
+            .SetDelay(_tweenData.AnimationDelayTime);
+
+        _currentFadeTween = _targetImage.DOFade(1, _tweenData.FadeDuration)
+                                        .SetEase(_tweenData.FadeEasing)
+                                        .SetDelay(_tweenData.AnimationDelayTime)
                                         .OnComplete(async () =>
                                         {
                                             await AnimationDelay(1000);
                                             UiLoopAnimation();
                                         });
+
     }
 
     protected override void UiLoopAnimation()
     {
-        _currentFadeTween = _targetImage.DOColor(Color.clear, 1)
-                                        .SetEase(Ease.InBack)
-                                        .SetLoops(-1, LoopType.Yoyo);
+        _currentFadeTween = _targetImage.DOColor(_tweenData.LoopColor, _tweenData.FadeDuration)
+                                        .SetEase(_tweenData.LoopEasing)
+                                        .SetLoops(-1, _tweenData.LoopType);
 
 
-        _currentScaleTween = transform.DOScale(0,1f)
-                                      .SetEase(Ease.InBack)
-                                      .SetLoops(-1,LoopType.Yoyo);
+        _currentScaleTween = transform.DOScale(0.3f,1f)
+                                      .SetEase(_tweenData.LoopEasing)
+                                      .SetLoops(-1,_tweenData.LoopType);
 
     }
 }
