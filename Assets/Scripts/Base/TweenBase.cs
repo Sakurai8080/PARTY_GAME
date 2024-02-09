@@ -86,8 +86,11 @@ public abstract class TweenBase : MonoBehaviour
 
     protected void RotationReset()
     {
-        transform.DOLocalRotate(Vector3.zero, 0.3f)
-                 .SetEase(Ease.InOutQuint);
+        if (transform.localEulerAngles != Vector3.zero)
+        {
+            transform.DOLocalRotate(Vector3.zero, 0.3f)
+                     .SetEase(Ease.InOutQuint);
+        }        
     }
 
     protected void ColorReset()
