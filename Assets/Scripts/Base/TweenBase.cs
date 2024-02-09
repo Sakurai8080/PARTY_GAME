@@ -49,6 +49,7 @@ public abstract class TweenBase : MonoBehaviour
                          ImageAlphaController(_targetImage, 1);
                          KillTweens();
                          SelectedAnimation();
+                         RotationReset();
                          ColorReset();
                      });
         _initialColor = _targetImage.color;             
@@ -81,6 +82,12 @@ public abstract class TweenBase : MonoBehaviour
                                       .SetEase(Ease.OutQuint)
                                       .SetDelay(0.1f)
                                       .OnComplete(() => transform.DOPunchRotation(new Vector3(180f, 270, -45), 2f, 5, 1f));
+    }
+
+    protected void RotationReset()
+    {
+        transform.DOLocalRotate(Vector3.zero, 0.3f)
+                 .SetEase(Ease.InOutQuint);
     }
 
     protected void ColorReset()
