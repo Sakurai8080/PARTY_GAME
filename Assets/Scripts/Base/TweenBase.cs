@@ -9,6 +9,8 @@ using UniRx;
 
 public abstract class TweenBase : MonoBehaviour
 {
+
+
     [SerializeField]
     protected TweenData _tweenData;
 
@@ -22,8 +24,8 @@ public abstract class TweenBase : MonoBehaviour
     protected Tween _currentScaleTween = null;
     /// <summary>現在起動しているFadeに関わるTween操作用</summary>
     protected Tween _currentFadeTween = null;
-
     protected Color _initialColor;
+
 
     protected abstract void PlayAnimation();
     protected abstract void UiLoopAnimation();
@@ -32,6 +34,8 @@ public abstract class TweenBase : MonoBehaviour
     {
         transform.localScale = Vector3.zero;
         PlayAnimation();
+
+        TweenManager._allTweenList.Add(_targetImage);
     }
 
     protected virtual void OnDisable()
@@ -46,12 +50,14 @@ public abstract class TweenBase : MonoBehaviour
                      .TakeUntilDestroy(this)
                      .Subscribe(_ =>
                      {
+                         TweenManager.AllTweenStop(_initialColor);
                          ImageAlphaController(_targetImage, 1);
                          KillTweens();
                          SelectedAnimation();
                          RotationReset();
                          ColorReset();
                      });
+
         _initialColor = _targetImage.color;             
     }
 

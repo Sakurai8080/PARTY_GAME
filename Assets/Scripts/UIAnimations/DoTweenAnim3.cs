@@ -19,6 +19,7 @@ public class DoTweenAnim3 : TweenBase
 
     protected override void OnEnable()
     {
+        TweenManager._allTweenList.Add(_targetImage);
         _targetImage.DOFade(0, 0);
         _text.DOFade(0, 0);
         PlayAnimation();
@@ -42,6 +43,7 @@ public class DoTweenAnim3 : TweenBase
                                         .SetDelay(_tweenData.AnimationDelayTime)
                                         .OnComplete(async () =>
                                         {
+                                            _initialColor = _targetImage.color;
                                             await AnimationDelay(1000);
                                             UiLoopAnimation();
                                         });

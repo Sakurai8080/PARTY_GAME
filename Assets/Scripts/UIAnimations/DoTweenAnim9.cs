@@ -12,6 +12,7 @@ public class DoTweenAnim9 : TweenBase
 
     protected override void OnEnable()
     {
+        TweenManager._allTweenList.Add(_targetImage);
         transform.localScale = Vector3.zero;
         transform.localRotation = Quaternion.Euler(Vector3.zero);
         PlayAnimation();
