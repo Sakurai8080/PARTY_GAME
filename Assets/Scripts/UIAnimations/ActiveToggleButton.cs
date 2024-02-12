@@ -9,42 +9,45 @@ using System.Linq;
 using UnityEngine.UI;
 using TMPro;
 
-public class ActiveToggleButton : TweenBase
+namespace TweenGroup
 {
-
-    [SerializeField]
-    Button _button = default;
-
-    bool _isActeved = false;
-    TextMeshProUGUI _switchingText = default;
-
-    protected override void Start()
+    public class ActiveToggleButton : TweenBase
     {
-        _switchingText = _button.GetComponentInChildren<TextMeshProUGUI>();
-        _button.onClick.AddListener(TextChange);
-    }
 
-    private void OnEnable()
-    {
-        UiLoopAnimation();
-    }
+        [SerializeField]
+        Button _button = default;
 
-    private void TextChange()
-    {
-        _isActeved = !_isActeved;
-        _switchingText.text = _isActeved ? "ON" : "OFF";
-    }
+        bool _isActeved = false;
+        TextMeshProUGUI _switchingText = default;
 
-    protected override void PlayAnimation()
-    {
-        throw new NotImplementedException();
-    }
+        protected override void Start()
+        {
+            _switchingText = _button.GetComponentInChildren<TextMeshProUGUI>();
+            _button.onClick.AddListener(TextChange);
+        }
 
-    protected override void UiLoopAnimation()
-    {
-        _currentFadeTween = _targetImage.transform.DOScale(0.8f, 1)
-                                                  .SetEase(Ease.InFlash)
-                                                  .SetLoops(-1, LoopType.Yoyo)
-                                                  .SetUpdate(true);
+        private void OnEnable()
+        {
+            UiLoopAnimation();
+        }
+
+        private void TextChange()
+        {
+            _isActeved = !_isActeved;
+            _switchingText.text = _isActeved ? "ON" : "OFF";
+        }
+
+        protected override void PlayAnimation()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void UiLoopAnimation()
+        {
+            _currentFadeTween = _targetImage.transform.DOScale(0.8f, 1)
+                                                      .SetEase(Ease.InFlash)
+                                                      .SetLoops(-1, LoopType.Yoyo)
+                                                      .SetUpdate(true);
+        }
     }
 }

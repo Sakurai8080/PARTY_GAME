@@ -6,26 +6,29 @@ using Cysharp.Threading;
 using UnityEngine.UI;
 using System;
 
-/// <summary>
-/// UIの押下を検知するクラス
-/// </summary>
-public sealed class ActiveUIInput : MonoBehaviour
+namespace TweenGroup
 {
-    public IObservable<Unit> OnClickObserver => _onClickSubject;
-
-    Subject<Unit> _onClickSubject = new Subject<Unit>();
-
-    [Tooltip("α値を切り替えるボタン")]
-    [SerializeField]
-    private Button _activeSwitchButton;
-
-    void Start()
+    /// <summary>
+    /// UIの押下を検知するクラス
+    /// </summary>
+    public sealed class ActiveUIInput : MonoBehaviour
     {
-        _activeSwitchButton.OnClickAsObservable()
-                           .TakeUntilDestroy(this)
-                           .Subscribe(_ =>
-                           {
-                               _onClickSubject.OnNext(default);
-                           });
+        public IObservable<Unit> OnClickObserver => _onClickSubject;
+
+        Subject<Unit> _onClickSubject = new Subject<Unit>();
+
+        [Tooltip("α値を切り替えるボタン")]
+        [SerializeField]
+        private Button _activeSwitchButton;
+
+        void Start()
+        {
+            _activeSwitchButton.OnClickAsObservable()
+                               .TakeUntilDestroy(this)
+                               .Subscribe(_ =>
+                               {
+                                   _onClickSubject.OnNext(default);
+                               });
+        }
     }
 }
