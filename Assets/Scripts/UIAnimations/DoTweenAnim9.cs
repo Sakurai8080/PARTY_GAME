@@ -1,14 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UniRx;
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 
 namespace TweenGroup
 {
+    /// <summary>
+    /// UIのアニメーションコンポーネント
+    /// </summary>
     public class DoTweenAnim9 : TweenBase
     {
         protected override void OnEnable()

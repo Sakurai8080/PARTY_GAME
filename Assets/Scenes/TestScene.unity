@@ -272,7 +272,6 @@ GameObject:
   - component: {fileID: 91157168}
   - component: {fileID: 91157170}
   - component: {fileID: 91157169}
-  - component: {fileID: 91157172}
   - component: {fileID: 91157171}
   m_Layer: 5
   m_Name: InfoUIGroup
@@ -334,23 +333,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5885ea5b9ab3141fe8ff4d58e42c50c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _toggleButton: {fileID: 2068155593}
   _activeSwitchButton: {fileID: 2068155593}
---- !u!114 &91157172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91157167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03e0e6871cfad4a05a4d65348ec1bf78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tweenData: {fileID: 0}
-  _targetImage: {fileID: 2068155594}
-  _tweensButton: {fileID: 2068155593}
-  _button: {fileID: 2068155593}
 --- !u!1 &95938966
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,6 +645,7 @@ MonoBehaviour:
   _tweenData: {fileID: 11400000, guid: 3f6879ada484f4b298bbceea4c720435, type: 2}
   _targetImage: {fileID: 207667958}
   _tweensButton: {fileID: 207667957}
+  _loopScaleAmount: {x: 0.1, y: 0.1, z: 0}
 --- !u!1 &231427126
 GameObject:
   m_ObjectHideFlags: 0
@@ -3510,6 +3495,7 @@ MonoBehaviour:
   _tweenData: {fileID: 11400000, guid: 94107f38b00f746f6b54fbc41b1675ae, type: 2}
   _targetImage: {fileID: 1936071235}
   _tweensButton: {fileID: 1936071234}
+  _bounceCount: 4
 --- !u!1 &2052611930
 GameObject:
   m_ObjectHideFlags: 0
@@ -3596,6 +3582,7 @@ GameObject:
   - component: {fileID: 2068155595}
   - component: {fileID: 2068155594}
   - component: {fileID: 2068155593}
+  - component: {fileID: 2068155596}
   m_Layer: 5
   m_Name: ActiveSwitchButton
   m_TagString: Untagged
@@ -3706,3 +3693,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068155591}
   m_CullTransparentMesh: 1
+--- !u!114 &2068155596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068155591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03e0e6871cfad4a05a4d65348ec1bf78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tweenData: {fileID: 0}
+  _targetImage: {fileID: 2068155594}
+  _tweensButton: {fileID: 2068155593}

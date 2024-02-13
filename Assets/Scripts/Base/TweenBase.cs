@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
@@ -9,14 +7,21 @@ using UniRx;
 
 namespace TweenGroup
 {
+    /// <summary>
+    /// UIのアニメーション用の基底クラス
+    /// </summary>
     public abstract class TweenBase : MonoBehaviour
     {
+        [Header("Variable")]
+        [Tooltip("Tweenのスクリタブルオブジェクト")]
         [SerializeField]
         protected TweenData _tweenData;
 
+        [Tooltip("カラーをコントロールするUI")]
         [SerializeField]
         protected Image _targetImage = default;
 
+        [Tooltip("スケールをコントロールするUI")]
         [SerializeField]
         protected Button _tweensButton = default;
 

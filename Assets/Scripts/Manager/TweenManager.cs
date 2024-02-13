@@ -7,6 +7,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 
+/// <summary>
+/// UIを全体を管理するマネージャー
+/// </summary>
 public static class TweenManager
 {
     public static List<Image> _allTweenList = new List<Image>();

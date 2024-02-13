@@ -1,17 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UniRx;
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 
 namespace TweenGroup
 {
+    /// <summary>
+    /// UIのアニメーションコンポーネント
+    /// </summary>
     public class DoTweenAnim7 : TweenBase
     {
-
+        [Header("Variable")]
+        [Tooltip("ループ時のバウンド回数")]
         [SerializeField]
         private int _bounceCount = 4;
 
