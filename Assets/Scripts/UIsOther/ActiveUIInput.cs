@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-using Cysharp.Threading;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 namespace TweenGroup
 {
@@ -17,18 +15,31 @@ namespace TweenGroup
 
         Subject<Unit> _onClickSubject = new Subject<Unit>();
 
-        [Tooltip("α値を切り替えるボタン")]
+        [Header("Variable")]
+        [Tooltip("全UIをコントロールするUI")]
         [SerializeField]
-        private Button _activeSwitchButton;
+        Button _toggleButton = default;
+
+        bool _isActeved = false;
+        TextMeshProUGUI _switchingText = default;
 
         void Start()
         {
-            _activeSwitchButton.OnClickAsObservable()
+            _switchingText = _toggleButton.GetComponentInChildren<TextMeshProUGUI>();
+
+            _toggleButton.OnClickAsObservable()
                                .TakeUntilDestroy(this)
                                .Subscribe(_ =>
                                {
                                    _onClickSubject.OnNext(default);
+                                   TextChange();
                                });
+        }
+
+        private void TextChange()
+        {
+            _isActeved = !_isActeved;
+            _switchingText.text = _isActeved ? "ON" : "OFF";
         }
     }
 }
