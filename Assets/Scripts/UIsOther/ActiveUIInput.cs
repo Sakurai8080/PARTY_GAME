@@ -1,31 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-using Cysharp.Threading;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
-/// <summary>
-/// UIの押下を検知するクラス
-/// </summary>
-public sealed class ActiveUIInput : MonoBehaviour
+namespace TweenGroup
 {
-    public IObservable<Unit> OnClickObserver => _onClickSubject;
-
-    Subject<Unit> _onClickSubject = new Subject<Unit>();
-
-    [Tooltip("α値を切り替えるボタン")]
-    [SerializeField]
-    private Button _activeSwitchButton;
-
-    void Start()
+    /// <summary>
+    /// UIの押下を検知するクラス
+    /// </summary>
+    public sealed class ActiveUIInput : MonoBehaviour
     {
-        _activeSwitchButton.OnClickAsObservable()
-                           .TakeUntilDestroy(this)
-                           .Subscribe(_ =>
-                           {
-                               _onClickSubject.OnNext(default);
-                           });
+        public IObservable<Unit> OnClickObserver => _onClickSubject;
+
+        Subject<Unit> _onClickSubject = new Subject<Unit>();
+
+        [Header("Variable")]
+        [Tooltip("全UIをコントロールするUI")]
+        [SerializeField]
+        Button _toggleButton = default;
+
+        bool _isActeved = false;
+        TextMeshProUGUI _switchingText = default;
+
+        void Start()
+        {
+            _switchingText = _toggleButton.GetComponentInChildren<TextMeshProUGUI>();
+
+            _toggleButton.OnClickAsObservable()
+                               .TakeUntilDestroy(this)
+                               .Subscribe(_ =>
+                               {
+                                   _onClickSubject.OnNext(default);
+                                   TextChange();
+                               });
+        }
+
+        private void TextChange()
+        {
+            _isActeved = !_isActeved;
+            _switchingText.text = _isActeved ? "ON" : "OFF";
+        }
     }
 }

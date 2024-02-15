@@ -1,16 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UniRx;
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 
 namespace TweenGroup
 {
+    /// <summary>
+    /// UIのアニメーションコンポーネント
+    /// </summary>
     public class DoTweenAnim6 : TweenBase
     {
+        [Header("Variable")]
+        [Tooltip("ループするスケールの値")]
         [SerializeField]
         private Vector3 _loopScaleAmount = new Vector3(0.1f, 0.1f, 0);
 

@@ -1,34 +1,34 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
-using UnityEngine.UI;
 
-/// <summary>
-/// UI同士を仲介するプレゼンター
-/// </summary>
-public class UIPresenter : MonoBehaviour
+namespace TweenGroup
 {
-    public IObservable<Unit> UIGroupObserver => _presenterSubject;
-
-    Subject<Unit> _presenterSubject = new Subject<Unit>();
-
-    [Header("Variable")]
-    [Tooltip("UIを操作クラスの参照")]
-    [SerializeField]
-    TweenUIsController _testUIActivator;
-
-    [Tooltip("押下を検知するクラスの参照")]
-    [SerializeField]
-    ActiveUIInput _activeUIInput;
-
-    void Start()
+    /// <summary>
+    /// UI同士を仲介するプレゼンター
+    /// </summary>
+    public class UIPresenter : MonoBehaviour
     {
-        _activeUIInput.OnClickObserver
-                      .Subscribe(_ =>
-                      {
-                          _testUIActivator.ToggleUIsVisibility();
-                      }).AddTo(this);
+        public IObservable<Unit> UIGroupObserver => _presenterSubject;
+
+        Subject<Unit> _presenterSubject = new Subject<Unit>();
+
+        [Header("Variable")]
+        [Tooltip("UIを操作クラスの参照")]
+        [SerializeField]
+        TweenUIsController _testUIActivator;
+
+        [Tooltip("押下を検知するクラスの参照")]
+        [SerializeField]
+        ActiveUIInput _activeUIInput;
+
+        void Start()
+        {
+            _activeUIInput.OnClickObserver
+                          .Subscribe(_ =>
+                          {
+                              _testUIActivator.ToggleUIsVisibility();
+                          }).AddTo(this);
+        }
     }
 }

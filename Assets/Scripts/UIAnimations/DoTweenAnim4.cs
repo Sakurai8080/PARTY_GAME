@@ -1,34 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
-using Cysharp.Threading.Tasks;
-using UniRx;
-using System;
-using System.Linq;
 
-public class DoTweenAnim4 : TweenBase
+namespace TweenGroup
 {
-    protected override void PlayAnimation()
+    /// <summary>
+    /// UIのアニメーションコンポーネント
+    /// </summary>
+    public class DoTweenAnim4 : TweenBase
     {
-        _currentScaleTween = transform.DOScale(1, _tweenData.ScaleDuration)
-                                      .SetEase(_tweenData.ScaleEasing)
-                                      .SetDelay(_tweenData.AnimationDelayTime)
-                                      .OnComplete(async () =>
-                                      {
-                                          await AnimationDelay(1000);
-                                          UiLoopAnimation();
-                                      });
-    }
+        protected override void PlayAnimation()
+        {
+            _currentScaleTween = transform.DOScale(1, _tweenData.ScaleDuration)
+                                          .SetEase(_tweenData.ScaleEasing)
+                                          .SetDelay(_tweenData.AnimationDelayTime)
+                                          .OnComplete(async () =>
+                                          {
+                                              await AnimationDelay(1000);
+                                              UiLoopAnimation();
+                                          });
+        }
 
-    protected override void UiLoopAnimation()
-    {
-        _currentScaleTween = transform.DOScale(0.5f, _tweenData.ScaleDuration)
-                                      .SetLoops(-1, _tweenData.LoopType)
-                                      .SetEase(_tweenData.LoopEasing);
+        protected override void UiLoopAnimation()
+        {
+            _currentScaleTween = transform.DOScale(0.5f, _tweenData.ScaleDuration)
+                                          .SetLoops(-1, _tweenData.LoopType)
+                                          .SetEase(_tweenData.LoopEasing);
 
-        _currentFadeTween = _targetImage.DOFade(0.9f, _tweenData.FadeDuration)
-                                        .SetEase(_tweenData.LoopEasing)
-                                         .SetLoops(-1, _tweenData.LoopType);
+            _currentFadeTween = _targetImage.DOFade(0.9f, _tweenData.FadeDuration)
+                                            .SetEase(_tweenData.LoopEasing)
+                                             .SetLoops(-1, _tweenData.LoopType);
+        }
     }
 }
