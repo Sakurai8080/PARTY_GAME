@@ -28,7 +28,6 @@ namespace TweenGroup
             _currentFadeTween = _targetImage.DOFade(0.8f, _tweenData.FadeDuration)
                                             .SetEase(_tweenData.LoopEasing)
                                             .SetLoops(-1, _tweenData.LoopType);
-
         }
     }
 }
