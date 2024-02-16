@@ -21,7 +21,7 @@ namespace TweenGroup
 
         protected override void UiLoopAnimation()
         {
-            _currentScaleTween = transform.DOScale(0.8f, _tweenData.ScaleDuration)
+            _currentScaleTween = transform.DOScale(0.5f, _tweenData.ScaleDuration)
                                           .SetEase(_tweenData.LoopEasing)
                                           .SetLoops(-1, _tweenData.LoopType);
 
