@@ -14,7 +14,7 @@ namespace TweenGroup
         Subject<Unit> _presenterSubject = new Subject<Unit>();
 
         [Header("Variable")]
-        [Tooltip("UIを操作クラスの参照")]
+        [Tooltip("UIを操作するクラスの参照")]
         [SerializeField]
         TweenUIsController _testUIActivator;
 
@@ -28,6 +28,7 @@ namespace TweenGroup
                           .Subscribe(_ =>
                           {
                               _testUIActivator.ToggleUIsVisibility();
+                              _activeUIInput.gameObject.SetActive(false);
                           }).AddTo(this);
         }
     }

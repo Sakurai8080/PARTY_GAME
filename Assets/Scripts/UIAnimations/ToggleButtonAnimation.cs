@@ -11,7 +11,6 @@ namespace TweenGroup
     /// </summary>
     public class ToggleButtonAnimation : TweenBase
     {
-
         protected override void OnEnable()
         {
             UiLoopAnimation();
