@@ -20,7 +20,6 @@ public static class TweenManager
     {
         Killweens();
         ResetTweens(resetColor);
-        _allTweenList.Clear();
     }
 
     public static void Killweens()
@@ -43,5 +42,10 @@ public static class TweenManager
             tween.DOFade(1, 0.25f);
             tween.DOColor(resetColor, 0.25f);
         });
+    }
+
+    private static void TweenListClear()
+    {
+        _allTweenList.Clear();
     }
 }
