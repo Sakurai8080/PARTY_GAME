@@ -9,29 +9,20 @@ namespace TweenGroup
     /// <summary>
     /// スイッチボタンのアニメーション機能
     /// </summary>
-    public class ToggleButtonAnimation : TweenBase
+    public class ToggleButtonAnimation : MonoBehaviour
     {
-        protected override void OnEnable()
+        private void OnEnable()
         {
             UiLoopAnimation();
         }
 
-        protected override void PlayAnimation()
+        private void UiLoopAnimation()
         {
-            throw new NotImplementedException();
+            transform.DOScale(0.8f, 1)
+                     .SetEase(Ease.InFlash)
+                     .SetLoops(-1, LoopType.Yoyo)
+                     .SetUpdate(true);
         }
 
-        protected override void UiLoopAnimation()
-        {
-            _currentFadeTween = _targetImage.transform.DOScale(0.8f, 1)
-                                                      .SetEase(Ease.InFlash)
-                                                      .SetLoops(-1, LoopType.Yoyo)
-                                                      .SetUpdate(true);
-        }
-
-        private new void Start()
-        {
-            //Do nothing.
-        }
     }
 }
