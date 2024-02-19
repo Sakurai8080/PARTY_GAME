@@ -31,7 +31,6 @@ namespace TweenGroup
         protected Tween _currentFadeTween = null;
         protected Color _initialColor;
 
-
         protected abstract void PlayAnimation();
         protected abstract void UiLoopAnimation();
 
@@ -39,8 +38,6 @@ namespace TweenGroup
         {
             transform.localScale = Vector3.zero;
             PlayAnimation();
-
-            TweenManager._allTweenList.Add(_targetImage);
         }
 
         protected virtual void OnDisable()
@@ -55,7 +52,7 @@ namespace TweenGroup
                          .TakeUntilDestroy(this)
                          .Subscribe(_ =>
                          {
-                             TweenManager.AllTweenStop(_initialColor);
+                             BombManager.AllTweenStop(_initialColor);
                              ImageAlphaController(_targetImage, 1);
                              KillTweens();
                              SelectedAnimation();
@@ -92,7 +89,33 @@ namespace TweenGroup
             _currentScaleTween = transform.DOScale(1, 0.25f)
                                           .SetEase(Ease.OutQuint)
                                           .SetDelay(0.1f)
-                                          .OnComplete(() => transform.DOPunchRotation(new Vector3(180f, 270, -45), 2f, 5, 1f));
+                                          .OnComplete(() =>
+                                          {
+                                              float duration = 2f;
+                                              transform.DOPunchRotation(new Vector3(180f, 270, -45), duration, 5, 1f);
+                                              BombCheck((int)duration + 1).Forget();
+                                          });
+        }
+
+        protected async UniTask BombCheck(int delayTime)
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
+            BombAnimation();
+        }
+
+        protected void BombAnimation()
+        {
+            bool a = BombManager.BombInChecher(_targetImage);
+            Debug.Log(a);
+
+            if (!a)
+            {
+                _targetImage.DOFade(0, 1).SetEase(Ease.InSine);
+                _targetImage.gameObject.SetActive(false);
+                return;
+            }
+
+            Debug.Log($"<color=red>GameOver!!!!</color>");
         }
 
         protected void RotationReset()
