@@ -727,7 +727,7 @@ GameObject:
   - component: {fileID: 244712542}
   - component: {fileID: 244712541}
   m_Layer: 5
-  m_Name: Button9 (1)
+  m_Name: Button10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1744,7 +1744,7 @@ GameObject:
   - component: {fileID: 882580984}
   - component: {fileID: 882580983}
   m_Layer: 5
-  m_Name: Button9 (3)
+  m_Name: Button12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2727,7 +2727,7 @@ GameObject:
   - component: {fileID: 1420981388}
   - component: {fileID: 1420981387}
   m_Layer: 5
-  m_Name: Button9 (2)
+  m_Name: Button11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3655,8 +3655,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 025d957f5c2e1459b94308ba44eca89d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _testUIActivator: {fileID: 2052611934}
+  _cardUIActivator: {fileID: 0}
   _activeUIInput: {fileID: 91157171}
+  _bombCardImageList:
+  - {fileID: 1720632933}
+  - {fileID: 1927839136}
+  - {fileID: 301879048}
+  - {fileID: 1876412273}
+  - {fileID: 298732057}
+  - {fileID: 207667958}
+  - {fileID: 1936071235}
+  - {fileID: 12105566}
+  - {fileID: 400989773}
+  - {fileID: 244712543}
+  - {fileID: 1420981389}
+  - {fileID: 882580985}
 --- !u!1 &1876412270
 GameObject:
   m_ObjectHideFlags: 0
@@ -4551,6 +4564,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03e0e6871cfad4a05a4d65348ec1bf78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tweenData: {fileID: 0}
-  _targetImage: {fileID: 2068155594}
-  _tweensButton: {fileID: 2068155593}
