@@ -18,7 +18,6 @@ namespace TweenGroup
 
         protected override void OnEnable()
         {
-            TweenManager._allTweenList.Add(_targetImage);
             _targetImage.DOFade(0, 0);
             _text.DOFade(0, 0);
             PlayAnimation();
