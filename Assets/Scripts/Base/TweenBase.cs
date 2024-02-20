@@ -52,7 +52,7 @@ namespace TweenGroup
                          .TakeUntilDestroy(this)
                          .Subscribe(_ =>
                          {
-                             BombManager.AllTweenStop(_initialColor);
+                             TweenController.AllTweenStop(_initialColor);
                              ImageAlphaController(_targetImage, 1);
                              KillTweens();
                              SelectedAnimation();
@@ -105,17 +105,15 @@ namespace TweenGroup
 
         protected void BombAnimation()
         {
-            bool a = BombManager.BombInChecher(_targetImage);
-            Debug.Log(a);
+            bool inBomb = BombManager.BombInChecker(_targetImage);
 
-            if (!a)
+            if (!inBomb)
             {
                 _targetImage.DOFade(0, 1).SetEase(Ease.InSine);
                 _targetImage.gameObject.SetActive(false);
                 return;
             }
-
-            Debug.Log($"<color=red>GameOver!!!!</color>");
+            //
         }
 
         protected void RotationReset()
