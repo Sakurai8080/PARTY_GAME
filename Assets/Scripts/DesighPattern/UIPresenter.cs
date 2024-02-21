@@ -38,19 +38,9 @@ namespace TweenGroup
                           {
                               _cardUIActivator.ToggleUIsVisibility();
                               _activeUIInput.gameObject.SetActive(false);
-                              BombSet();
+                              BombManager.BombSet(_bombCardImageList);
+                              TweenController.CardSet(_bombCardImageList);
                           }).AddTo(this);
-        }
-
-        void BombSet()
-        {
-            _bombCardImageList.ForEach(card =>
-            {
-                BombManager._allBombUIdic.Add(card, false);
-            });
-
-            Debug.Log(BombManager._allBombUIdic.Count());
-            BombManager.BombRandomInstallation();
         }
     }
 }
