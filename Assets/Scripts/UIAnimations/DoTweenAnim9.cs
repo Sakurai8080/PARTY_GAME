@@ -36,6 +36,9 @@ namespace TweenGroup
             _currentFadeTween = _targetImage.DOFade(0, 1)
                                             .SetEase(_tweenData.LoopEasing)
                                             .SetLoops(-1, LoopType.Yoyo);
+
+            TweenController._allTweenList.Add(_currentFadeTween);
+            TweenController._allTweenList.Add(_currentScaleTween);
         }
     }
 }

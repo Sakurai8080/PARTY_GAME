@@ -26,7 +26,8 @@ namespace TweenGroup
         protected override void OnDisable()
         {
             ImageAlphaController(_targetImage, 1);
-            KillTweens();
+            TweenController.KillTweens(_currentScaleTween);
+            TweenController.KillTweens(_currentFadeTween);
             transform.localScale = Vector3.one;
         }
 
@@ -58,6 +59,9 @@ namespace TweenGroup
             _currentScaleTween = transform.DOScale(0.3f, 1f)
                                           .SetEase(_tweenData.LoopEasing)
                                           .SetLoops(-1, _tweenData.LoopType);
+
+            TweenController._allTweenList.Add(_currentFadeTween);
+            TweenController._allTweenList.Add(_currentScaleTween);
 
         }
     }
