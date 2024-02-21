@@ -14,20 +14,34 @@ using System.Linq;
 public static class BombManager
 {
     /// <summary>Cardを格納する</summary>
-    public static Dictionary<Image, bool> _allBombUIdic = new Dictionary<Image, bool>();
+    public static Dictionary<Image, bool> _allBombdic = new Dictionary<Image, bool>();
+
+    public static bool _onExplosion = false;
 
     public static bool BombInChecker(Image image)
     {
-        return _allBombUIdic[image];
+        if (_allBombdic[image])
+            _onExplosion = true;
+
+        return _allBombdic[image];
     }
 
     public static void BombRandomInstallation()
     {
-        int cardCount = _allBombUIdic.Count();
+        int cardCount = _allBombdic.Count();
         int inBombIndex = UnityEngine.Random.Range(0, cardCount);
-        Image inBombImage = _allBombUIdic.Keys.ElementAt(inBombIndex);
-        _allBombUIdic[inBombImage] = true;
+        Image inBombImage = _allBombdic.Keys.ElementAt(inBombIndex);
+        _allBombdic[inBombImage] = true;
 
         Debug.Log(inBombImage);
+    }
+
+    public static void BombSet(List<Image> images)
+    {
+        images.ForEach(card =>
+        {
+            BombManager._allBombdic.Add(card, false);
+        });
+        BombManager.BombRandomInstallation();
     }
 }
