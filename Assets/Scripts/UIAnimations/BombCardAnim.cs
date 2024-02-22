@@ -4,9 +4,9 @@ using DG.Tweening;
 namespace TweenGroup
 {
     /// <summary>
-    /// UIのアニメーションコンポーネント
+    /// ボムカード用のアニメーションコンポーネント
     /// </summary>
-    public class DoTweenAnim7 : TweenBase
+    public class BombCardAnim : TweenBase
     {
         [Header("Variable")]
         [Tooltip("ループ時のバウンド回数")]
