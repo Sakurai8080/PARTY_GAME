@@ -4,9 +4,9 @@ using DG.Tweening;
 namespace TweenGroup
 {
     /// <summary>
-    /// UIのアニメーションコンポーネント
+    /// ボムカード用のアニメーションコンポーネント
     /// </summary>
-    public class DoTweenAnim7 : TweenBase
+    public class BombCardAnim : TweenBase
     {
         [Header("Variable")]
         [Tooltip("ループ時のバウンド回数")]
@@ -27,8 +27,10 @@ namespace TweenGroup
 
         protected override void UiLoopAnimation()
         {
-            _currentScaleTween = transform.DOShakeScale(_tweenData.ScaleDuration, 0.3f, _bounceCount)
+            _currentScaleTween = transform.DOShakeScale(_tweenData.ScaleDuration, 0.1f, _bounceCount)
                                           .SetLoops(-1, _tweenData.LoopType);
+
+            TweenController._allTweenList.Add(_currentScaleTween);
         }
     }
 }

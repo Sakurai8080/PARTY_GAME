@@ -24,6 +24,9 @@ namespace TweenGroup
             _currentScaleTween = transform.DOScale(0.6f, _tweenData.ScaleDuration)
                                           .SetEase(_tweenData.LoopEasing)
                                           .SetLoops(-1, _tweenData.LoopType);
+
+            TweenController._allTweenList.Add(_currentFadeTween);
+            TweenController._allTweenList.Add(_currentScaleTween);
         }
     }
 }

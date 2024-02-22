@@ -1,6 +1,12 @@
 using System;
-using UniRx;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using DG.Tweening;
+using Cysharp.Threading.Tasks;
+using System.Linq;
+using UnityEngine.UI;
 
 namespace TweenGroup
 {
@@ -14,20 +20,26 @@ namespace TweenGroup
         Subject<Unit> _presenterSubject = new Subject<Unit>();
 
         [Header("Variable")]
-        [Tooltip("UIを操作クラスの参照")]
+        [Tooltip("UIを操作するクラスの参照")]
         [SerializeField]
-        TweenUIsController _testUIActivator;
+        TweenUIsController _cardUIActivator;
 
         [Tooltip("押下を検知するクラスの参照")]
         [SerializeField]
         ActiveUIInput _activeUIInput;
+
+        [SerializeField]
+        List<Image> _bombCardImageList = new List<Image>();
 
         void Start()
         {
             _activeUIInput.OnClickObserver
                           .Subscribe(_ =>
                           {
-                              _testUIActivator.ToggleUIsVisibility();
+                              _cardUIActivator.ToggleUIsVisibility();
+                              _activeUIInput.gameObject.SetActive(false);
+                              BombManager.BombSet(_bombCardImageList);
+                              TweenController.CardSet(_bombCardImageList);
                           }).AddTo(this);
         }
     }

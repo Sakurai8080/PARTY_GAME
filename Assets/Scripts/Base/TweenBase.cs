@@ -31,7 +31,6 @@ namespace TweenGroup
         protected Tween _currentFadeTween = null;
         protected Color _initialColor;
 
-
         protected abstract void PlayAnimation();
         protected abstract void UiLoopAnimation();
 
@@ -39,14 +38,14 @@ namespace TweenGroup
         {
             transform.localScale = Vector3.zero;
             PlayAnimation();
-
-            TweenManager._allTweenList.Add(_targetImage);
+            
         }
 
         protected virtual void OnDisable()
         {
             ImageAlphaController(_targetImage, 1);
-            KillTweens();
+            TweenController.KillTweens(_currentFadeTween);
+            TweenController.KillTweens(_currentScaleTween);
         }
 
         protected virtual void Start()
@@ -55,12 +54,9 @@ namespace TweenGroup
                          .TakeUntilDestroy(this)
                          .Subscribe(_ =>
                          {
-                             TweenManager.AllTweenStop(_initialColor);
-                             ImageAlphaController(_targetImage, 1);
-                             KillTweens();
+                             TweenController._resetColor = _initialColor;
+                             StartCoroutine(TweenController.PauseTweens());
                              SelectedAnimation();
-                             RotationReset();
-                             ColorReset();
                          });
 
             _initialColor = _targetImage.color;
@@ -79,20 +75,31 @@ namespace TweenGroup
             targetImage.color = _initialColor;
         }
 
-        protected void KillTweens()
-        {
-            _currentFadeTween?.Kill();
-            _currentScaleTween?.Kill();
-            _currentFadeTween = null;
-            _currentScaleTween = null;
-        }
-
         protected void SelectedAnimation()
         {
-            _currentScaleTween = transform.DOScale(1, 0.25f)
-                                          .SetEase(Ease.OutQuint)
-                                          .SetDelay(0.1f)
-                                          .OnComplete(() => transform.DOPunchRotation(new Vector3(180f, 270, -45), 2f, 5, 1f));
+            transform.DOScale(1, 0.25f)
+                     .SetEase(Ease.OutQuint)
+                     .SetDelay(0.1f)
+                     .OnComplete(() =>
+                     {
+                         bool inBomb = BombManager.BombInChecker(_targetImage);
+                         TweenController.TweenRemoveFromList(_currentScaleTween);
+               　        float duration = 2f;
+                    　　  transform.DOPunchRotation(new Vector3(180f, 270, -45), duration, 5, 1f);
+                         BombAnimation((int)duration + 1, inBomb).Forget();
+                     });
+        }
+
+        protected async UniTask BombAnimation(int delayTime, bool inBomb)
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
+            if (!inBomb)
+            {
+                _targetImage.DOFade(0, 1).SetEase(Ease.InSine);
+                _targetImage.gameObject.SetActive(false);
+            }
+            await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
+
         }
 
         protected void RotationReset()
@@ -110,6 +117,7 @@ namespace TweenGroup
             {
                 if (_initialColor.a != 1)
                     _initialColor.a = 1;
+
                 _targetImage.color = _initialColor;
             }
         }

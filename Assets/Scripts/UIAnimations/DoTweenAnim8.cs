@@ -10,7 +10,6 @@ namespace TweenGroup
     {
         protected override void OnEnable()
         {
-            TweenManager._allTweenList.Add(_targetImage);
             transform.localScale = Vector3.zero;
             transform.localRotation = Quaternion.Euler(Vector3.zero);
             PlayAnimation();
@@ -38,6 +37,9 @@ namespace TweenGroup
             _currentFadeTween = _targetImage.DOColor(_tweenData.LoopColor, 1f)
                                              .SetEase(_tweenData.LoopEasing)
                                              .SetLoops(-1, _tweenData.LoopType);
+
+            TweenController._allTweenList.Add(_currentFadeTween);
+            TweenController._allTweenList.Add(_currentScaleTween);
 
         }
     }

@@ -22,7 +22,7 @@ namespace TweenGroup
 
         bool _isActeved = false;
         TextMeshProUGUI _switchingText = default;
-
+        
         void Start()
         {
             _switchingText = _toggleButton.GetComponentInChildren<TextMeshProUGUI>();
