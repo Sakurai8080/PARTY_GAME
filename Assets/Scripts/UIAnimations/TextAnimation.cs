@@ -9,15 +9,21 @@ using UniRx;
 using System.Linq;
 using TMPro;
 
+/// <summary>
+/// テキストを動かすコンポーネント
+/// </summary>
 public class TextAnimation : MonoBehaviour
 {
-
+    [Header("Variable")]
+    [Tooltip("Tweenのスクリタブルオブジェクト")]
     [SerializeField]
     TweenData _tweenData = default;
 
+    [Tooltip("動かすテキスト")]
     [SerializeField]
     TextMeshProUGUI _moveText = default;
 
+    [Tooltip("弾ませるカウント")]
     [SerializeField]
     int _bounceCount = 2;
 
