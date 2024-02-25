@@ -4,6 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using TMPro;
 
 namespace TweenGroup
 {
@@ -30,6 +31,7 @@ namespace TweenGroup
         /// <summary>現在起動しているFadeに関わるTween操作用</summary>
         protected Tween _currentFadeTween = null;
         protected Color _initialColor;
+        protected TextMeshProUGUI _amountText;
 
         protected abstract void PlayAnimation();
         protected abstract void UiLoopAnimation();
@@ -50,6 +52,7 @@ namespace TweenGroup
 
         protected virtual void Start()
         {
+            _amountText = GetComponentInChildren<TextMeshProUGUI>();
             _tweensButton.OnClickAsObservable()
                          .TakeUntilDestroy(this)
                          .Subscribe(_ =>
@@ -82,6 +85,7 @@ namespace TweenGroup
                      .SetDelay(0.1f)
                      .OnComplete(() =>
                      {
+                         _amountText.SetText("");
                          bool inBomb = BombManager.BombInChecker(_targetImage);
                          TweenController.TweenRemoveFromList(_currentScaleTween);
                　        float duration = 2f;
@@ -95,11 +99,13 @@ namespace TweenGroup
             await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
             if (!inBomb)
             {
-                _targetImage.DOFade(0, 1).SetEase(Ease.InSine);
-                _targetImage.gameObject.SetActive(false);
+                _targetImage.DOFade(0, 1).SetEase(Ease.InSine)
+                                         .OnComplete(() =>
+                                         {
+                                             _targetImage.gameObject.SetActive(false);
+                                         });
+                return;
             }
-            await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
-
         }
 
         protected void RotationReset()

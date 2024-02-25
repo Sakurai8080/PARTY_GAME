@@ -6,7 +6,7 @@ namespace TweenGroup
     /// <summary>
     /// ボムカード用のアニメーションコンポーネント
     /// </summary>
-    public class BombCardAnim : TweenBase
+    public class BombAnim : TweenBase
     {
         [Header("Variable")]
         [Tooltip("ループ時のバウンド回数")]

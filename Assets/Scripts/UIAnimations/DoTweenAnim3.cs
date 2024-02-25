@@ -51,12 +51,7 @@ namespace TweenGroup
 
         protected override void UiLoopAnimation()
         {
-            _currentFadeTween = _targetImage.DOColor(_tweenData.LoopColor, _tweenData.FadeDuration)
-                                            .SetEase(_tweenData.LoopEasing)
-                                            .SetLoops(-1, _tweenData.LoopType);
-
-
-            _currentScaleTween = transform.DOScale(0.3f, 1f)
+            _currentScaleTween = transform.DOScale(0.7f, 1f)
                                           .SetEase(_tweenData.LoopEasing)
                                           .SetLoops(-1, _tweenData.LoopType);
 
