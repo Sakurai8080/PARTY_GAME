@@ -713,6 +713,7 @@ GameObject:
   - component: {fileID: 568064365}
   - component: {fileID: 568064364}
   - component: {fileID: 568064367}
+  - component: {fileID: 568064368}
   m_Layer: 0
   m_Name: TEST1
   m_TagString: Untagged
@@ -835,9 +836,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938058e800e79480c939958334f8d97d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tweenData: {fileID: 11400000, guid: 3f6879ada484f4b298bbceea4c720435, type: 2}
   _targetImage: {fileID: 568064365}
-  _tweensButton: {fileID: 568064364}
+--- !u!114 &568064368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568064362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 778b580fb237d4ac79459aa8eeb28753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameType: 2
+  _gameTransitionBottun: {fileID: 568064364}
 --- !u!1 &759292983
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,8 +965,9 @@ GameObject:
   - component: {fileID: 788780316}
   - component: {fileID: 788780315}
   - component: {fileID: 788780318}
+  - component: {fileID: 788780319}
   m_Layer: 0
-  m_Name: TEST
+  m_Name: Roulette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1074,9 +1088,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938058e800e79480c939958334f8d97d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tweenData: {fileID: 11400000, guid: 3f6879ada484f4b298bbceea4c720435, type: 2}
   _targetImage: {fileID: 788780316}
-  _tweensButton: {fileID: 788780315}
+--- !u!114 &788780319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788780313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 778b580fb237d4ac79459aa8eeb28753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameType: 1
+  _gameTransitionBottun: {fileID: 788780315}
 --- !u!1 &1046972247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,6 +1222,7 @@ GameObject:
   - component: {fileID: 1199710368}
   - component: {fileID: 1199710367}
   - component: {fileID: 1199710370}
+  - component: {fileID: 1199710371}
   m_Layer: 0
   m_Name: BOMB
   m_TagString: Untagged
@@ -1318,9 +1345,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938058e800e79480c939958334f8d97d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tweenData: {fileID: 11400000, guid: 3f6879ada484f4b298bbceea4c720435, type: 2}
   _targetImage: {fileID: 1199710368}
-  _tweensButton: {fileID: 1199710367}
+--- !u!114 &1199710371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199710365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 778b580fb237d4ac79459aa8eeb28753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameType: 0
+  _gameTransitionBottun: {fileID: 1199710367}
 --- !u!1 &1594527930
 GameObject:
   m_ObjectHideFlags: 0
