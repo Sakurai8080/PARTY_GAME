@@ -1,13 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class GameManager
+public class GameManager : SingletonMonoBehaviour<GameManager>
 {
 
-    public static void SceneLoader(string sceneName)
+    public Dictionary<GameType, bool> GameTypeDic => _gameTypeDic;
+
+    [SerializeField]
+    List<GameType> _gameTypeList = new List<GameType>();
+
+    private Dictionary<GameType, bool> _gameTypeDic = new Dictionary<GameType, bool>();
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < _gameTypeList.Count(); i++)
+        {
+            _gameTypeDic.Add((GameType)i, false);
+        }
+    }
+
+    public void SceneLoader(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public void GameSelected(GameType gameType)
+    {
+        Instance._gameTypeDic[gameType] = true;
+    }
+
+    public bool SelectedChecher(GameType gameType)
+    {
+        return Instance._gameTypeDic[gameType];
+    }
+}
+
+public enum GameType
+{
+    BombGame,
+    RouletteGame,
+    Test
 }
