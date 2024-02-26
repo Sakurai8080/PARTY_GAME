@@ -11,7 +11,7 @@ using System.Linq;
 /// <summary>
 /// Bombを管理するマネージャー
 /// </summary>
-public static class BombManager
+public class BombManager : SingletonMonoBehaviour<BombManager>
 {
     /// <summary>Cardを格納する</summary>
     public static Dictionary<Image, bool> _allBombdic = new Dictionary<Image, bool>();
