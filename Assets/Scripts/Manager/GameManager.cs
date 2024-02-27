@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
-
     public Dictionary<GameType, bool> GameTypeDic => _gameTypeDic;
 
     [SerializeField]
@@ -17,10 +16,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-    }
 
-    private void Start()
-    {
         for (int i = 0; i < _gameTypeList.Count(); i++)
         {
             _gameTypeDic.Add((GameType)i, false);
@@ -34,12 +30,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public void GameSelected(GameType gameType)
     {
-        Instance._gameTypeDic[gameType] = true;
+        _gameTypeDic[gameType] = true;
     }
 
-    public bool SelectedChecher(GameType gameType)
+    public bool SelectedChecker(GameType gameType)
     {
-        return Instance._gameTypeDic[gameType];
+        return _gameTypeDic[gameType];
     }
 }
 
@@ -47,5 +43,5 @@ public enum GameType
 {
     BombGame,
     RouletteGame,
-    Test
+    TheButton,
 }

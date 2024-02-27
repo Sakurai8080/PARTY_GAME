@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BombGame.unity
     guid: 4f6e342ab60ed4e2290d0b2659ebc1b0
+  - enabled: 1
+    path: Assets/Scenes/TheButton.unity
+    guid: 45dc4fa01dbdb4d5ba122776069eee09
   m_configObjects: {}

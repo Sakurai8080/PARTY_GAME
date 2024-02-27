@@ -20,10 +20,13 @@ public class GameSelectUIAnimation : MonoBehaviour
 
     private void Start()
     {
-        bool isSelected = GameManager.Instance.SelectedChecher(_gameType);
-        if (isSelected)
-            UiDisabledSet();
-        else
+        AnimationSetup();
+    }
+
+    private void AnimationSetup()
+    {
+        bool isSelected = GameManager.Instance.SelectedChecker(_gameType);
+        if (!isSelected)
             UiLoopAnimation();
     }
 
@@ -37,12 +40,6 @@ public class GameSelectUIAnimation : MonoBehaviour
                                          .SetEase(Ease.InBounce)
                                          .SetLoops(-1, LoopType.Yoyo);
 
-    }
-
-    private void UiDisabledSet()
-    {
-        _currentScaleTween = transform.DOScale(1, 0);
-        _currentFadeTween = _targetImage.DOFade(0.2f, 0);
     }
 
     public void CurrentTweendKill()

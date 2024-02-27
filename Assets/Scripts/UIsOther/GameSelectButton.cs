@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using DG.Tweening;
 
 public class GameSelectButton : MonoBehaviour
 {
-    [SerializeField]
-    private GameType _gameType = default;
 
     [SerializeField]
     private Button _gameTransferBottun = default;
+
+    [SerializeField]
+    private GameType _gameType = default;
 
     private GameSelectUIAnimation _gameSelectUIAnimation;
 
     void Start()
     {
         _gameSelectUIAnimation = GetComponent<GameSelectUIAnimation>();
+        InteractiveSet();
 
         _gameTransferBottun.OnClickAsObservable()
                              .TakeUntilDestroy(this)
@@ -32,5 +35,11 @@ public class GameSelectButton : MonoBehaviour
     {
         string sceneName = selectedGame.ToString();
         GameManager.Instance.SceneLoader(sceneName);
+    }
+
+    private void InteractiveSet()
+    {
+        bool isSelected = GameManager.Instance.SelectedChecker(_gameType);
+        _gameTransferBottun.interactable = !isSelected;
     }
 }
