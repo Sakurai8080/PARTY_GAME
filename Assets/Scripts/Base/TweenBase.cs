@@ -106,6 +106,8 @@ namespace TweenGroup
                                          });
                 return;
             }
+
+            GameManager.Instance.SceneLoader("MainScene");
         }
 
         protected void RotationReset()
