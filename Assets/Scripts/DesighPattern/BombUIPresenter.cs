@@ -38,7 +38,7 @@ public class BombUIPresenter : MonoBehaviour
                           _cardUIActivator.ToggleUIsVisibility();
                           _activeUIInput.gameObject.SetActive(false);
                           BombManager.BombSet(_bombCardImageList);
-                          TweenController.CardSet(_bombCardImageList);
+                          BombAnimationController.CardSet(_bombCardImageList);
                       }).AddTo(this);
     }
 }
