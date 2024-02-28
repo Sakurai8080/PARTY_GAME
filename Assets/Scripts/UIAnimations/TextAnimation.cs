@@ -37,6 +37,7 @@ public class TextAnimation : MonoBehaviour
     private void UiLoopAnimation()
     {
         _currentScaleTween = transform.DOShakeScale(_tweenData.ScaleDuration, 0.1f, _bounceCount)
+                                      .SetEase(_tweenData.LoopEasing)
                                       .SetLoops(-1, _tweenData.LoopType);
 
         BombAnimationController._allTweenList.Add(_currentScaleTween);

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using UniRx;
 using System.Linq;
 
-public class ButtonGameSelectBtn : MonoBehaviour
+public class TBGameSelectBtn : MonoBehaviour
 {
     [SerializeField]
     Button _theButton = default;
@@ -20,6 +20,22 @@ public class ButtonGameSelectBtn : MonoBehaviour
                   .Subscribe(_ =>
                   {
                       TBGameManager.Instance.Test(_theButton);
+                      ButtonCheck();
                   });
+    }
+
+    private void ButtonCheck()
+    {
+        bool isMiss = TBGameManager.Instance.MissButtonChecker(_theButton);
+        if (isMiss)
+        {
+            GameManager.Instance.SceneLoader("MainScene");
+            return;
+        }
+        else
+        {
+            //PopUp機能で名前表示してボタンをリセット
+            TBGameManager.Instance.buttonReconfigure();
+        }
     }
 }
