@@ -11,7 +11,7 @@ using System.Linq;
 /// <summary>
 /// カードのTweenアニメーションのコントローラー
 /// </summary>
-public static class TweenController
+public static class BombAnimationController
 {
     //プロパティを追加
     public static List<Image> _allImagesList = new List<Image>();
