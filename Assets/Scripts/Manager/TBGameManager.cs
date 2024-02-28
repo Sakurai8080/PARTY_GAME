@@ -22,7 +22,7 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
         _allButtonList.ForEach(button => _allButtonDic.Add(button, false));
     }
 
-    public void ButtonRandomActivator()
+    public void ButtonRandomHide()
     {
         int maxHideAmount = _allButtonList.Count() -2;
         int hideButtonAmount = UnityEngine.Random.Range(0,maxHideAmount);

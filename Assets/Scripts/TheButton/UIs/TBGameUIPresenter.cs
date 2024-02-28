@@ -27,7 +27,7 @@ public class TBGameUIPresenter : MonoBehaviour
                       {
                           _tbButtonUIActivator.ToggleUIsVisibility();
                           _uiActiveInput.gameObject.SetActive(false);
-                          TBGameManager.Instance.ButtonRandomActivator();
+                          TBGameManager.Instance.ButtonRandomHide();
                       }).AddTo(this);
     }
 }
