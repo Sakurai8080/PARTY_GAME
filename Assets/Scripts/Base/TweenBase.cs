@@ -46,8 +46,8 @@ namespace TweenGroup
         protected virtual void OnDisable()
         {
             ImageAlphaController(_targetImage, 1);
-            TweenController.KillTweens(_currentFadeTween);
-            TweenController.KillTweens(_currentScaleTween);
+            BombAnimationController.KillTweens(_currentFadeTween);
+            BombAnimationController.KillTweens(_currentScaleTween);
         }
 
         protected virtual void Start()
@@ -57,8 +57,8 @@ namespace TweenGroup
                          .TakeUntilDestroy(this)
                          .Subscribe(_ =>
                          {
-                             TweenController._resetColor = _initialColor;
-                             StartCoroutine(TweenController.PauseTweens());
+                             BombAnimationController._resetColor = _initialColor;
+                             StartCoroutine(BombAnimationController.PauseTweens());
                              SelectedAnimation();
                          });
 
@@ -87,7 +87,7 @@ namespace TweenGroup
                      {
                          _amountText.SetText("");
                          bool inBomb = BombManager.BombInChecker(_targetImage);
-                         TweenController.TweenRemoveFromList(_currentScaleTween);
+                         BombAnimationController.TweenRemoveFromList(_currentScaleTween);
                　        float duration = 2f;
                     　　  transform.DOPunchRotation(new Vector3(180f, 270, -45), duration, 5, 1f);
                          BombAnimation((int)duration + 1, inBomb).Forget();

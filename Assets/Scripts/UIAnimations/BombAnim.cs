@@ -30,7 +30,7 @@ namespace TweenGroup
             _currentScaleTween = transform.DOShakeScale(_tweenData.ScaleDuration, 0.1f, _bounceCount)
                                           .SetLoops(-1, _tweenData.LoopType);
 
-            TweenController._allTweenList.Add(_currentScaleTween);
+            BombAnimationController._allTweenList.Add(_currentScaleTween);
         }
     }
 }

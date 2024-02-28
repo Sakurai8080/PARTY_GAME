@@ -4,7 +4,6 @@ using System;
 using UnityEngine.UI;
 using TMPro;
 
-
 /// <summary>
 /// スイッチボタンのアニメーション機能
 /// </summary>
