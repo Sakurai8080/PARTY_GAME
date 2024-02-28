@@ -40,8 +40,8 @@ public class BombManager : SingletonMonoBehaviour<BombManager>
     {
         images.ForEach(card =>
         {
-            BombManager._allBombdic.Add(card, false);
+            _allBombdic.Add(card, false);
         });
-        BombManager.BombRandomInstallation();
+        BombRandomInstallation();
     }
 }
