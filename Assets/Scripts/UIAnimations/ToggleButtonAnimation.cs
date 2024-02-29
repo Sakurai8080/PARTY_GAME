@@ -4,25 +4,22 @@ using System;
 using UnityEngine.UI;
 using TMPro;
 
-namespace TweenGroup
+/// <summary>
+/// スイッチボタンのアニメーション機能
+/// </summary>
+public class ToggleButtonAnimation : MonoBehaviour
 {
-    /// <summary>
-    /// スイッチボタンのアニメーション機能
-    /// </summary>
-    public class ToggleButtonAnimation : MonoBehaviour
+    private void OnEnable()
     {
-        private void OnEnable()
-        {
-            UiLoopAnimation();
-        }
-
-        private void UiLoopAnimation()
-        {
-            transform.DOScale(0.8f, 1)
-                     .SetEase(Ease.InFlash)
-                     .SetLoops(-1, LoopType.Yoyo)
-                     .SetUpdate(true);
-        }
-
+        UiLoopAnimation();
     }
+
+    private void UiLoopAnimation()
+    {
+        transform.DOScale(0.8f, 1)
+                 .SetEase(Ease.InFlash)
+                 .SetLoops(-1, LoopType.Yoyo)
+                 .SetUpdate(true);
+    }
+
 }

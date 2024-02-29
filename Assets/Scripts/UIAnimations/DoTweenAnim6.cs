@@ -6,12 +6,12 @@ namespace TweenGroup
     /// <summary>
     /// UIのアニメーションコンポーネント
     /// </summary>
-    public class DoTweenAnim6 : TweenBase
+    public class GameSelectedUI : TweenBase
     {
         [Header("Variable")]
         [Tooltip("ループするスケールの値")]
         [SerializeField]
-        private Vector3 _loopScaleAmount = new Vector3(0.1f, 0.1f, 0);
+        private Vector3 _loopScaleAmount = new Vector3(0.8f, 0.8f, 0);
 
         protected override void PlayAnimation()
         {
@@ -31,8 +31,8 @@ namespace TweenGroup
                                           .SetEase(_tweenData.LoopEasing)
                                           .SetLoops(-1, _tweenData.LoopType);
 
-            TweenController._allTweenList.Add(_currentFadeTween);
-            TweenController._allTweenList.Add(_currentScaleTween);
+            AllBombAnimationController._allTweenList.Add(_currentFadeTween);
+            AllBombAnimationController._allTweenList.Add(_currentScaleTween);
         }
     }
 }

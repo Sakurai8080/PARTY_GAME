@@ -37,8 +37,8 @@ namespace TweenGroup
                                             .SetEase(_tweenData.LoopEasing)
                                             .SetLoops(-1, LoopType.Yoyo);
 
-            TweenController._allTweenList.Add(_currentFadeTween);
-            TweenController._allTweenList.Add(_currentScaleTween);
+            AllBombAnimationController._allTweenList.Add(_currentFadeTween);
+            AllBombAnimationController._allTweenList.Add(_currentScaleTween);
         }
     }
 }

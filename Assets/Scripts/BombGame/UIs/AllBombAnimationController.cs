@@ -11,7 +11,7 @@ using System.Linq;
 /// <summary>
 /// カードのTweenアニメーションのコントローラー
 /// </summary>
-public static class TweenController
+public static class AllBombAnimationController
 {
     //プロパティを追加
     public static List<Image> _allImagesList = new List<Image>();
@@ -48,7 +48,7 @@ public static class TweenController
     public static void RestartTweens()
     {
         //プロパティに修正
-        if (!BombManager._onExplosion)
+        if (!BombManager.OnExplosion)
         {
             foreach (var tween in _allTweenList)
             {
@@ -57,7 +57,7 @@ public static class TweenController
         }
     }
 
-    public static void CardSet(List<Image> images)
+    public static void SetCards(List<Image> images)
     {
         images.ForEach(card =>
         {

@@ -13,10 +13,16 @@ using System.Linq;
 /// </summary>
 public static class BombManager
 {
-    /// <summary>Cardを格納する</summary>
-    public static Dictionary<Image, bool> _allBombdic = new Dictionary<Image, bool>();
+    public static bool OnExplosion => _onExplosion;
+    public static bool IsChecking => _isChecking;
 
-    public static bool _onExplosion = false;
+    private static List<Button> _allBombButton = new List<Button>(); 
+
+    /// <summary>Cardを格納する</summary>
+    private static Dictionary<Image, bool> _allBombdic = new Dictionary<Image, bool>();
+
+    private static bool _onExplosion = false;
+    private static bool _isChecking = false; 
 
     public static bool BombInChecker(Image image)
     {
@@ -40,8 +46,23 @@ public static class BombManager
     {
         images.ForEach(card =>
         {
-            BombManager._allBombdic.Add(card, false);
+            _allBombdic.Add(card, false);
         });
-        BombManager.BombRandomInstallation();
+        BombRandomInstallation();
+    }
+
+    public static void AddListButton(List<Button> buttons)
+    {
+        _allBombButton.AddRange(buttons);
+    }
+
+    public static async UniTask InteractableValidTask(bool isCheck, int delayTime)
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
+        _isChecking = isCheck;
+        foreach (var button in _allBombButton)
+        {
+           button.interactable = !isCheck;   
+        }
     }
 }
