@@ -42,7 +42,7 @@ public class BombSelectButton : MonoBehaviour
                  .OnComplete(() =>
                  {
                      _buttonNum.SetText("");
-                     bool inBomb = BombManager.BombInChecker(_bombTargetImage);
+                     bool inBomb = BombManager.Instance.BombInChecker(_bombTargetImage);
                      BombAnimationController.TweenRemoveFromList(_bombAnim.CurrentScaleTween);
                      float duration = 2f;
                      transform.DOPunchRotation(new Vector3(180f, 270, -45), duration, 5, 1f);

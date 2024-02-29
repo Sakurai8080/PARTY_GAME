@@ -18,7 +18,7 @@ public class BombManager : SingletonMonoBehaviour<BombManager>
 
     public static bool _onExplosion = false;
 
-    public static bool BombInChecker(Image image)
+    public bool BombInChecker(Image image)
     {
         if (_allBombdic[image])
             _onExplosion = true;
@@ -26,7 +26,7 @@ public class BombManager : SingletonMonoBehaviour<BombManager>
         return _allBombdic[image];
     }
 
-    public static void BombRandomInstallation()
+    public void BombRandomInstallation()
     {
         int cardCount = _allBombdic.Count();
         int inBombIndex = UnityEngine.Random.Range(0, cardCount);
@@ -36,7 +36,7 @@ public class BombManager : SingletonMonoBehaviour<BombManager>
         Debug.Log(inBombImage);
     }
 
-    public static void BombSet(List<Image> images)
+    public void BombSet(List<Image> images)
     {
         images.ForEach(card =>
         {
