@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 
 /// <summary>
-/// UI同士を仲介するプレゼンター
+/// BombGameのUI同士を仲介するプレゼンター
 /// </summary>
 public class BombUIPresenter : MonoBehaviour
 {
