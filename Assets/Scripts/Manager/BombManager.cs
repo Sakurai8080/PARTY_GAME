@@ -13,10 +13,14 @@ using System.Linq;
 /// </summary>
 public class BombManager : SingletonMonoBehaviour<BombManager>
 {
+    public bool OnExplosion => _onExplosion;
+    public bool IsChecking => _isChecking;
+
     /// <summary>Cardを格納する</summary>
     public static Dictionary<Image, bool> _allBombdic = new Dictionary<Image, bool>();
 
-    public static bool _onExplosion = false;
+    private bool _onExplosion = false;
+    private bool _isChecking = false; 
 
     public bool BombInChecker(Image image)
     {

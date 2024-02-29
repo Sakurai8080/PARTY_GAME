@@ -263,6 +263,7 @@ MonoBehaviour:
   _targetImage: {fileID: 12105566}
   _tweensButton: {fileID: 12105565}
   _bounceCount: 4
+  _buttonNum: {fileID: 95938968}
 --- !u!114 &12105569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,8 +277,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bombButton: {fileID: 12105565}
-  _buttonNum: {fileID: 95938968}
-  _bombTargetImage: {fileID: 12105566}
 --- !u!1 &91157167
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,6 +950,7 @@ MonoBehaviour:
   _targetImage: {fileID: 207667958}
   _tweensButton: {fileID: 207667957}
   _bounceCount: 4
+  _buttonNum: {fileID: 1227335397}
 --- !u!114 &207667961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -964,8 +964,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bombButton: {fileID: 207667957}
-  _buttonNum: {fileID: 1227335397}
-  _bombTargetImage: {fileID: 207667958}
 --- !u!1 &231427126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1174,6 +1172,7 @@ MonoBehaviour:
   _targetImage: {fileID: 244712543}
   _tweensButton: {fileID: 244712542}
   _bounceCount: 4
+  _buttonNum: {fileID: 1653528908}
 --- !u!114 &244712546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,8 +1186,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bombButton: {fileID: 244712542}
-  _buttonNum: {fileID: 1653528908}
-  _bombTargetImage: {fileID: 244712543}
 --- !u!1 &253490246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,6 +1555,7 @@ MonoBehaviour:
   _targetImage: {fileID: 298732057}
   _tweensButton: {fileID: 298732056}
   _bounceCount: 4
+  _buttonNum: {fileID: 1387916829}
 --- !u!114 &298732060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1571,8 +1569,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bombButton: {fileID: 298732056}
-  _buttonNum: {fileID: 1387916829}
-  _bombTargetImage: {fileID: 298732057}
 --- !u!1 &301879045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,6 +1709,7 @@ MonoBehaviour:
   _targetImage: {fileID: 301879048}
   _tweensButton: {fileID: 301879047}
   _bounceCount: 4
+  _buttonNum: {fileID: 1921197499}
 --- !u!114 &301879051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1726,8 +1723,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bombButton: {fileID: 301879047}
-  _buttonNum: {fileID: 1921197499}
-  _bombTargetImage: {fileID: 301879048}
 --- !u!1 &400989770
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,6 +1863,7 @@ MonoBehaviour:
   _targetImage: {fileID: 400989773}
   _tweensButton: {fileID: 400989772}
   _bounceCount: 4
+  _buttonNum: {fileID: 253490248}
 --- !u!114 &400989776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1881,8 +1877,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bombButton: {fileID: 400989772}
-  _buttonNum: {fileID: 253490248}
-  _bombTargetImage: {fileID: 400989773}
 --- !u!1 &592781870
 GameObject:
   m_ObjectHideFlags: 0
@@ -2259,6 +2253,7 @@ MonoBehaviour:
   _targetImage: {fileID: 882580985}
   _tweensButton: {fileID: 882580984}
   _bounceCount: 4
+  _buttonNum: {fileID: 971107706}
 --- !u!114 &882580988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2272,8 +2267,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bombButton: {fileID: 882580984}
-  _buttonNum: {fileID: 971107706}
-  _bombTargetImage: {fileID: 882580985}
 --- !u!1 &898524880
 GameObject:
   m_ObjectHideFlags: 0
@@ -3259,6 +3252,7 @@ MonoBehaviour:
   _targetImage: {fileID: 1420981389}
   _tweensButton: {fileID: 1420981388}
   _bounceCount: 4
+  _buttonNum: {fileID: 1886765056}
 --- !u!114 &1420981392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3272,8 +3266,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bombButton: {fileID: 1420981388}
-  _buttonNum: {fileID: 1886765056}
-  _bombTargetImage: {fileID: 1420981389}
 --- !u!1 &1497555479
 GameObject:
   m_ObjectHideFlags: 0
@@ -4010,6 +4002,7 @@ MonoBehaviour:
   _targetImage: {fileID: 1720632933}
   _tweensButton: {fileID: 1720632932}
   _bounceCount: 4
+  _buttonNum: {fileID: 1679592980}
 --- !u!114 &1720632936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4023,8 +4016,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bombButton: {fileID: 1720632932}
-  _buttonNum: {fileID: 1679592980}
-  _bombTargetImage: {fileID: 1720632933}
 --- !u!1 &1768736330
 GameObject:
   m_ObjectHideFlags: 0
@@ -4161,6 +4152,50 @@ MonoBehaviour:
   - {fileID: 244712543}
   - {fileID: 1420981389}
   - {fileID: 882580985}
+--- !u!1 &1849962963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1849962964}
+  - component: {fileID: 1849962965}
+  m_Layer: 0
+  m_Name: BombManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1849962964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849962963}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1849962965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849962963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 476eb7b67917e41fa881f624e9c22597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1876412270
 GameObject:
   m_ObjectHideFlags: 0
@@ -4301,6 +4336,7 @@ MonoBehaviour:
   _targetImage: {fileID: 1876412273}
   _tweensButton: {fileID: 1876412272}
   _bounceCount: 4
+  _buttonNum: {fileID: 1705703028}
 --- !u!114 &1876412276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4314,8 +4350,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bombButton: {fileID: 1876412272}
-  _buttonNum: {fileID: 1705703028}
-  _bombTargetImage: {fileID: 1876412273}
 --- !u!1 &1886765054
 GameObject:
   m_ObjectHideFlags: 0
@@ -4726,6 +4760,7 @@ MonoBehaviour:
   _targetImage: {fileID: 1927839136}
   _tweensButton: {fileID: 1927839135}
   _bounceCount: 4
+  _buttonNum: {fileID: 592781872}
 --- !u!114 &1927839139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4739,8 +4774,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bombButton: {fileID: 1927839135}
-  _buttonNum: {fileID: 592781872}
-  _bombTargetImage: {fileID: 1927839136}
 --- !u!1 &1936071232
 GameObject:
   m_ObjectHideFlags: 0
@@ -4881,6 +4914,7 @@ MonoBehaviour:
   _targetImage: {fileID: 1936071235}
   _tweensButton: {fileID: 1936071234}
   _bounceCount: 4
+  _buttonNum: {fileID: 1347541712}
 --- !u!114 &1936071238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4894,8 +4928,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bombButton: {fileID: 1936071234}
-  _buttonNum: {fileID: 1347541712}
-  _bombTargetImage: {fileID: 1936071235}
 --- !u!1 &1967149661
 GameObject:
   m_ObjectHideFlags: 0

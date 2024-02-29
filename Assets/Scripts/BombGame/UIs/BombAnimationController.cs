@@ -48,7 +48,7 @@ public static class BombAnimationController
     public static void RestartTweens()
     {
         //プロパティに修正
-        if (!BombManager._onExplosion)
+        if (!BombManager.Instance.OnExplosion)
         {
             foreach (var tween in _allTweenList)
             {
