@@ -30,6 +30,9 @@ public class BombUIPresenter : MonoBehaviour
     [SerializeField]
     List<Image> _bombCardImageList = new List<Image>();
 
+    [SerializeField]
+    List<Button> _bombButtonList = new List<Button>();
+
     void Start()
     {
         _activeUIInput.OnClickObserver
@@ -37,8 +40,9 @@ public class BombUIPresenter : MonoBehaviour
                       {
                           _cardUIActivator.ToggleUIsVisibility();
                           _activeUIInput.gameObject.SetActive(false);
-                          BombManager.Instance.BombSet(_bombCardImageList);
-                          AllBombAnimationController.CardSet(_bombCardImageList);
+                          BombManager.AddListButton(_bombButtonList);
+                          BombManager.BombSet(_bombCardImageList);
+                          AllBombAnimationController.SetCards(_bombCardImageList);
                       }).AddTo(this);
     }
 }

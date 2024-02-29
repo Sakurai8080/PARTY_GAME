@@ -11,18 +11,20 @@ using System.Linq;
 /// <summary>
 /// Bombを管理するマネージャー
 /// </summary>
-public class BombManager : SingletonMonoBehaviour<BombManager>
+public static class BombManager
 {
-    public bool OnExplosion => _onExplosion;
-    public bool IsChecking => _isChecking;
+    public static bool OnExplosion => _onExplosion;
+    public static bool IsChecking => _isChecking;
+
+    private static List<Button> _allBombButton = new List<Button>(); 
 
     /// <summary>Cardを格納する</summary>
-    public static Dictionary<Image, bool> _allBombdic = new Dictionary<Image, bool>();
+    private static Dictionary<Image, bool> _allBombdic = new Dictionary<Image, bool>();
 
-    private bool _onExplosion = false;
-    private bool _isChecking = false; 
+    private static bool _onExplosion = false;
+    private static bool _isChecking = false; 
 
-    public bool BombInChecker(Image image)
+    public static bool BombInChecker(Image image)
     {
         if (_allBombdic[image])
             _onExplosion = true;
@@ -30,7 +32,7 @@ public class BombManager : SingletonMonoBehaviour<BombManager>
         return _allBombdic[image];
     }
 
-    public void BombRandomInstallation()
+    public static void BombRandomInstallation()
     {
         int cardCount = _allBombdic.Count();
         int inBombIndex = UnityEngine.Random.Range(0, cardCount);
@@ -40,12 +42,26 @@ public class BombManager : SingletonMonoBehaviour<BombManager>
         Debug.Log(inBombImage);
     }
 
-    public void BombSet(List<Image> images)
+    public static void BombSet(List<Image> images)
     {
         images.ForEach(card =>
         {
             _allBombdic.Add(card, false);
         });
         BombRandomInstallation();
+    }
+
+    public static void IsCheckingValid(bool isCheck)
+    {
+        _isChecking = isCheck;
+        foreach (var button in _allBombButton)
+        {
+           button.interactable = !isCheck;   
+        }
+    }
+
+    public static void AddListButton(List<Button> buttons)
+    {
+        _allBombButton.AddRange(buttons);
     }
 }

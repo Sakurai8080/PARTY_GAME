@@ -48,7 +48,7 @@ public static class AllBombAnimationController
     public static void RestartTweens()
     {
         //プロパティに修正
-        if (!BombManager.Instance.OnExplosion)
+        if (!BombManager.OnExplosion)
         {
             foreach (var tween in _allTweenList)
             {
@@ -57,7 +57,7 @@ public static class AllBombAnimationController
         }
     }
 
-    public static void CardSet(List<Image> images)
+    public static void SetCards(List<Image> images)
     {
         images.ForEach(card =>
         {

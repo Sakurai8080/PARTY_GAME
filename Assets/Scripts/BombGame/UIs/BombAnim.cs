@@ -45,7 +45,7 @@ public class BombAnim : TweenBase
                  .OnComplete(() =>
                  {
                      _buttonNum.SetText("");
-                     bool inBomb = BombManager.Instance.BombInChecker(_targetImage);
+                     bool inBomb = BombManager.BombInChecker(_targetImage);
                      AllBombAnimationController.TweenRemoveFromList(CurrentScaleTween);
                      float duration = 2f;
                      transform.DOPunchRotation(new Vector3(180f, 270, -45), duration, 5, 1f);
@@ -62,10 +62,16 @@ public class BombAnim : TweenBase
                                      .OnComplete(() =>
                                      {
                                          _targetImage.gameObject.SetActive(false);
+                                         
                                      });
-            return;
-        }
 
-        GameManager.Instance.SceneLoader("MainScene");
+            delayTime = 1;
+            await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
+            BombManager.IsCheckingValid(false);
+        }
+        else
+        {
+            GameManager.Instance.SceneLoader("MainScene");
+        }
     }
 }
