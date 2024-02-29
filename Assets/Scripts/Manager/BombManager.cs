@@ -51,17 +51,18 @@ public static class BombManager
         BombRandomInstallation();
     }
 
-    public static void IsCheckingValid(bool isCheck)
+    public static void AddListButton(List<Button> buttons)
     {
+        _allBombButton.AddRange(buttons);
+    }
+
+    public static async UniTask InteractableValidTask(bool isCheck, int delayTime)
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
         _isChecking = isCheck;
         foreach (var button in _allBombButton)
         {
            button.interactable = !isCheck;   
         }
-    }
-
-    public static void AddListButton(List<Button> buttons)
-    {
-        _allBombButton.AddRange(buttons);
     }
 }

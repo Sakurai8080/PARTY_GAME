@@ -65,9 +65,7 @@ public class BombAnim : TweenBase
                                          
                                      });
 
-            delayTime = 1;
-            await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
-            BombManager.IsCheckingValid(false);
+            BombManager.InteractableValidTask(false,1).Forget();
         }
         else
         {

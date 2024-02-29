@@ -38,11 +38,17 @@ public class BombUIPresenter : MonoBehaviour
         _activeUIInput.OnClickObserver
                       .Subscribe(_ =>
                       {
-                          _cardUIActivator.ToggleUIsVisibility();
-                          _activeUIInput.gameObject.SetActive(false);
-                          BombManager.AddListButton(_bombButtonList);
-                          BombManager.BombSet(_bombCardImageList);
-                          AllBombAnimationController.SetCards(_bombCardImageList);
+                          Setup();
                       }).AddTo(this);
+    }
+
+    private void Setup()
+    {
+        _cardUIActivator.ToggleUIsVisibility();
+        _activeUIInput.gameObject.SetActive(false);
+        BombManager.AddListButton(_bombButtonList);
+        BombManager.BombSet(_bombCardImageList);
+        BombManager.InteractableValidTask(false, 2).Forget();
+        AllBombAnimationController.SetCards(_bombCardImageList);
     }
 }
