@@ -21,8 +21,8 @@ public class BombSelectButton : MonoBehaviour
                    .TakeUntilDestroy(this)
                    .Subscribe(_ =>
                    {
-                       BombAnimationController._resetColor = _bombAnim.InitialColor;
-                       StartCoroutine(BombAnimationController.PauseTweens());
+                       AllBombAnimationController._resetColor = _bombAnim.InitialColor;
+                       StartCoroutine(AllBombAnimationController.PauseTweens());
                        _bombAnim.SelectedAnimation();
                    });
     }

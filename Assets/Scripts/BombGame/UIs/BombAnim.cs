@@ -34,7 +34,7 @@ public class BombAnim : TweenBase
         _currentScaleTween = transform.DOShakeScale(_tweenData.ScaleDuration, 0.1f, _bounceCount)
                                       .SetLoops(-1, _tweenData.LoopType);
 
-        BombAnimationController._allTweenList.Add(_currentScaleTween);
+        AllBombAnimationController._allTweenList.Add(_currentScaleTween);
     }
 
     public void SelectedAnimation()
@@ -46,7 +46,7 @@ public class BombAnim : TweenBase
                  {
                      _buttonNum.SetText("");
                      bool inBomb = BombManager.Instance.BombInChecker(_targetImage);
-                     BombAnimationController.TweenRemoveFromList(CurrentScaleTween);
+                     AllBombAnimationController.TweenRemoveFromList(CurrentScaleTween);
                      float duration = 2f;
                      transform.DOPunchRotation(new Vector3(180f, 270, -45), duration, 5, 1f);
                      BombAnimation((int)duration + 1, inBomb).Forget();

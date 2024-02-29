@@ -26,8 +26,8 @@ namespace TweenGroup
         protected override void OnDisable()
         {
             ImageAlphaController(_targetImage, 1);
-            BombAnimationController.KillTweens(_currentScaleTween);
-            BombAnimationController.KillTweens(_currentFadeTween);
+            AllBombAnimationController.KillTweens(_currentScaleTween);
+            AllBombAnimationController.KillTweens(_currentFadeTween);
             transform.localScale = Vector3.one;
         }
 
@@ -55,8 +55,8 @@ namespace TweenGroup
                                           .SetEase(_tweenData.LoopEasing)
                                           .SetLoops(-1, _tweenData.LoopType);
 
-            BombAnimationController._allTweenList.Add(_currentFadeTween);
-            BombAnimationController._allTweenList.Add(_currentScaleTween);
+            AllBombAnimationController._allTweenList.Add(_currentFadeTween);
+            AllBombAnimationController._allTweenList.Add(_currentScaleTween);
 
         }
     }

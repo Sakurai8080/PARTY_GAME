@@ -28,8 +28,8 @@ namespace TweenGroup
             _currentFadeTween = _targetImage.DOFade(0.5f, 1)
                                             .SetLoops(-1, _tweenData.LoopType);
 
-            BombAnimationController._allTweenList.Add(_currentFadeTween);
-            BombAnimationController._allTweenList.Add(_currentScaleTween);
+            AllBombAnimationController._allTweenList.Add(_currentFadeTween);
+            AllBombAnimationController._allTweenList.Add(_currentScaleTween);
         }
     }
 }
