@@ -42,6 +42,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 public enum GameType
 {
     BombGame,
-    RouletteGame,
+    Roulette,
     TheButton,
 }
