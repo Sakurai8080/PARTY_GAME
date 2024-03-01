@@ -8,25 +8,14 @@ using Cysharp.Threading.Tasks;
 using System.Linq;
 using UnityEngine.UI;
 
-public class TBGameUIPresenter : MonoBehaviour
+public class TBGameUIPresenter : PresenterBase
 {
-    public IObservable<Unit> MainUIActiveObserver => _mainUIActiveSubject;
-
-    Subject<Unit> _mainUIActiveSubject = new Subject<Unit>();
-
-    [SerializeField]
-    UIsActiveController _tbButtonUIActivator;
-
-    [SerializeField]
-    ActiveUIInput _uiActiveInput;
-
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         _uiActiveInput.OnClickObserver
                       .Subscribe(_ =>
                       {
-                          _tbButtonUIActivator.ToggleUIsVisibility();
-                          _uiActiveInput.gameObject.SetActive(false);
                           TBGameManager.Instance.ButtonRandomHide();
                       }).AddTo(this);
     }
