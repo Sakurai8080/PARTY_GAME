@@ -8,15 +8,11 @@ using Cysharp.Threading.Tasks;
 using System.Linq;
 using UnityEngine.UI;
 
-public class TBGameUIPresenter : PresenterBase
+
+public class RouletteUIPresenter : PresenterBase
 {
     protected override void Start()
     {
         base.Start();
-        _uiActiveInput.OnClickObserver
-                      .Subscribe(_ =>
-                      {
-                          TBGameManager.Instance.ButtonRandomHide();
-                      }).AddTo(this);
     }
 }

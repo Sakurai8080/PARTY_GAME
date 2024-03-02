@@ -3315,5 +3315,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe85dcff0eab4c998335b774502cdc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tbButtonUIActivator: {fileID: 1292415212}
+  _mainUIsActivator: {fileID: 1292415212}
   _uiActiveInput: {fileID: 549399518}

@@ -4137,8 +4137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 025d957f5c2e1459b94308ba44eca89d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardUIActivator: {fileID: 2052611934}
-  _activeUIInput: {fileID: 91157171}
+  _mainUIsActivator: {fileID: 2052611934}
+  _uiActiveInput: {fileID: 91157171}
   _bombCardImageList:
   - {fileID: 1720632933}
   - {fileID: 1927839136}

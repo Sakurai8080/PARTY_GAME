@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TheButton.unity
     guid: 45dc4fa01dbdb4d5ba122776069eee09
+  - enabled: 1
+    path: Assets/Scenes/Roulette.unity
+    guid: c3cc3599b4b2f47b1b9c730cf086b110
   m_configObjects: {}
