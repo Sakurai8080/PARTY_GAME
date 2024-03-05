@@ -44,4 +44,7 @@ public enum GameType
     BombGame,
     Roulette,
     TheButton,
+    Dice,
+    Ball,
+    Secound
 }
