@@ -16,6 +16,9 @@ public class PresenterBase : MonoBehaviour
     [SerializeField]
     protected ActiveUIInput _uiActiveInput;
 
+    [SerializeField]
+    protected GameObject _backGround;
+
     protected virtual void Start()
     {
         _uiActiveInput.OnClickObserver
