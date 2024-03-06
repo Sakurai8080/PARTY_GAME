@@ -23,7 +23,7 @@ public class BombUIPresenter : PresenterBase
     protected override void Start()
     {
         base.Start();
-        _uiActiveInput.OnClickObserver
+        _initUIButton.OnClickObserver
                       .Subscribe(_ =>
                       {
                           Setup();

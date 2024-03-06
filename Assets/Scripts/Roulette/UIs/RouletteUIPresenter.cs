@@ -11,8 +11,34 @@ using UnityEngine.UI;
 
 public class RouletteUIPresenter : PresenterBase
 {
+    [SerializeField]
+    RouletteButton _rouletteButton;
+
+    [SerializeField]
+    RouletteController _rouletteController;
+
+    [SerializeField]
+    GameObject _rouletteMaker;
+
     protected override void Start()
     {
-        base.Start();
+        _initUIButton.OnClickObserver
+                      .Subscribe(_ =>
+                      {
+                          _mainUIsActivator.ToggleUIsVisibility();
+                          _initUIButton.gameObject.SetActive(false);
+                          _rouletteMaker.SetActive(true);
+                       }).AddTo(this);
+
+        _rouletteButton.RouletteButtonClickObserver.TakeUntilDestroy(this)
+                                                   .Subscribe(clickCount =>
+                                                   {
+                                                       PresenterNotification(clickCount);
+                                                   });
+    }
+
+    private void PresenterNotification(int count)
+    {
+        _rouletteController.RouletteRotate(count);
     }
 }
