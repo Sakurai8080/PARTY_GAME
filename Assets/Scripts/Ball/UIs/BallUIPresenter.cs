@@ -7,8 +7,7 @@ using UnityEngine;
 public class BallUIPresenter : PresenterBase
 {
     [SerializeField]
-    GameObject _ballParent;
-
+    BallController _ballController;
 
     protected override void Start()
     {
@@ -17,7 +16,7 @@ public class BallUIPresenter : PresenterBase
                       {
                           _mainUIsActivator.ToggleUIsVisibility();
                           _uiActiveInput.gameObject.SetActive(false);
-                          _ballParent.SetActive(true);
+                          _ballController.Setup();
                           _backGround.SetActive(false);
                       }).AddTo(this);
     }
