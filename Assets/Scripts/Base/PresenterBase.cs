@@ -14,18 +14,18 @@ public class PresenterBase : MonoBehaviour
     protected UIsActiveController _mainUIsActivator;
 
     [SerializeField]
-    protected ActiveUIInput _uiActiveInput;
+    protected ActiveUIInput _initUIButton;
 
     [SerializeField]
     protected GameObject _backGround;
 
     protected virtual void Start()
     {
-        _uiActiveInput.OnClickObserver
+        _initUIButton.OnClickObserver
                       .Subscribe(_ =>
                       {
                           _mainUIsActivator.ToggleUIsVisibility();
-                          _uiActiveInput.gameObject.SetActive(false);
+                          _initUIButton.gameObject.SetActive(false);
                       }).AddTo(this);
     }
 }

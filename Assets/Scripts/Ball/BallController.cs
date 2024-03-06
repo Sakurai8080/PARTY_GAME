@@ -38,6 +38,12 @@ public class BallController : MonoBehaviour
                          .SetEase(Ease.Linear);
     }
 
+    public void RotateBallParent()
+    {
+        _ballParent.DOLocalRotate(new Vector3(90, 0, 0),3)
+                   .SetEase(Ease.InExpo);
+    }
+
     private IEnumerator BallInstance()
     {
         WaitForSeconds waitTime = new WaitForSeconds(0.5f);
