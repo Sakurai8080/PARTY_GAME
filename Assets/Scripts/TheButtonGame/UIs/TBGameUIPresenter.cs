@@ -13,7 +13,7 @@ public class TBGameUIPresenter : PresenterBase
     protected override void Start()
     {
         base.Start();
-        _uiActiveInput.OnClickObserver
+        _initUIButton.OnClickObserver
                       .Subscribe(_ =>
                       {
                           TBGameManager.Instance.ButtonRandomHide();

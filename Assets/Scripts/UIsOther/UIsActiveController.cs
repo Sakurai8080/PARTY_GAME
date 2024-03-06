@@ -25,7 +25,7 @@ public class UIsActiveController : MonoBehaviour
     public void ToggleUIsVisibility()
     {
         _isUIsActive = !_isUIsActive;
-        _testUIGroup.alpha = Convert.ToInt32(_isUIsActive);
         _testUIParent.gameObject.SetActive(_isUIsActive);
+        _testUIGroup.alpha = Convert.ToInt32(_isUIsActive);
     }
 }

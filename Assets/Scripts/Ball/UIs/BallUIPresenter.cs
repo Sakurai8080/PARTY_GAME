@@ -9,15 +9,29 @@ public class BallUIPresenter : PresenterBase
     [SerializeField]
     BallController _ballController;
 
+    [SerializeField]
+    CinemaChineController _cinemachineController;
+
+    [SerializeField]
+    BallFallButton _fallButton;
+
     protected override void Start()
     {
-        _uiActiveInput.OnClickObserver
+        _initUIButton.OnClickObserver
                       .Subscribe(_ =>
                       {
                           _mainUIsActivator.ToggleUIsVisibility();
-                          _uiActiveInput.gameObject.SetActive(false);
+                          _initUIButton.gameObject.SetActive(false);
                           _ballController.Setup();
                           _backGround.SetActive(false);
                       }).AddTo(this);
+        
+        _fallButton.FallButtonClickObserver
+                   .TakeUntilDestroy(this)
+                   .Subscribe(_ =>
+                   {
+                  //     _cinemachineController.;
+                       _ballController.RotateBallParent();
+                   });
     }
 }
