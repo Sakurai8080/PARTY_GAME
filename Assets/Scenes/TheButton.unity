@@ -3316,4 +3316,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainUIsActivator: {fileID: 1292415212}
-  _uiActiveInput: {fileID: 549399518}
+  _initUIButton: {fileID: 549399518}
+  _backGround: {fileID: 114150064}
