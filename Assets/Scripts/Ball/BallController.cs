@@ -8,7 +8,7 @@ using Cysharp.Threading.Tasks;
 using System.Linq;
 using UnityEngine.UI;
 
-public class BallController : MonoBehaviour
+public class BallController : SingletonMonoBehaviour<BallController>
 {
     [SerializeField]
     Transform _ballParent = default;
@@ -21,6 +21,8 @@ public class BallController : MonoBehaviour
 
     [SerializeField]
     List<Color> _ballColor = default;
+
+    List<GameObject> _ballObjList = new List<GameObject>();
 
     public void Setup()
     {
@@ -40,8 +42,23 @@ public class BallController : MonoBehaviour
 
     public void RotateBallParent()
     {
-        _ballParent.DOLocalRotate(new Vector3(90, 0, 0),3)
+        _ballParent.DOLocalRotate(new Vector3(90, 0, 0),5)
                    .SetEase(Ease.InExpo);
+    }
+
+    public void OnAllGravity()
+    {
+        List<Rigidbody> rigidbodies = new List<Rigidbody>();
+        rigidbodies.Clear();
+        rigidbodies = _ballObjList.Select(x => x.GetComponent<Rigidbody>()).ToList();
+        rigidbodies.ForEach(x => x.useGravity = true);
+        rigidbodies.ForEach(x => RandomForce(x));
+    }
+
+    private void RandomForce(Rigidbody rigidbody)
+    {
+        float randomXforce = UnityEngine.Random.Range(-50f, 50f), randomZforce = UnityEngine.Random.Range(-50f, 50f);
+        rigidbody.AddForce(randomXforce, 0, randomZforce);
     }
 
     private IEnumerator BallInstance()
@@ -49,10 +66,9 @@ public class BallController : MonoBehaviour
         WaitForSeconds waitTime = new WaitForSeconds(0.5f);
         _ballParent.gameObject.SetActive(true);
 
-        //TODO:参加人数に変更
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < NameLifeManager.Instance.GamePlayerAmount; i++)
         {
-            float angle = (360 / 8) * i + 90f;
+            float angle = (360 / NameLifeManager.Instance.GamePlayerAmount) * i + 90f;
 
             float radian = angle * Mathf.Deg2Rad;
 
@@ -60,6 +76,7 @@ public class BallController : MonoBehaviour
 
             GameObject currentBall = Instantiate(_ballPrefab, ballPos, Quaternion.identity,_ballParent);
             SetBallColor(ref currentBall, i);
+            _ballObjList.Add(currentBall);
             yield return waitTime;
         }
     }
