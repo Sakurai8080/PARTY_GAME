@@ -10,9 +10,12 @@ using System.Linq;
 
 public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
 {
+    public Dictionary<string, int> NameLifeDic => _nameLifeDic;
     public int GamePlayerAmount => _gamePlayerAmount;
 
-    Dictionary<string, int> _lifeNameDic = new Dictionary<string, int>();
+    Dictionary<string, int> _nameLifeDic = new Dictionary<string, int>();
+
+    /// <summary>参加人数</summary>
     private int _gamePlayerAmount = 0;
 
     private void Awake()
@@ -25,7 +28,7 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
         _gamePlayerAmount = name.Count();
         for (int i = 0; i < name.Count; i++)
         {
-            _lifeNameDic.Add(name[i], 0);
+            _nameLifeDic.Add(name[i], 0);
         }
     }
 }
