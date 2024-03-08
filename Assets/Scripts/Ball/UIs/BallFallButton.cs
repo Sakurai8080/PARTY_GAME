@@ -25,6 +25,7 @@ public class BallFallButton : MonoBehaviour
                        {
                            _fallButtonClickSubject.OnNext(Unit.Default);
                            gameObject.SetActive(false);
+                           BallManager.Instance.GameStateSwitcher(true);
                        });
     }
 }
