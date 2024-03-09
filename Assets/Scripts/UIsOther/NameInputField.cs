@@ -28,6 +28,7 @@ public class NameInputField : MonoBehaviour
                       {
                           NameChatch();
                           NameLifeManager.Instance.Setup(_nameList);
+                          GameManager.Instance.SceneLoader("GameSelect");
                       });
     }
 

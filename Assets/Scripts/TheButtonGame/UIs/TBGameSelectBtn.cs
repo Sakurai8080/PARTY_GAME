@@ -29,7 +29,7 @@ public class TBGameSelectBtn : MonoBehaviour
         bool isMiss = TBGameManager.Instance.MissButtonChecker(_theButton);
         if (isMiss)
         {
-            GameManager.Instance.SceneLoader("MainScene");
+            GameManager.Instance.SceneLoader("GameSelect");
             return;
         }
         else

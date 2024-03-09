@@ -12,22 +12,11 @@ using Cinemachine;
 //ボールと名前の紐づけ
 public class BallManager : SingletonMonoBehaviour<BallManager>
 {
+    public IReadOnlyReactiveProperty<bool> InGame => _inGame;
 
     public IObservable<bool> InGameObserver => _inGame;
 
     private ReactiveProperty<bool> _inGame = new ReactiveProperty<bool>();
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void GameStateSwitcher(bool onValid)
     {

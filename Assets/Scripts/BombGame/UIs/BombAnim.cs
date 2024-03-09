@@ -69,7 +69,7 @@ public class BombAnim : TweenBase
         }
         else
         {
-            GameManager.Instance.SceneLoader("MainScene");
+            GameManager.Instance.SceneLoader("GameSelect");
         }
     }
 }

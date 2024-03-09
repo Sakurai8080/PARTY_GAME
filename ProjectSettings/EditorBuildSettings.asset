@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ball.unity
     guid: c84bf02e7f54640e98673230e7727090
+  - enabled: 1
+    path: Assets/Scenes/GameSelect.unity
+    guid: 772b80857f09f4d1caa19bb83a3f5706
   m_configObjects: {}

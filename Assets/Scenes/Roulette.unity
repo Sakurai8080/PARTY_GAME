@@ -460,9 +460,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91447e8b4fc694896b3623c5c412dfd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainUIsActivator: {fileID: 805299450}
-  _initUIButton: {fileID: 45742765}
-  _backGround: {fileID: 891195983}
+  _nextActiveUIs: {fileID: 805299450}
+  _currentHideUIs: {fileID: 45742765}
   _rouletteButton: {fileID: 1493973189}
   _rouletteController: {fileID: 1499424650}
   _rouletteMaker: {fileID: 569192611}

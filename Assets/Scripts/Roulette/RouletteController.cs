@@ -34,7 +34,7 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                                                      {
                                                          _text.DOColor(Color.blue, 0);
                                                          await UniTask.Delay(TimeSpan.FromSeconds(1));
-                                                         GameManager.Instance.SceneLoader("MainScene");
+                                                         GameManager.Instance.SceneLoader("GameSelect");
                                                      });
         }
         else if (count == 0)
