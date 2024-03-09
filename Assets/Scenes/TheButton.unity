@@ -3315,6 +3315,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe85dcff0eab4c998335b774502cdc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainUIsActivator: {fileID: 1292415212}
-  _initUIButton: {fileID: 549399518}
-  _backGround: {fileID: 114150064}
+  _nextActiveUIs: {fileID: 1292415212}
+  _currentHideUIs: {fileID: 549399518}

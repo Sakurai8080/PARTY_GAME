@@ -4137,9 +4137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 025d957f5c2e1459b94308ba44eca89d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainUIsActivator: {fileID: 2052611934}
-  _initUIButton: {fileID: 91157171}
-  _backGround: {fileID: 910116706}
+  _nextActiveUIs: {fileID: 2052611934}
+  _currentHideUIs: {fileID: 91157171}
   _bombCardImageList:
   - {fileID: 1720632933}
   - {fileID: 1927839136}
