@@ -44,6 +44,7 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
 
     private void MissButtonSetter(Button button)
     {
+        Debug.Log(button);
         _allButtonDic[button] = true;
     }
 
