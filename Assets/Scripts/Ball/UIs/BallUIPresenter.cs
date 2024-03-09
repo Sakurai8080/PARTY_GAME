@@ -7,31 +7,30 @@ using UnityEngine;
 public class BallUIPresenter : PresenterBase
 {
     [SerializeField]
-    BallController _ballController;
-
-    [SerializeField]
-    CinemaChineController _cinemachineController;
-
-    [SerializeField]
     BallFallButton _fallButton;
+
+    [SerializeField]
+    GameObject _backGround = default;
 
     protected override void Start()
     {
-        _initUIButton.OnClickObserver
-                      .Subscribe(_ =>
-                      {
-                          _mainUIsActivator.ToggleUIsVisibility();
-                          _initUIButton.gameObject.SetActive(false);
-                          _ballController.Setup();
-                          _backGround.SetActive(false);
-                      }).AddTo(this);
+        _currentHideUIs.OnClickObserver
+                     .TakeUntilDestroy(this)
+                     .Subscribe(_ =>
+                     {
+                         _nextActiveUIs.ToggleUIsVisibility();
+                         _currentHideUIs.gameObject.SetActive(false);
+                         _backGround.SetActive(false);
+                         BallController.Instance.Setup();
+                     });
         
         _fallButton.FallButtonClickObserver
                    .TakeUntilDestroy(this)
                    .Subscribe(_ =>
                    {
-                  //     _cinemachineController.;
-                       _ballController.RotateBallParent();
+                       CinemaChineController.Instance.ActivateCameraChange(CameraType.cam2);
+                       CinemaChineController.Instance.DollySet();
+                       BallController.Instance.RotateBallParent();
                    });
     }
 }

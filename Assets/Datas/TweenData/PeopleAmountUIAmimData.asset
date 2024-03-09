@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c38e7286ced514ad28ea251e7801c0e8, type: 3}
-  m_Name: TweenAnimation8
+  m_Name: PeopleAmountUIAmimData
   m_EditorClassIdentifier: 
   _fadeDuration: 1
   _scaleDuration: 1
   _animationDelayTime: 0.5
-  _fadeEasing: 0
+  _fadeEasing: 11
   _scaleEasing: 11
-  _loopEasing: 25
+  _loopEasing: 11
   _loopType: 1
-  _loopColor: {r: 0.7075472, g: 0.14477804, b: 0.010012442, a: 1}
+  _loopColor: {r: 1, g: 1, b: 1, a: 1}

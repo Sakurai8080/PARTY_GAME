@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &40001970
 RectTransform:
   m_ObjectHideFlags: 0
@@ -146,13 +146,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40001969}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a200b19ca1a9685429ed7e043c28e904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Resolution: 20
+  m_Resolution: 100
   m_Appearance:
     pathColor: {r: 0, g: 1, b: 0, a: 1}
     inactivePathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -197,13 +197,15 @@ MonoBehaviour:
   m_Waypoints:
   - position: {x: 0, y: 0.20980668, z: 0}
     roll: 0
-  - position: {x: 0, y: 1.3504534, z: -6.766307}
+  - position: {x: 0, y: 2.0380208, z: -6.5128317}
     roll: 0
-  - position: {x: 0, y: 5.8131714, z: -9.329999}
+  - position: {x: 0, y: 8.004675, z: -9.012166}
     roll: 0
-  - position: {x: 0, y: 10.5058, z: -4.070339}
+  - position: {x: 0, y: 13.151617, z: -5.1162558}
     roll: 0
-  - position: {x: 0, y: 8.39, z: 3.43}
+  - position: {x: 0, y: 13.512517, z: 1.431531}
+    roll: 0
+  - position: {x: 0, y: 7.8376174, z: 3.369707}
     roll: 0
 --- !u!4 &55305528
 Transform:
@@ -213,7 +215,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 55305526}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -386,7 +388,6 @@ Transform:
   m_Children:
   - {fileID: 127633682}
   - {fileID: 55305528}
-  - {fileID: 2143875942}
   m_Father: {fileID: 1215248418}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -480,12 +481,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 87721710}
   m_LocalRotation: {x: -0.00078534114, y: 0, z: 0, w: 0.9999997}
-  m_LocalPosition: {x: 0.05, y: -0.41, z: -8.08}
+  m_LocalPosition: {x: 0, y: -0.41, z: -8.08}
   m_LocalScale: {x: 3.65, y: 0.06, z: 3.02}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -0.09, y: 0, z: 0}
 --- !u!1 &127633681
 GameObject:
@@ -511,7 +512,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127633681}
-  m_LocalRotation: {x: -0.10929078, y: -1e-45, z: -0, w: 0.99400985}
+  m_LocalRotation: {x: -0.030968498, y: 0.000000017231685, z: 5.3389543e-10, w: 0.99952036}
   m_LocalPosition: {x: 0, y: 0.20980668, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -539,7 +540,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 40001970}
-  m_Follow: {fileID: 2143875942}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 10
@@ -652,6 +653,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 414176463}
   m_CullTransparentMesh: 1
+--- !u!1 &674945057
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 674945059}
+  - component: {fileID: 674945058}
+  m_Layer: 0
+  m_Name: BallFallChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &674945058
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674945057}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.65, y: 0.63, z: 9.79}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &674945059
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674945057}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.647, z: -7.96}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &702557350
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,9 +707,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 702557351}
+  - component: {fileID: 702557353}
   - component: {fileID: 702557352}
   m_Layer: 0
-  m_Name: BallController
+  m_Name: BallManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -708,6 +755,18 @@ MonoBehaviour:
   - {r: 0, g: 1, b: 0.97150254, a: 0}
   - {r: 0.51507664, g: 0, b: 1, a: 0}
   - {r: 1, g: 1, b: 1, a: 0}
+--- !u!114 &702557353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702557350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e806b055c7bab4dda9da95cb80b6b3c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &750677538
 GameObject:
   m_ObjectHideFlags: 0
@@ -1665,6 +1724,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eefbf6619bade4e7a8c5ec283c31c26f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _virtualCamera:
+  - CameraName: InitCamera
+    Camera: {fileID: 1619506665}
+  - CameraName: DollyCamera
+    Camera: {fileID: 127633683}
 --- !u!1 &1269014079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1710,12 +1774,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094037eae4c364df896d27ca74b527c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainUIsActivator: {fileID: 925492560}
-  _initUIButton: {fileID: 875679090}
-  _backGround: {fileID: 1390000177}
-  _ballController: {fileID: 702557352}
-  _cinemachineController: {fileID: 1215248419}
+  _nextActiveUIs: {fileID: 925492560}
+  _currentHideUIs: {fileID: 875679090}
   _fallButton: {fileID: 67596535}
+  _backGround: {fileID: 1390000177}
 --- !u!1 &1328210819
 GameObject:
   m_ObjectHideFlags: 0
@@ -2667,52 +2729,3 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &2143875941
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2143875942}
-  - component: {fileID: 2143875943}
-  m_Layer: 0
-  m_Name: DollyCart1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2143875942
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2143875941}
-  m_LocalRotation: {x: -0, y: 0.9996531, z: 0.026338806, w: 0}
-  m_LocalPosition: {x: 0, y: 0.20980668, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 73073781}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2143875943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2143875941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99a9c787e5d1bbf48a389834c4a9641c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Path: {fileID: 55305527}
-  m_UpdateMethod: 0
-  m_PositionUnits: 1
-  m_Speed: 0
-  m_Position: 0

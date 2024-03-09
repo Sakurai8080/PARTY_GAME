@@ -4,28 +4,25 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
-public class PresenterBase : MonoBehaviour
+public abstract class PresenterBase : MonoBehaviour
 {
     public IObservable<Unit> MainUIActiveObserver => _mainUIActiveSubject;
 
     Subject<Unit> _mainUIActiveSubject = new Subject<Unit>();
 
     [SerializeField]
-    protected UIsActiveController _mainUIsActivator;
+    protected UIsActiveController _nextActiveUIs;
 
     [SerializeField]
-    protected ActiveUIInput _initUIButton;
-
-    [SerializeField]
-    protected GameObject _backGround;
+    protected ActiveUIInput _currentHideUIs;
 
     protected virtual void Start()
     {
-        _initUIButton.OnClickObserver
+        _currentHideUIs.OnClickObserver
                       .Subscribe(_ =>
                       {
-                          _mainUIsActivator.ToggleUIsVisibility();
-                          _initUIButton.gameObject.SetActive(false);
+                          _nextActiveUIs.ToggleUIsVisibility();
+                          _currentHideUIs.gameObject.SetActive(false);
                       }).AddTo(this);
     }
 }

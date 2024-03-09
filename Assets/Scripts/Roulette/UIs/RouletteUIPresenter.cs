@@ -22,11 +22,11 @@ public class RouletteUIPresenter : PresenterBase
 
     protected override void Start()
     {
-        _initUIButton.OnClickObserver
+        _currentHideUIs.OnClickObserver
                       .Subscribe(_ =>
                       {
-                          _mainUIsActivator.ToggleUIsVisibility();
-                          _initUIButton.gameObject.SetActive(false);
+                          _nextActiveUIs.ToggleUIsVisibility();
+                          _currentHideUIs.gameObject.SetActive(false);
                           _rouletteMaker.SetActive(true);
                        }).AddTo(this);
 
