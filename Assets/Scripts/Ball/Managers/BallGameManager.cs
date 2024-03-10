@@ -10,7 +10,7 @@ using UnityEngine.UI;
 using Cinemachine;
 
 //ボールと名前の紐づけ
-public class BallManager : SingletonMonoBehaviour<BallManager>
+public class BallGameManager : SingletonMonoBehaviour<BallGameManager>
 {
     public IReadOnlyReactiveProperty<bool> InGame => _inGame;
 

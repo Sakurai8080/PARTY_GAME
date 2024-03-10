@@ -24,7 +24,7 @@ public class NameTextController : MonoBehaviour
     {
         _nameTextRect = GetComponent<RectTransform>();
 
-        BallManager.Instance.InGameObserver
+        BallGameManager.Instance.InGameObserver
                             .TakeUntilDestroy(this)
                             .Subscribe(value =>
                             {
