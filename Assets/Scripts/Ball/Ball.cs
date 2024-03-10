@@ -11,7 +11,6 @@ using TMPro;
 
 public class Ball : MonoBehaviour
 {
-
     private TextMeshProUGUI _nameText = default;
 
     private void Start()
@@ -22,6 +21,7 @@ public class Ball : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         TextDestroy();
+        BallController.Instance.BallListRemover(this);
     }
 
     void TextDestroy()
