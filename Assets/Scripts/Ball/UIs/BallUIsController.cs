@@ -47,6 +47,7 @@ public class BallUIsController : MonoBehaviour
                            _ballNamedButon.interactable = false;
                            BallController.Instance.BallAddDictionary(_targetBall);
                            TextSetup();
+                           BallGameManager.Instance.ChooseBall();
                            NameLifeManager.Instance.NameListOrderChange();
                        });
 
