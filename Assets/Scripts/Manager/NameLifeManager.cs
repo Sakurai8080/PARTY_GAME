@@ -48,7 +48,7 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
     public void NameListOrderChange()
     {
         _currentOrder++;
-        if (_currentOrder >_gamePlayerAmount)
+        if (_currentOrder >= _gamePlayerAmount)
         {
             _currentOrder = 0;
         }

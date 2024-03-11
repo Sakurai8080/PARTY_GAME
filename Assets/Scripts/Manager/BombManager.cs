@@ -14,15 +14,11 @@ using System.Linq;
 public static class BombManager
 {
     public static bool OnExplosion => _onExplosion;
-    public static bool IsChecking => _isChecking;
-
-    private static List<Button> _allBombButton = new List<Button>(); 
 
     /// <summary>Cardを格納する</summary>
     private static Dictionary<Image, bool> _allBombdic = new Dictionary<Image, bool>();
 
     private static bool _onExplosion = false;
-    private static bool _isChecking = false; 
 
     public static bool BombInChecker(Image image)
     {
@@ -51,18 +47,12 @@ public static class BombManager
         BombRandomInstallation();
     }
 
-    public static void AddListButton(List<Button> buttons)
+    public static void AfterExplosion()
     {
-        _allBombButton.AddRange(buttons);
-    }
-
-    public static async UniTask InteractableValidTask(bool isCheck, int delayTime)
-    {
-        await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
-        _isChecking = isCheck;
-        foreach (var button in _allBombButton)
-        {
-           button.interactable = !isCheck;   
-        }
+        string loseName = NameLifeManager.Instance.CurrentNameReciever();
+        NameLifeManager.Instance.ReduceLife(loseName);
+        Debug.Log(loseName);
+        NameLifeManager.Instance.NameListOrderChange();
+        GameManager.Instance.SceneLoader("GameSelect");
     }
 }
