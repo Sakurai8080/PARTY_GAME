@@ -60,15 +60,4 @@ public class NameTextController : MonoBehaviour
                               .SetEase(Ease.InFlash);
                  });
     }
-
-    //TODO:フォールチェックはボールにつけてそこからこれを呼び出す??
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    TextDestroy();
-    //}
-
-    void TextDestroy()
-    {
-        _nameText.enabled = false;
-    }
 }
