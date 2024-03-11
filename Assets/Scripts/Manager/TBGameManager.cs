@@ -1,3 +1,5 @@
+#define DebugTBTest
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +15,13 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
     [SerializeField]
     private List<Button> _allButtonList = new List<Button>();
 
+    [SerializeField]
+    private TBGameBackGround _backGround = default;
+
+    //TODo:SEMANAGERが出来たらけす。SETest用
+    [SerializeField]
+    private AudioSource _testSE;
+
     private Dictionary<Button, bool> _allButtonDic = new Dictionary<Button, bool>();
     private TBIngamePopup _popup;
 
@@ -24,25 +33,29 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
     private void Start()
     {
         _popup = GetComponent<TBIngamePopup>();
+        _backGround = _backGround.GetComponent<TBGameBackGround>();
     }
 
     public void ButtonRandomHide()
     {
         _allButtonList.ForEach(button => button.gameObject.SetActive(false));
         int maxActiveAmount = _allButtonList.Count();
-        int activeButtonAmount = UnityEngine.Random.Range(2,maxActiveAmount+1);
+        int activeButtonAmount = UnityEngine.Random.Range(1,maxActiveAmount+1);
         for (int i = 0; i < activeButtonAmount; i++)
         {
             _allButtonList[i].gameObject.SetActive(true);
         }
         PercentCheckAndPopup(activeButtonAmount);
-        int missButtonIndex = UnityEngine.Random.Range(0,activeButtonAmount);
-        MissButtonSetter(_allButtonList[missButtonIndex]);
+        int missButtonIndex = UnityEngine.Random.Range(0, activeButtonAmount);
+        if (activeButtonAmount!=1)
+        {
+            MissButtonSetter(_allButtonList[missButtonIndex]);
+        }
     }
 
     private void MissButtonSetter(Button button)
     {
-        Debug.Log(button);
+        Debug.Log($"ハズレボタンは{button}");
         _allButtonDic[button] = true;
     }
 
@@ -55,7 +68,15 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
 
     public void PercentCheckAndPopup(int activeAmount)
     {
-        Debug.Log(activeAmount);
+        _backGround.BackGroundChange(activeAmount);
+        if (activeAmount == 1)
+        {
+#if DebugTBTest
+            _testSE.Play();
+#endif
+            _popup.PercentPopup(100);
+            return;
+        }
         int missPercent = 100 / activeAmount;
         int persistenceRate = 100 - missPercent;
         _popup.PercentPopup(persistenceRate);
