@@ -18,7 +18,6 @@ public static class AllBombAnimationController
     public static List<Tween> _allTweenList = new List<Tween>();
     private static List<Button> _allBombButton = new List<Button>();
 
-
     //プロパティを追加
     public static Color _resetColor = default;
 
