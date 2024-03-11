@@ -26,13 +26,13 @@ public class NameInputField : MonoBehaviour
                       .TakeUntilDestroy(this)
                       .Subscribe(_ =>
                       {
-                          NameChatch();
+                          NameCatch();
                           NameLifeManager.Instance.Setup(_nameList);
                           GameManager.Instance.SceneLoader("GameSelect");
                       });
     }
 
-    private void NameChatch()
+    private void NameCatch()
     {
         for (int i = 0; i < _gamePlayerAmount; i++)
         {
