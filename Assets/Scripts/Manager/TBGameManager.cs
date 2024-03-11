@@ -10,8 +10,6 @@ using System.Linq;
 
 public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
 {
-    public Dictionary<Button, bool> TestDic => _allButtonDic;
-
     [SerializeField]
     private List<Button> _allButtonList = new List<Button>();
 
