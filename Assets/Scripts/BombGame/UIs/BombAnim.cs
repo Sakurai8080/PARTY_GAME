@@ -62,10 +62,9 @@ public class BombAnim : TweenBase
                                      .OnComplete(() =>
                                      {
                                          _targetImage.gameObject.SetActive(false);
-                                         
                                      });
 
-            BombManager.InteractableValidTask(false,1).Forget();
+            AllBombAnimationController.InteractableValidTask(false,1).Forget();
         }
         else
         {

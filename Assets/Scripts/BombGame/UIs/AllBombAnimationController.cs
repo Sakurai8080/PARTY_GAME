@@ -16,10 +16,21 @@ public static class AllBombAnimationController
     //プロパティを追加
     public static List<Image> _allImagesList = new List<Image>();
     public static List<Tween> _allTweenList = new List<Tween>();
+    private static List<Button> _allBombButton = new List<Button>();
+
 
     //プロパティを追加
     public static Color _resetColor = default;
-   
+
+    private static bool _isChecking = false;
+
+    public static void InitSet(List<Button> buttons,List<Image> images)
+    {
+        AddListButton(buttons);
+        InteractableValidTask(false, 2).Forget();
+        SetCards(images);
+    }
+
     public static void ResetTransformColor()
     {
         foreach (var image in _allImagesList)
@@ -86,5 +97,20 @@ public static class AllBombAnimationController
         tween?.Kill();
         tween = null;
         tween = null;
+    }
+
+    public static void AddListButton(List<Button> buttons)
+    {
+        _allBombButton.AddRange(buttons);
+    }
+
+    public static async UniTask InteractableValidTask(bool isCheck, int delayTime)
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
+        _isChecking = isCheck;
+        foreach (var button in _allBombButton)
+        {
+            button.interactable = !isCheck;
+        }
     }
 }
