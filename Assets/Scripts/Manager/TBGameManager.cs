@@ -63,13 +63,23 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
         _popup.PercentPopup(persistenceRate);
     }
 
-    public bool MissButtonChecker(Button selectedButton)
+    public void MissButtonChecker(Button selectedButton)
     {
-        return _allButtonDic[selectedButton];
-    }
+        bool isMiss = _allButtonDic[selectedButton];
+        if (isMiss)
+        {
+            string loseName = NameLifeManager.Instance.CurrentNameReciever();
+            NameLifeManager.Instance.ReduceLife(loseName);
+            NameLifeManager.Instance.NameListOrderChange();
+            GameManager.Instance.SceneLoader("GameSelect");
+            return;
+        }
+        else
+        {
+            NameLifeManager.Instance.NameListOrderChange();
+            //Todo:PopUp機能で名前表示
 
-    public void Test(Button button)
-    {
-        Debug.Log(_allButtonDic[button]);
+            buttonReconfigure();
+        }
     }
 }
