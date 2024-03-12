@@ -10,7 +10,7 @@ using System.Linq;
 
 public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
 {
-    public Dictionary<string, int> NameLifeDic => _nameLifeDic;
+    public List<string> NameList => _nameList;
     public int GamePlayerAmount => _gamePlayerAmount;
 
     List<string> _nameList = new List<string>();
@@ -27,12 +27,15 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
 
     public void Setup(List<string> names)
     {
-        _gamePlayerAmount = names.Count();
-        for (int i = 0; i < names.Count; i++)
+        if (names.Count() >= 1)
         {
-            _nameLifeDic.Add(names[i], 3);
+            _gamePlayerAmount = names.Count();
+            for (int i = 0; i < names.Count; i++)
+            {
+                _nameLifeDic.Add(names[i], 3);
+            }
+            _nameList.AddRange(names);
         }
-        _nameList.AddRange(names);
     }
 
     public void ReduceLife(string loseName)
