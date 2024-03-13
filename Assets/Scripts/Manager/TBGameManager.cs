@@ -40,17 +40,23 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
     {
         _allButtonList.ForEach(button => button.gameObject.SetActive(false));
         int maxActiveAmount = _allButtonList.Count();
-        int activeButtonAmount = UnityEngine.Random.Range(1,maxActiveAmount+1);
-        for (int i = 0; i < activeButtonAmount; i++)
+        int activeButtonAmount = RandomAmountPass(maxActiveAmount);
+        int sqeezeButtonAmount = (activeButtonAmount == 1) ? RandomAmountPass(maxActiveAmount) : activeButtonAmount;
+        for (int i = 0; i < sqeezeButtonAmount; i++)
         {
             _allButtonList[i].gameObject.SetActive(true);
         }
-        PercentCheckAndPopup(activeButtonAmount);
-        int missButtonIndex = UnityEngine.Random.Range(0, activeButtonAmount);
-        if (activeButtonAmount!=1)
+        PercentCheckAndPopup(sqeezeButtonAmount);
+        int missButtonIndex = UnityEngine.Random.Range(0, sqeezeButtonAmount);
+        if (sqeezeButtonAmount!=1)
         {
             MissButtonSetter(_allButtonList[missButtonIndex]);
         }
+    }
+
+    public int RandomAmountPass(int maxAmount)
+    {
+        return UnityEngine.Random.Range(1, maxAmount);
     }
 
     private void MissButtonSetter(Button button)
