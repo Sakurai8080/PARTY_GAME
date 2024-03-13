@@ -11,6 +11,7 @@ using System.Linq;
 public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
 {
     public List<string> NameList => _nameList;
+    public Dictionary<string, int> NameLifeDic => _nameLifeDic;
     public int GamePlayerAmount => _gamePlayerAmount;
 
     List<string> _nameList = new List<string>();
@@ -46,6 +47,11 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
         {
             Debug.Log($"{item} : {_nameLifeDic[item]}");
         }
+    }
+
+    public int NamefromLifePass(string checkName)
+    {
+        return _nameLifeDic[checkName];
     }
 
     public void NameListOrderChange()
