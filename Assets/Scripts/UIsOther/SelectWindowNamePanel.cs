@@ -11,6 +11,10 @@ using TMPro;
 
 public class SelectWindowNamePanel : MonoBehaviour
 {
+
+    [SerializeField]
+    private Life[] _lifeUIs = default;
+
     [SerializeField]
     private List<TextMeshProUGUI> _nameTmpro = new List<TextMeshProUGUI>();
 
@@ -20,8 +24,10 @@ public class SelectWindowNamePanel : MonoBehaviour
     {
         for (int i = 0; i < NameLifeManager.Instance.GamePlayerAmount; i++)
         {
-            string currentPlayerName = $"{NameLifeManager.Instance.NameList[i]}:";
-            _nameTmpro[i].text = (currentPlayerName.Length >= 4) ? currentPlayerName.Substring(0, 3)+_semicolon : currentPlayerName;
+            string currentPlayerName = $"{NameLifeManager.Instance.NameList[i]}";
+            _lifeUIs[i].gameObject.SetActive(true);
+            _lifeUIs[i].NameRecirver(currentPlayerName);
+            _nameTmpro[i].text = (currentPlayerName.Length >= 4) ? currentPlayerName.Substring(0, 3)+_semicolon : currentPlayerName+_semicolon;
             _nameTmpro[i].gameObject.SetActive(true);
         }
     }
