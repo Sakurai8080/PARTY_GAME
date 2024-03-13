@@ -60,7 +60,8 @@ public class BallUIsController : MonoBehaviour
 
     private void TextSetup()
     {
-        _nameText.text = NameLifeManager.Instance.CurrentNameReciever();
+        string currentName = NameLifeManager.Instance.CurrentNameReciever();
+        _nameText.text = currentName.Length >= 3 ? currentName.Substring(0, 3) : currentName;
         _nameText.DOFade(1, 0.25f);
     }
 
