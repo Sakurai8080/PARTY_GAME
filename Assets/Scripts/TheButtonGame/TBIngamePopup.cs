@@ -16,7 +16,6 @@ public class TBIngamePopup : MonoBehaviour
 
     public void PercentPopup(int percent)
     {
-        _percentageText.text = $"{percent} %";
+        _percentageText.text = $"継続率{percent} %";
     }
-        
 }

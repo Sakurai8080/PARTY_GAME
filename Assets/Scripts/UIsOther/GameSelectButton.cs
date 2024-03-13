@@ -16,10 +16,14 @@ public class GameSelectButton : MonoBehaviour
 
     private GameSelectUIAnimation _gameSelectUIAnimation;
 
+    private void Awake()
+    {
+        InteractiveSet();
+    }
+
     void Start()
     {
         _gameSelectUIAnimation = GetComponent<GameSelectUIAnimation>();
-        InteractiveSet();
 
         _gameTransferBottun.OnClickAsObservable()
                              .TakeUntilDestroy(this)

@@ -14,7 +14,7 @@ public class BallController : SingletonMonoBehaviour<BallController>
     Transform _ballParent = default;
 
     [SerializeField]
-    GameObject _ballPrefab = default;
+    Ball _ballPrefab = default;
 
     [SerializeField]
     float _radius = 0.5f;
@@ -22,27 +22,18 @@ public class BallController : SingletonMonoBehaviour<BallController>
     [SerializeField]
     List<Color> _ballColor = default;
 
-    List<GameObject> _ballObjList = new List<GameObject>();
+    List<Ball> _ballObjList = new List<Ball>();
+
+    Dictionary<Ball, string> _ballNameDic = new Dictionary<Ball, string>();
 
     public void Setup()
     {
         StartCoroutine(BallInstance());
     }
 
-    private void SetBallColor(ref GameObject ball,int currentNum)
-    {
-        Renderer renderer = ball.GetComponent<Renderer>();
-        renderer.material.DOColor(_ballColor[currentNum], 0);
-        renderer.material.DOFade(0, 0f);
-        ball.SetActive(true);
-
-        renderer.material.DOFade(1, 0.75f)
-                         .SetEase(Ease.Linear);
-    }
-
     public void RotateBallParent()
     {
-        _ballParent.DOLocalRotate(new Vector3(90, 0, 0),5)
+        _ballParent.DOLocalRotate(new Vector3(90, 0, 0), 5)
                    .SetEase(Ease.InExpo);
     }
 
@@ -55,11 +46,39 @@ public class BallController : SingletonMonoBehaviour<BallController>
         rigidbodies.ForEach(x => RandomForce(x));
     }
 
+    public void BallListRemover(Ball removeball)
+    {
+        _ballObjList.Remove(removeball);
+        if (_ballObjList.Count() <= 1)
+        {
+            string remainingName = _ballNameDic[_ballObjList[0]];
+            NameLifeManager.Instance.ReduceLife(remainingName);
+            GameManager.Instance.SceneLoader("GameSelect");
+        }
+    }
+
+    public void BallAddDictionary(Ball ball)
+    {
+        _ballNameDic.Add(ball, NameLifeManager.Instance.CurrentNameReciever());
+    }
+
+    private void SetBallColor(ref Ball ball,int currentNum)
+    {
+        Renderer renderer = ball.GetComponent<Renderer>();
+        renderer.material.DOColor(_ballColor[currentNum], 0);
+        renderer.material.DOFade(0, 0f);
+        ball.gameObject.SetActive(true);
+
+        renderer.material.DOFade(1, 0.75f)
+                         .SetEase(Ease.Linear);
+    }
+
     private void RandomForce(Rigidbody rigidbody)
     {
         float randomXforce = UnityEngine.Random.Range(-50f, 50f), randomZforce = UnityEngine.Random.Range(-50f, 50f);
         rigidbody.AddForce(randomXforce, 0, randomZforce);
     }
+
 
     private IEnumerator BallInstance()
     {
@@ -74,7 +93,7 @@ public class BallController : SingletonMonoBehaviour<BallController>
 
             Vector3 ballPos = _ballParent.transform.position + new Vector3(_radius * MathF.Cos(radian), _radius * Mathf.Sin(radian),0f);
 
-            GameObject currentBall = Instantiate(_ballPrefab, ballPos, Quaternion.identity,_ballParent);
+            Ball currentBall = Instantiate(_ballPrefab, ballPos, Quaternion.identity,_ballParent);
             SetBallColor(ref currentBall, i);
             _ballObjList.Add(currentBall);
             yield return waitTime;

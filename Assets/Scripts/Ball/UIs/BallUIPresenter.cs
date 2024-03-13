@@ -15,14 +15,14 @@ public class BallUIPresenter : PresenterBase
     protected override void Start()
     {
         _currentHideUIs.OnClickObserver
-                     .TakeUntilDestroy(this)
-                     .Subscribe(_ =>
-                     {
-                         _nextActiveUIs.ToggleUIsVisibility();
-                         _currentHideUIs.gameObject.SetActive(false);
-                         _backGround.SetActive(false);
-                         BallController.Instance.Setup();
-                     });
+                       .TakeUntilDestroy(this)
+                       .Subscribe(_ =>
+                       {
+                           _nextActiveUIs.ToggleUIsVisibility();
+                           _currentHideUIs.gameObject.SetActive(false);
+                           _backGround.SetActive(false);
+                           BallController.Instance.Setup();
+                       });
         
         _fallButton.FallButtonClickObserver
                    .TakeUntilDestroy(this)

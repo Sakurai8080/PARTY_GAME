@@ -1,3 +1,5 @@
+#define DebugTBTest
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,10 +12,15 @@ using System.Linq;
 
 public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
 {
-    public Dictionary<Button, bool> TestDic => _allButtonDic;
-
     [SerializeField]
     private List<Button> _allButtonList = new List<Button>();
+
+    [SerializeField]
+    private TBGameBackGround _backGround = default;
+
+    //TODo:SEMANAGERが出来たらけす。SETest用
+    [SerializeField]
+    private AudioSource _testSE;
 
     private Dictionary<Button, bool> _allButtonDic = new Dictionary<Button, bool>();
     private TBIngamePopup _popup;
@@ -26,25 +33,35 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
     private void Start()
     {
         _popup = GetComponent<TBIngamePopup>();
+        _backGround = _backGround.GetComponent<TBGameBackGround>();
     }
 
     public void ButtonRandomHide()
     {
         _allButtonList.ForEach(button => button.gameObject.SetActive(false));
         int maxActiveAmount = _allButtonList.Count();
-        int activeButtonAmount = UnityEngine.Random.Range(2,maxActiveAmount+1);
-        for (int i = 0; i < activeButtonAmount; i++)
+        int activeButtonAmount = RandomAmountPass(maxActiveAmount);
+        int sqeezeButtonAmount = (activeButtonAmount == 1) ? RandomAmountPass(maxActiveAmount) : activeButtonAmount;
+        for (int i = 0; i < sqeezeButtonAmount; i++)
         {
             _allButtonList[i].gameObject.SetActive(true);
         }
-        PercentCheckAndPopup(activeButtonAmount);
-        int missButtonIndex = UnityEngine.Random.Range(0,activeButtonAmount);
-        MissButtonSetter(_allButtonList[missButtonIndex]);
+        PercentCheckAndPopup(sqeezeButtonAmount);
+        int missButtonIndex = UnityEngine.Random.Range(0, sqeezeButtonAmount);
+        if (sqeezeButtonAmount!=1)
+        {
+            MissButtonSetter(_allButtonList[missButtonIndex]);
+        }
+    }
+
+    public int RandomAmountPass(int maxAmount)
+    {
+        return UnityEngine.Random.Range(1, maxAmount);
     }
 
     private void MissButtonSetter(Button button)
     {
-        Debug.Log(button);
+        Debug.Log($"ハズレボタンは{button}");
         _allButtonDic[button] = true;
     }
 
@@ -57,19 +74,37 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
 
     public void PercentCheckAndPopup(int activeAmount)
     {
-        Debug.Log(activeAmount);
+        _backGround.BackGroundChange(activeAmount);
+        if (activeAmount == 1)
+        {
+#if DebugTBTest
+            _testSE.Play();
+#endif
+            _popup.PercentPopup(100);
+            return;
+        }
         int missPercent = 100 / activeAmount;
         int persistenceRate = 100 - missPercent;
         _popup.PercentPopup(persistenceRate);
     }
 
-    public bool MissButtonChecker(Button selectedButton)
+    public void MissButtonChecker(Button selectedButton)
     {
-        return _allButtonDic[selectedButton];
-    }
+        bool isMiss = _allButtonDic[selectedButton];
+        if (isMiss)
+        {
+            string loseName = NameLifeManager.Instance.CurrentNameReciever();
+            NameLifeManager.Instance.ReduceLife(loseName);
+            NameLifeManager.Instance.NameListOrderChange();
+            GameManager.Instance.SceneLoader("GameSelect");
+            return;
+        }
+        else
+        {
+            NameLifeManager.Instance.NameListOrderChange();
+            //Todo:PopUp機能で名前表示
 
-    public void Test(Button button)
-    {
-        Debug.Log(_allButtonDic[button]);
+            buttonReconfigure();
+        }
     }
 }

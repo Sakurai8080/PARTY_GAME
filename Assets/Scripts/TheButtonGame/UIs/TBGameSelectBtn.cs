@@ -19,23 +19,12 @@ public class TBGameSelectBtn : MonoBehaviour
                   .TakeUntilDestroy(this)
                   .Subscribe(_ =>
                   {
-                      TBGameManager.Instance.Test(_theButton);
                       ButtonCheck();
                   });
     }
 
     private void ButtonCheck()
     {
-        bool isMiss = TBGameManager.Instance.MissButtonChecker(_theButton);
-        if (isMiss)
-        {
-            GameManager.Instance.SceneLoader("GameSelect");
-            return;
-        }
-        else
-        {
-            //PopUp機能で名前表示してボタンをリセット
-            TBGameManager.Instance.buttonReconfigure();
-        }
+        TBGameManager.Instance.MissButtonChecker(_theButton);
     }
 }

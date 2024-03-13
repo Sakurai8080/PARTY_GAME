@@ -62,14 +62,19 @@ public class BombAnim : TweenBase
                                      .OnComplete(() =>
                                      {
                                          _targetImage.gameObject.SetActive(false);
-                                         
+                                         NameLifeManager.Instance.NameListOrderChange();
+                                         //TOdo:PopUPはここで呼び出す??
                                      });
 
-            BombManager.InteractableValidTask(false,1).Forget();
+            AllBombAnimationController.InteractableValidTask(false,1).Forget();
         }
         else
         {
-            GameManager.Instance.SceneLoader("GameSelect");
+            _bounceCount = 20;
+            _currentScaleTween = transform.DOShakeScale(2, 0.5f, _bounceCount)
+                                          .SetEase(Ease.InQuad);
+            await UniTask.Delay(TimeSpan.FromSeconds(5));
+            BombManager.AfterExplosion();
         }
     }
 }
