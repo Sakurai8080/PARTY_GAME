@@ -132,13 +132,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6852912}
+  - component: {fileID: 6852913}
   m_Layer: 0
   m_Name: P2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6852912
 RectTransform:
   m_ObjectHideFlags: 0
@@ -163,6 +164,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6852913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6852911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade85b9a926c34f1e836f8f59bc74eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LifeImages:
+  - {fileID: 1076727373}
+  - {fileID: 190771341}
+  - {fileID: 1502402122}
 --- !u!1 &9745540
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,12 +192,12 @@ GameObject:
   - component: {fileID: 9745543}
   - component: {fileID: 9745542}
   m_Layer: 0
-  m_Name: Image (4)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9745541
 RectTransform:
   m_ObjectHideFlags: 0
@@ -350,12 +367,12 @@ GameObject:
   - component: {fileID: 25832706}
   - component: {fileID: 25832705}
   m_Layer: 0
-  m_Name: Image (4)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &25832704
 RectTransform:
   m_ObjectHideFlags: 0
@@ -423,13 +440,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 54621243}
+  - component: {fileID: 54621244}
   m_Layer: 0
   m_Name: P4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &54621243
 RectTransform:
   m_ObjectHideFlags: 0
@@ -454,6 +472,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &54621244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54621242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade85b9a926c34f1e836f8f59bc74eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LifeImages:
+  - {fileID: 1797450297}
+  - {fileID: 248694717}
+  - {fileID: 281684442}
 --- !u!1 &138587554
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,12 +559,12 @@ GameObject:
   - component: {fileID: 164821635}
   - component: {fileID: 164821634}
   m_Layer: 0
-  m_Name: Image (2)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &164821633
 RectTransform:
   m_ObjectHideFlags: 0
@@ -601,12 +635,12 @@ GameObject:
   - component: {fileID: 190771342}
   - component: {fileID: 190771341}
   m_Layer: 0
-  m_Name: Image (4)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &190771340
 RectTransform:
   m_ObjectHideFlags: 0
@@ -761,12 +795,12 @@ GameObject:
   - component: {fileID: 248694718}
   - component: {fileID: 248694717}
   m_Layer: 0
-  m_Name: Image (4)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &248694716
 RectTransform:
   m_ObjectHideFlags: 0
@@ -837,12 +871,12 @@ GameObject:
   - component: {fileID: 248906764}
   - component: {fileID: 248906763}
   m_Layer: 0
-  m_Name: Image (5)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &248906762
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1048,12 +1082,12 @@ GameObject:
   - component: {fileID: 281684443}
   - component: {fileID: 281684442}
   m_Layer: 0
-  m_Name: Image (5)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &281684441
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1526,13 +1560,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 517656879}
+  - component: {fileID: 517656880}
   m_Layer: 0
   m_Name: P8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &517656879
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1557,6 +1592,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &517656880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517656878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade85b9a926c34f1e836f8f59bc74eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LifeImages:
+  - {fileID: 851411486}
+  - {fileID: 9745542}
+  - {fileID: 1669659881}
 --- !u!1 &523208361
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,13 +1617,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 523208362}
+  - component: {fileID: 523208363}
   m_Layer: 0
   m_Name: P3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &523208362
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1597,6 +1649,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &523208363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523208361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade85b9a926c34f1e836f8f59bc74eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LifeImages:
+  - {fileID: 1847255585}
+  - {fileID: 1995246696}
+  - {fileID: 933783460}
 --- !u!1 &533977731
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,13 +1674,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 533977732}
+  - component: {fileID: 533977733}
   m_Layer: 0
   m_Name: P1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &533977732
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1637,6 +1706,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &533977733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533977731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade85b9a926c34f1e836f8f59bc74eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LifeImages:
+  - {fileID: 1740890167}
+  - {fileID: 1758287904}
+  - {fileID: 1473051195}
 --- !u!1 &554031814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1649,12 +1734,12 @@ GameObject:
   - component: {fileID: 554031817}
   - component: {fileID: 554031816}
   m_Layer: 0
-  m_Name: Image (2)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &554031815
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2181,13 +2266,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 842389756}
+  - component: {fileID: 842389757}
   m_Layer: 0
   m_Name: P7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &842389756
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2212,6 +2298,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &842389757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842389755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade85b9a926c34f1e836f8f59bc74eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LifeImages:
+  - {fileID: 1077399923}
+  - {fileID: 1696754119}
+  - {fileID: 554031816}
 --- !u!1 &851411484
 GameObject:
   m_ObjectHideFlags: 0
@@ -2224,12 +2326,12 @@ GameObject:
   - component: {fileID: 851411487}
   - component: {fileID: 851411486}
   m_Layer: 0
-  m_Name: Image (3)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &851411485
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2337,12 +2439,12 @@ GameObject:
   - component: {fileID: 924471810}
   - component: {fileID: 924471809}
   m_Layer: 0
-  m_Name: Image (1)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &924471808
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2413,12 +2515,12 @@ GameObject:
   - component: {fileID: 933783461}
   - component: {fileID: 933783460}
   m_Layer: 0
-  m_Name: Image (2)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &933783459
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2657,12 +2759,12 @@ GameObject:
   - component: {fileID: 1076727374}
   - component: {fileID: 1076727373}
   m_Layer: 0
-  m_Name: Image (3)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1076727372
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2733,12 +2835,12 @@ GameObject:
   - component: {fileID: 1077399924}
   - component: {fileID: 1077399923}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1077399922
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3124,6 +3226,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5afe76d5c6147431a9d06702a06e118b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lifeUIs:
+  - {fileID: 533977733}
+  - {fileID: 6852913}
+  - {fileID: 523208363}
+  - {fileID: 54621244}
+  - {fileID: 1264226272}
+  - {fileID: 1383703617}
+  - {fileID: 842389757}
+  - {fileID: 517656880}
   _nameTmpro:
   - {fileID: 268106934}
   - {fileID: 369464447}
@@ -3310,13 +3421,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1264226271}
+  - component: {fileID: 1264226272}
   m_Layer: 0
   m_Name: P5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1264226271
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3341,6 +3453,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1264226272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264226270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade85b9a926c34f1e836f8f59bc74eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LifeImages:
+  - {fileID: 1739030073}
+  - {fileID: 924471809}
+  - {fileID: 164821634}
 --- !u!1 &1307391041
 GameObject:
   m_ObjectHideFlags: 0
@@ -3518,13 +3646,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1383703616}
+  - component: {fileID: 1383703617}
   m_Layer: 0
   m_Name: P6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1383703616
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3549,6 +3678,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1383703617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383703615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade85b9a926c34f1e836f8f59bc74eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LifeImages:
+  - {fileID: 1997537612}
+  - {fileID: 25832705}
+  - {fileID: 248906763}
 --- !u!1 &1391290979
 GameObject:
   m_ObjectHideFlags: 0
@@ -3821,12 +3966,12 @@ GameObject:
   - component: {fileID: 1473051196}
   - component: {fileID: 1473051195}
   m_Layer: 0
-  m_Name: Image (2)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1473051194
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3897,12 +4042,12 @@ GameObject:
   - component: {fileID: 1502402123}
   - component: {fileID: 1502402122}
   m_Layer: 0
-  m_Name: Image (5)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1502402121
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4346,12 +4491,12 @@ GameObject:
   - component: {fileID: 1669659882}
   - component: {fileID: 1669659881}
   m_Layer: 0
-  m_Name: Image (5)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1669659880
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4763,12 +4908,12 @@ GameObject:
   - component: {fileID: 1696754120}
   - component: {fileID: 1696754119}
   m_Layer: 0
-  m_Name: Image (1)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1696754118
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5108,12 +5253,12 @@ GameObject:
   - component: {fileID: 1739030074}
   - component: {fileID: 1739030073}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1739030072
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5184,12 +5329,12 @@ GameObject:
   - component: {fileID: 1740890168}
   - component: {fileID: 1740890167}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1740890166
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5260,12 +5405,12 @@ GameObject:
   - component: {fileID: 1758287905}
   - component: {fileID: 1758287904}
   m_Layer: 0
-  m_Name: Image (1)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1758287903
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5336,12 +5481,12 @@ GameObject:
   - component: {fileID: 1797450298}
   - component: {fileID: 1797450297}
   m_Layer: 0
-  m_Name: Image (3)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1797450296
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5412,12 +5557,12 @@ GameObject:
   - component: {fileID: 1847255586}
   - component: {fileID: 1847255585}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1847255584
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5758,12 +5903,12 @@ GameObject:
   - component: {fileID: 1995246697}
   - component: {fileID: 1995246696}
   m_Layer: 0
-  m_Name: Image (1)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1995246695
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5834,12 +5979,12 @@ GameObject:
   - component: {fileID: 1997537613}
   - component: {fileID: 1997537612}
   m_Layer: 0
-  m_Name: Image (3)
+  m_Name: Life_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1997537611
 RectTransform:
   m_ObjectHideFlags: 0
