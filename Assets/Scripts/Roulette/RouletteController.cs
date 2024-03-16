@@ -11,6 +11,10 @@ using TMPro;
 
 public class RouletteController : SingletonMonoBehaviour<RouletteController>
 {
+    public IObservable<Unit> RouletteStopObserver => _rouletteStopSubject;
+
+    private Subject<Unit> _rouletteStopSubject = new Subject<Unit>();
+
     [SerializeField]
     private GameObject _rouletteObject;
 
@@ -18,7 +22,20 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
     private TextMeshProUGUI _text;
 
     private Tween _currentTween;
-    
+    private Dictionary<double, string> _angleNameDic = new Dictionary<double, string>();
+    private List<float> _angleList = new List<float>();
+    private int _peopleAmount = 0;
+
+    private void Start()
+    {
+        _peopleAmount = NameLifeManager.Instance.GamePlayerAmount;
+    }
+
+    public void AngleNameDicAdd(float currentAngle,string name)
+    {
+        _angleNameDic.Add(currentAngle, name);
+        _angleList.Add(currentAngle);
+    }
 
     public void RouletteRotate(int count)
     {
@@ -32,6 +49,8 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                                                      .SetEase(Ease.OutBack)
                                                      .OnComplete(async () =>
                                                      {
+                                                         RouletteStop();
+                                                         DeterminePerson();
                                                          _text.DOColor(Color.blue, 0);
                                                          await UniTask.Delay(TimeSpan.FromSeconds(1));
                                                          GameManager.Instance.SceneLoader("GameSelect");
@@ -49,5 +68,36 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                                                                                                   .SetLoops(-1, LoopType.Incremental);
                                                      });
         }
+    }
+
+    private void DeterminePerson()
+    {
+        RectTransform stopRectTransform = _rouletteObject.GetComponent<RectTransform>();
+        float angle = stopRectTransform.rotation.eulerAngles.z;
+
+        if (angle <= 0)
+            angle = 360 - angle;
+
+        for (int i = 0; i < _angleList.Count; i++)
+        {
+            try
+            {
+                if (angle <= _angleList[_peopleAmount - 1 - i])
+                {
+                    double finaleRotateAmount = _angleList[_peopleAmount - 1 - i];
+                    NameLifeManager.Instance.ReduceLife(_angleNameDic[finaleRotateAmount]);
+                    break;
+                }
+            }
+            catch
+            {
+                Debug.LogError($"回転の値が正しくありません。");
+            }
+        }
+    }
+
+    private void RouletteStop()
+    {
+        _rouletteStopSubject.OnNext(Unit.Default);
     }
 }
