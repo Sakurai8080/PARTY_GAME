@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 198210767405551700}
   - component: {fileID: 198210767405551702}
   - component: {fileID: 198210767405551701}
+  - component: {fileID: 8675425071339203045}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -35,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -113.9, y: 0}
+  m_AnchoredPosition: {x: -136.9, y: 0}
   m_SizeDelta: {x: 5, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &198210767405551702
@@ -66,17 +67,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: "\u308A\u3087\u3046"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a6a066c95994847cab70a7660f8b6a47, type: 2}
-  m_sharedMaterial: {fileID: -3924827360070460352, guid: a6a066c95994847cab70a7660f8b6a47, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f160866a897c7447994b6c200f5d59eb, type: 2}
+  m_sharedMaterial: {fileID: -6289384667801655249, guid: f160866a897c7447994b6c200f5d59eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4293388263
+  m_fontColor: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -93,15 +94,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 27.8
+  m_fontSizeBase: 27.8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -135,6 +136,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8675425071339203045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198210767405551707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92e8772de3133417ebc9672b6f1348fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textMaxAmount: 3
 --- !u!1 &198210768559886957
 GameObject:
   m_ObjectHideFlags: 0
