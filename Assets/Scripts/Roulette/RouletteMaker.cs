@@ -29,10 +29,18 @@ public class RouletteMaker : MonoBehaviour
             var obj = Instantiate(_rouletteImage, _imageParentTransform);
             obj.color = _rouletteColors[(playerAmount) - 1 - i];
             obj.fillAmount = ratePerRoulette * (playerAmount - i);
-            obj.GetComponentInChildren<TextMeshProUGUI>().text = NameLifeManager.Instance.NameList[playerAmount - 1- i];
+            string currentName = NameLifeManager.Instance.NameList[playerAmount - 1 - i];
+            AngleAndNamelinker(obj.fillAmount, currentName);
+            obj.GetComponentInChildren<TextMeshProUGUI>().text = currentName;
             obj.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, ((rotatePerRoulette / 2) + rotatePerRoulette * i) - 90);
             obj.DOFade(1, 5);
         }
         var frame = Instantiate(_rouletteFrame, _imageParentTransform);
+    }
+
+    private void AngleAndNamelinker(float currentAngle, string name)
+    {
+        float angle = currentAngle * 360;
+        RouletteController.Instance.AngleNameDicAdd(angle, name);
     }
 }
