@@ -75,7 +75,7 @@ public class BallController : SingletonMonoBehaviour<BallController>
 
     private void RandomForce(Rigidbody rigidbody)
     {
-        float randomXforce = UnityEngine.Random.Range(-50f, 50f), randomZforce = UnityEngine.Random.Range(-50f, 50f);
+        float randomXforce = UnityEngine.Random.Range(-100f, 100f), randomZforce = UnityEngine.Random.Range(-100f, 100f);
         rigidbody.AddForce(randomXforce, 0, randomZforce);
     }
 
