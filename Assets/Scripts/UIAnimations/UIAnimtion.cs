@@ -6,7 +6,7 @@ namespace TweenGroup
     /// <summary>
     /// UIのアニメーションコンポーネント
     /// </summary>
-    public class PeopleAmountUIAnimtion : TweenBase
+    public class UIAnimtion : TweenBase
     {
         protected override void OnEnable()
         {
@@ -20,7 +20,7 @@ namespace TweenGroup
 
         protected override void UiLoopAnimation()
         {
-            _currentScaleTween = transform.DOScale(0.9f, _tweenData.ScaleDuration)
+            _currentScaleTween = transform.DOScale(_tweenData.ScaleAmount, _tweenData.ScaleDuration)
                                           .SetEase(_tweenData.LoopEasing)
                                           .SetLoops(-1, _tweenData.LoopType);
 
