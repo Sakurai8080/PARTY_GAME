@@ -8,12 +8,16 @@ using Cysharp.Threading.Tasks;
 using System.Linq;
 using UnityEngine.UI;
 using Cinemachine;
+using TMPro;
 
 //ボールと名前の紐づけ
 public class BallGameManager : SingletonMonoBehaviour<BallGameManager>
 {
     [SerializeField]
     private Button _fallButton = default;
+
+    [SerializeField]
+    private TextMeshProUGUI _explonationText = default;
 
     public IReadOnlyReactiveProperty<bool> InGame => _inGame;
 
@@ -28,6 +32,7 @@ public class BallGameManager : SingletonMonoBehaviour<BallGameManager>
         _chooseBallCount++;
         if (_chooseBallCount == NameLifeManager.Instance.GamePlayerAmount)
         {
+            _explonationText.gameObject.SetActive(false);
             _fallButton.gameObject.SetActive(true);
             _fallButton.image.DOFade(1, 0.25f)
                              .SetEase(Ease.InQuad);
