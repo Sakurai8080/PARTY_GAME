@@ -9,6 +9,9 @@ public class SecondsUIPresenter : PresenterBase
     [SerializeField]
     CountUpButton _countUpButton;
 
+    [SerializeField]
+    NameSecondDisplay _nameSecoundDisplay;
+
     protected override void Start()
     {
         _currentHideUIs.OnClickObserver
@@ -30,6 +33,7 @@ public class SecondsUIPresenter : PresenterBase
                           }
                           else
                           {
+                              _nameSecoundDisplay.ResultTMPActivator();
                               SecondsController.Instance.ToggleInProgress(value);
                           }
                       });
