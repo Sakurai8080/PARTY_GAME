@@ -12,18 +12,26 @@ using System.Threading;
 
 public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
 {
+    [SerializeField]
+    NameSecondDisplay _nameSecondsDisplay;
+
     Dictionary<TimeSpan, string> _timeNameDic = new Dictionary<TimeSpan, string>();
 
     TimeSpan _correctTime = TimeSpan.FromSeconds(10);
 
-    public void TimeNameAdd(TimeSpan time, string name , Action callBack = null)
+    int _resultLoseOrder = 0;
+
+    public async UniTask TimeNameAdd(TimeSpan time, string name, Action callBack = null)
     {
         _timeNameDic.Add(time, name);
         Debug.Log($"{time},{name}");
         if (_timeNameDic.Count() >= NameLifeManager.Instance.GamePlayerAmount)
         {
             ResultCheck();
+            _nameSecondsDisplay.FinalResultTextChange(_resultLoseOrder);
+            await UniTask.Delay(TimeSpan.FromSeconds(4));
             GameManager.Instance.SceneLoader("GameSelect");
+            return;
         }
         else
         {
@@ -35,6 +43,7 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
     {
         TimeSpan currentMaxGapTime = TimeSpan.MinValue;
         TimeSpan loseTime = TimeSpan.MinValue;
+        int currentOrder = 0;
         foreach (var item in _timeNameDic.Keys)
         {
             TimeSpan gap = _correctTime - item;
@@ -45,8 +54,10 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
             if (currentMaxGapTime < gap)
             {
                 currentMaxGapTime = gap;
+                _resultLoseOrder = currentOrder;
                 loseTime = item;
             }
+            currentOrder++;
         }
         string loseName = _timeNameDic[loseTime];
 

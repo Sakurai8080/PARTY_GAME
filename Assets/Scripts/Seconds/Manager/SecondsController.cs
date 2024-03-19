@@ -75,7 +75,7 @@ public class SecondsController : SingletonMonoBehaviour<SecondsController>
     private void TimeAndNamePass()
     {
         string currentName = NameLifeManager.Instance.CurrentNameReciever();
-        SecondsGameManager.Instance.TimeNameAdd(_currentTime, currentName, _resetUpCallBack);
+        SecondsGameManager.Instance.TimeNameAdd(_currentTime, currentName, _resetUpCallBack).Forget();
         NameLifeManager.Instance.NameListOrderChange();
     }
 }
