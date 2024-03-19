@@ -21,7 +21,7 @@ public class RouletteStartButtonAnim : TweenBase
     protected override void PlayAnimation()
     {
         _currentScaleTween = transform.DOScale(1, _tweenData.ScaleDuration)
-                                     .SetEase(_tweenData.ScaleEasing);
+                                      .SetEase(_tweenData.ScaleEasing);
     }
 
     public void UILoopAnimation(int clickCount)

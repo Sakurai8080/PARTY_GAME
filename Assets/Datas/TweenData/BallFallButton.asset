@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c38e7286ced514ad28ea251e7801c0e8, type: 3}
-  m_Name: TweenAnimation2
+  m_Name: BallFallButton
   m_EditorClassIdentifier: 
   _fadeDuration: 1
   _scaleDuration: 1
   _animationDelayTime: 0.5
-  _fadeEasing: 0
-  _scaleEasing: 32
-  _loopEasing: 22
+  _scaleAmount: 0.6
+  _fadeEasing: 35
+  _scaleEasing: 35
+  _loopEasing: 35
   _loopType: 1
   _loopColor: {r: 0, g: 0, b: 0, a: 0}

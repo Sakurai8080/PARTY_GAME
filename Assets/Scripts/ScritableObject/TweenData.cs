@@ -14,6 +14,7 @@ public class TweenData : ScriptableObject
     public float FadeDuration => _fadeDuration;
     public float ScaleDuration => _scaleDuration;
     public float AnimationDelayTime => _animationDelayTime;
+    public float ScaleAmount => _scaleAmount;
     public Ease FadeEasing => _fadeEasing;
     public Ease ScaleEasing => _scaleEasing;
     public Ease LoopEasing => _loopEasing;
@@ -32,6 +33,10 @@ public class TweenData : ScriptableObject
     [Tooltip("アニメーションを遅らせる時間")]
     [SerializeField]
     private float _animationDelayTime = 0.5f;
+
+    [Tooltip("スケールに使う値")]
+    [SerializeField]
+    private float _scaleAmount = 0.9f;
 
     [Tooltip("フェード用のイージング")]
     [SerializeField]
