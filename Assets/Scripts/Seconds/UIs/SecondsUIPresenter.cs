@@ -1,8 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UniRx;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
+using System.Linq;
+using TMPro;
 
 public class SecondsUIPresenter : PresenterBase
 {
@@ -24,12 +29,12 @@ public class SecondsUIPresenter : PresenterBase
 
         _countUpButton.InProgressObservable
                       .TakeUntilDestroy(this)
-                      .Subscribe(async value=>
+                      .Subscribe(value=>
                       {
                           if (value)
                           {
                               SecondsController.Instance.ToggleInProgress(value);
-                              await SecondsController.Instance.SecondsCountUpAsync();
+                              SecondsController.Instance.SecondsCountUpAsync().Forget();
                           }
                           else
                           {

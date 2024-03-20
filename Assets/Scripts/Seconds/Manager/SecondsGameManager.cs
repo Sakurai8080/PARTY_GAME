@@ -38,6 +38,7 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
             callBack?.Invoke();
         }
     }
+    
 
     private void ResultCheck()
     {
@@ -48,7 +49,7 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
         {
             TimeSpan gap = _correctTime - item;
 
-            gap = (gap < TimeSpan.Zero) ? TimeSpan.FromTicks(-gap.Ticks):gap;
+            gap = (gap < TimeSpan.Zero) ? TimeSpan.FromTicks(-gap.Ticks) : gap;
 
             Debug.Log($"<color=red>{gap}</color>");
             if (currentMaxGapTime < gap)

@@ -18,13 +18,15 @@ public class SecondsController : SingletonMonoBehaviour<SecondsController>
     [SerializeField]
     private TextMeshProUGUI _secondsText = default;
 
+    [SerializeField]
+    private Button _countToggleButton = default;
+
     private CancellationTokenSource _cancellationTokenSource;
 
     private bool _inProgress = false;
 
     private TimeSpan _currentTime = default;
     private Action _resetUpCallBack = default;
-
     private Stopwatch _stopWatch = new Stopwatch();
 
     private void Awake()
@@ -53,13 +55,18 @@ public class SecondsController : SingletonMonoBehaviour<SecondsController>
     public async UniTask SecondsCountUpAsync()
     {
         _stopWatch.Start();
+        int inactiveTime = UnityEngine.Random.Range(2, 10);
         while (_inProgress)
         {
             _currentActiveTime.Value = (float)_stopWatch.Elapsed.TotalSeconds;
             await UniTask.Yield();
+            if (_currentActiveTime.Value > inactiveTime)
+            {
+                _secondsText.DOFade(0, 0.5f).SetEase(Ease.Linear);
+            }
         }
         _stopWatch.Stop();
-        TimeAndNamePass();
+        AfterCountUp().Forget();
     }
 
     public void ToggleInProgress(bool onButton)
@@ -70,6 +77,15 @@ public class SecondsController : SingletonMonoBehaviour<SecondsController>
     public void CancelCountUp()
     {
         _cancellationTokenSource?.Cancel();
+    }
+
+    private async UniTask AfterCountUp()
+    {
+        _countToggleButton.enabled = false;
+        _secondsText.DOFade(1, 1).SetEase(Ease.Linear);
+        await UniTask.Delay(TimeSpan.FromSeconds(2));
+        TimeAndNamePass();
+        _countToggleButton.enabled = true;
     }
 
     private void TimeAndNamePass()
