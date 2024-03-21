@@ -17,7 +17,9 @@ public class NextTextAnimation : MonoBehaviour
     [SerializeField]
     private float _restartWaitTime = 0;
 
-    Button _nextButton;
+    [SerializeField]
+    private NameInputField _nameiInputField = default;
+
     RectTransform _textRect;
     Vector3 _initPosition;
     bool _inAnimation = false;
@@ -26,9 +28,13 @@ public class NextTextAnimation : MonoBehaviour
     {
         _textRect = GetComponent<RectTransform>() ;
         _initPosition = _textRect.position;
-        _nextButton = GetComponentInParent<Button>();
-        if (_nextButton.interactable)
-            TextAnimationStart();
+
+        _nameiInputField.AllEndEditObserver
+                        .TakeUntilDestroy(this)
+                        .Subscribe(_ =>
+                        {
+                            TextAnimationStart();
+                        });
     }
 
     public void TextAnimationStart()

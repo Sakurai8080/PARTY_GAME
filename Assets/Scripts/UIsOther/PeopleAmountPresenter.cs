@@ -62,7 +62,6 @@ public class PeopleAmountPresenter : MonoBehaviour
                              _nextUis.SetActive(true);
                              _currentUis.SetActive(false);
                          });
-
     }
 
     private void JoinAmountTMPControl(int choosedNum)
@@ -70,7 +69,7 @@ public class PeopleAmountPresenter : MonoBehaviour
         _joinAmount = choosedNum;
         _joinAmountDisplayTMP.text = $"{choosedNum}";
         _joinAmountDisplayTMP.transform.DOScale(0, 0);
-        _joinAmountDisplayTMP.transform.DOScale(1, 0.1f)
+        _joinAmountDisplayTMP.transform.DOScale(1, 0.2f)
                                        .SetEase(Ease.InOutBounce);
     }
 }

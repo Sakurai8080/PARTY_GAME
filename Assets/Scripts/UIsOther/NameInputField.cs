@@ -11,6 +11,8 @@ using TMPro;
 
 public class NameInputField : MonoBehaviour
 {
+    public IObservable<Unit> AllEndEditObserver => _allEndEditSubject;
+
     [SerializeField]
     TMP_InputField[] _nameField = default;
 
@@ -19,6 +21,10 @@ public class NameInputField : MonoBehaviour
 
     List<string> _nameList = new List<string>();
     private int _gamePlayerAmount = 0;
+
+    int _onEndEditCount = 0;
+
+    private Subject<Unit> _allEndEditSubject = new Subject<Unit>();
 
     private void Start()
     {
@@ -30,6 +36,18 @@ public class NameInputField : MonoBehaviour
                           NameLifeManager.Instance.Setup(_nameList);
                           GameManager.Instance.SceneLoader("GameSelect");
                       });
+
+        for (int i = 0; i < _gamePlayerAmount; i++)
+        {
+            _nameField[i].onEndEdit.AddListener(_ =>AllOnEditChecker());
+        }
+    }
+
+    private void AllOnEditChecker()
+    {
+        _onEndEditCount++;
+        if (_onEndEditCount == _gamePlayerAmount)
+            _allEndEditSubject.OnNext(Unit.Default);
     }
 
     private int NameCatch()
