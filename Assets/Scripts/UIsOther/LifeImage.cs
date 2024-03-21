@@ -9,7 +9,7 @@ using UniRx;
 using System.Linq;
 using TMPro;
 
-public class Life : MonoBehaviour
+public class LifeImage : MonoBehaviour
 {
     [SerializeField]
     private Image[] LifeImages = default;

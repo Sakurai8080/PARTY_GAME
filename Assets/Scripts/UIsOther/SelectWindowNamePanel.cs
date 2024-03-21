@@ -13,7 +13,7 @@ public class SelectWindowNamePanel : MonoBehaviour
 {
 
     [SerializeField]
-    private Life[] _lifeUIs = default;
+    private LifeImage[] _lifeUIs = default;
 
     [SerializeField]
     private List<TextMeshProUGUI> _nameTmpro = new List<TextMeshProUGUI>();
