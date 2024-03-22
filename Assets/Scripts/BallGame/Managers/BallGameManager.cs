@@ -10,35 +10,32 @@ using UnityEngine.UI;
 using Cinemachine;
 using TMPro;
 
-//ボールと名前の紐づけ
+/// <summary>
+/// ボールゲームの管理
+/// </summary>
 public class BallGameManager : SingletonMonoBehaviour<BallGameManager>
 {
-    [SerializeField]
-    private Button _fallButton = default;
-
-    [SerializeField]
-    private TextMeshProUGUI _explonationText = default;
-
-    public IReadOnlyReactiveProperty<bool> InGame => _inGame;
-
     public IObservable<bool> InGameObserver => _inGame;
+    public IReadOnlyReactiveProperty<bool> InGameReady => _inGameReady;
 
     private ReactiveProperty<bool> _inGame = new ReactiveProperty<bool>();
-
+    private ReactiveProperty<bool> _inGameReady = new ReactiveProperty<bool>();
     private int _chooseBallCount = 0;
 
+    /// <summary>
+    /// ボタンを全て選択されたら通知
+    /// </summary>
     public void ChooseBall()
     {
         _chooseBallCount++;
         if (_chooseBallCount == NameLifeManager.Instance.GamePlayerAmount)
-        {
-            _explonationText.gameObject.SetActive(false);
-            _fallButton.gameObject.SetActive(true);
-            _fallButton.image.DOFade(1, 0.25f)
-                             .SetEase(Ease.InQuad);
-        }
+            _inGameReady.Value = true;
     }
 
+    /// <summary>
+    /// ボールゲームのインゲーム確認
+    /// </summary>
+    /// <param name="onValid">ゲーム中か</param>
     public void GameStateSwitcher(bool onValid)
     {
         _inGame.Value = onValid;
