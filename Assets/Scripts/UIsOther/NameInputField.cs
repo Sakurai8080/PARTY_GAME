@@ -12,53 +12,56 @@ using TMPro;
 public class NameInputField : MonoBehaviour
 {
     public IObservable<Unit> AllEndEditObserver => _allEndEditSubject;
+    public IObservable<Unit> NamedFailObserver => _namedFailSubject;
 
     [SerializeField]
     TMP_InputField[] _nameField = default;
 
-    [SerializeField]
-    Button _nameAddButton = default;
-
-    List<string> _nameList = new List<string>();
-    private int _gamePlayerAmount = 0;
-
-    int _onEndEditCount = 0;
-
     private Subject<Unit> _allEndEditSubject = new Subject<Unit>();
+    private Subject<Unit> _namedFailSubject = new Subject<Unit>();
+    private HashSet<string> _nameSet = new HashSet<string>();
+    private int _gamePlayerAmount = 0;
+    private int _onEndEditCount = 0;
 
     private void Start()
     {
-        _nameAddButton.OnClickAsObservable()
-                      .TakeUntilDestroy(this)
-                      .Subscribe(_ =>
-                      {
-                          int nameAmount = NameCatch();
-                          NameLifeManager.Instance.Setup(_nameList);
-                          GameManager.Instance.SceneLoader("GameSelect");
-                      });
-
         for (int i = 0; i < _gamePlayerAmount; i++)
         {
-            _nameField[i].onEndEdit.AddListener(_ =>AllOnEditChecker());
+            _nameField[i].onEndEdit.AddListener(_ =>
+                                   {
+                                       AllOnEditChecker();
+                                   });
         }
     }
-
+    
     private void AllOnEditChecker()
     {
         _onEndEditCount++;
-        if (_onEndEditCount == _gamePlayerAmount)
+        Debug.Log(_onEndEditCount);
+        if (_onEndEditCount >= _gamePlayerAmount)
             _allEndEditSubject.OnNext(Unit.Default);
     }
 
-    private int NameCatch()
+    public void NameAndCountChecker()
     {
-        _nameList.Clear();
+        _nameSet.Clear();
         for (int i = 0; i < _gamePlayerAmount; i++)
         {
             string currentName =  (_nameField[i].text != "")? _nameField[i].text : $"P{i+1}" ;
-            _nameList.Add(currentName);
+            _nameSet.Add(currentName);
         }
-        return _nameList.Count();
+        if (_nameSet.Count() != _gamePlayerAmount)
+        {
+            _namedFailSubject.OnNext(Unit.Default);
+            return;
+        }
+        PassNameChecked();
+    }
+
+    private void PassNameChecked()
+    {
+        NameLifeManager.Instance.Setup(_nameSet);
+        GameManager.Instance.SceneLoader("GameSelect");
     }
 
     public void NameFieldNonAvailable(int selectAmount)
