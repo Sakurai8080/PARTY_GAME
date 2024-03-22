@@ -23,6 +23,7 @@ public class NextTextAnimation : MonoBehaviour
     RectTransform _textRect;
     Vector3 _initPosition;
     bool _inAnimation = false;
+    Coroutine _currentCoroutine;
 
     private void Start()
     {
@@ -33,20 +34,38 @@ public class NextTextAnimation : MonoBehaviour
                         .TakeUntilDestroy(this)
                         .Subscribe(_ =>
                         {
-                            TextAnimationStart();
+                            if (!_inAnimation)
+                                TextAnimationControl();
                         });
     }
 
-    public void TextAnimationStart()
+
+    private void OnDisable()
+    {
+        if(_currentCoroutine != null)
+        {
+            _currentCoroutine = null;
+        }
+    }
+
+    public void TextAnimationControl()
     {
         if (!_inAnimation)
-            StartCoroutine(UiLoopAnimationCoroutine());
+        {
+            _currentCoroutine = StartCoroutine(UiLoopAnimationCoroutine());
+        }
+        else if (_inAnimation)
+        {
+            _inAnimation = false;
+            _currentCoroutine = null;
+        }
     }
 
     private IEnumerator UiLoopAnimationCoroutine()
     {
+        _textRect.position = _initPosition;
         _inAnimation = true;
-        while (true)
+        while (_inAnimation)
         {
             yield return new WaitForSeconds(_animStartDelayTime);
             transform.DOBlendableMoveBy(new Vector3(7f, 0, 0), 0.1f)
