@@ -26,15 +26,12 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
         DontDestroyOnLoad(this);
     }
 
-    public void Setup(List<string> names)
+    public void Setup(HashSet<string> names)
     {
         if (names.Count() >= 1)
         {
             _gamePlayerAmount = names.Count();
-            for (int i = 0; i < names.Count; i++)
-            {
-                _nameLifeDic.Add(names[i], 3);
-            }
+            names.ToList().ForEach(name => _nameLifeDic.Add(name, 3));
             _nameList.AddRange(names);
         }
     }

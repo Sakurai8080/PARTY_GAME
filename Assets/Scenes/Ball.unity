@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 1}
+  m_Color: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -358,7 +358,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d5282dd96064cf5af7b27f292d0d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballFallButton: {fileID: 67596532}
 --- !u!114 &67596536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,7 +527,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127633681}
-  m_LocalRotation: {x: -0.030968519, y: -0.000000017231692, z: -5.338959e-10, w: 0.99952036}
+  m_LocalRotation: {x: -0.030968498, y: 0.000000017231685, z: 5.3389543e-10, w: 0.99952036}
   m_LocalPosition: {x: 0, y: 0.20980668, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -978,8 +977,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e806b055c7bab4dda9da95cb80b6b3c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fallButton: {fileID: 67596532}
-  _explonationText: {fileID: 1363199101}
 --- !u!1 &750677538
 GameObject:
   m_ObjectHideFlags: 0
@@ -1488,7 +1485,7 @@ GameObject:
   - component: {fileID: 959971729}
   - component: {fileID: 959971730}
   m_Layer: 5
-  m_Name: InGame_UIPanel
+  m_Name: InGame_UIs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2042,6 +2039,7 @@ MonoBehaviour:
   _nextActiveUIs: {fileID: 925492560}
   _currentHideUIs: {fileID: 875679090}
   _fallButton: {fileID: 67596535}
+  _explonationText: {fileID: 1363199101}
   _backGround: {fileID: 1390000177}
 --- !u!1 &1328210819
 GameObject:
