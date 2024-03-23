@@ -2,17 +2,22 @@ using System;
 using UniRx;
 using UnityEngine;
 
+/// <summary>
+/// プレゼンターの共通機能
+/// </summary>
 public abstract class PresenterBase : MonoBehaviour
 {
     public IObservable<Unit> MainUIActiveObserver => _mainUIActiveSubject;
 
-    Subject<Unit> _mainUIActiveSubject = new Subject<Unit>();
+    private Subject<Unit> _mainUIActiveSubject = new Subject<Unit>();
 
    
     [Header("変数")]
+    [Tooltip("次に表示するUIグループ")]
     [SerializeField]
     protected UIsActiveController _nextActiveUIs;
 
+    [Tooltip("隠すUIグループ")]
     [SerializeField]
     protected ActiveUIInput _currentHideUIs;
 
