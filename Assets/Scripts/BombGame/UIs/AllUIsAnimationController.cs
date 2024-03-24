@@ -11,29 +11,36 @@ using System.Linq;
 /// <summary>
 /// カードのTweenアニメーションのコントローラー
 /// </summary>
-public static class AllBombAnimationController
+public class AllUIsAnimationController : SingletonMonoBehaviour<AllUIsAnimationController>
 {
     //プロパティを追加
-    public static List<Image> _allImagesList = new List<Image>();
-    public static List<Tween> _allTweenList = new List<Tween>();
-    private static List<Button> _allBombButton = new List<Button>();
+    public List<Tween> _allTweenList = new List<Tween>();
+    private List<Button> _allBombButton = new List<Button>();
 
     //プロパティを追加
-    public static Color _resetColor = default;
+    public Color _resetColor = default;
 
-    private static bool _isChecking = false;
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
-    public static void InitSet(List<Button> buttons,List<Image> images)
+    /// <summary>
+    /// 初期値設定
+    /// </summary>
+    /// <param name="buttons">全カードのボタン</param>
+    /// <param name="images">全カードの画像</param>
+    public void InitSet(List<Button> buttons)
     {
         AddListButton(buttons);
         InteractableValidTask(false, 2).Forget();
-        SetCards(images);
     }
 
-    public static void ResetTransformColor()
+    public void ResetTransformColor()
     {
-        foreach (var image in _allImagesList)
+        foreach (var button in _allBombButton)
         {
+            Image image = button.image;
             image.transform.DOScale(1, 0.25f)
                                .SetEase(Ease.InBack);
             image.transform.DORotate(Vector3.zero, 0.25f)
@@ -43,7 +50,7 @@ public static class AllBombAnimationController
         }
     }
 
-    public static IEnumerator PauseTweens()
+    public IEnumerator PauseTweens()
     {
         ResetTransformColor();
         foreach (var tween in _allTweenList)
@@ -55,10 +62,9 @@ public static class AllBombAnimationController
         RestartTweens();
     }
 
-    public static void RestartTweens()
+    public void RestartTweens()
     {
-        //プロパティに修正
-        if (!BombManager.OnExplosion)
+        if (!BombManager.Instance.OnExplosion)
         {
             foreach (var tween in _allTweenList)
             {
@@ -67,30 +73,22 @@ public static class AllBombAnimationController
         }
     }
 
-    public static void SetCards(List<Image> images)
-    {
-        images.ForEach(card =>
-        {
-            _allImagesList.Add(card);
-        });
-    }
-
-    public static void TweenRemoveFromList(Tween tween)
+    public void TweenRemoveFromList(Tween tween)
     {
         _allTweenList.Remove(tween);
     }
 
-    public static void AllKillTweens()
+    public void AllKillTweens()
     {
-        foreach (var image in _allImagesList)
+        foreach (var button in _allBombButton)
         {
+            Image image = button.image;
             image.transform.DOKill();
             image.DOKill();
         }
-        _allImagesList.Clear();
     }
 
-    public static void KillTweens(Tween tween)
+    public void KillTweens(Tween tween)
     {
         tween?.Kill();
         tween?.Kill();
@@ -98,15 +96,14 @@ public static class AllBombAnimationController
         tween = null;
     }
 
-    public static void AddListButton(List<Button> buttons)
+    public void AddListButton(List<Button> buttons)
     {
         _allBombButton.AddRange(buttons);
     }
 
-    public static async UniTask InteractableValidTask(bool isCheck, int delayTime)
+    public async UniTask InteractableValidTask(bool isCheck, int delayTime)
     {
         await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
-        _isChecking = isCheck;
         foreach (var button in _allBombButton)
         {
             button.interactable = !isCheck;
