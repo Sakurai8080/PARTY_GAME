@@ -1,57 +1,68 @@
-using System;
-using System.Collections;
+#define Bomb_Debug
+
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using UniRx;
 using System.Linq;
 
 /// <summary>
 /// Bombを管理するマネージャー
 /// </summary>
-public static class BombManager
+public class BombManager : SingletonMonoBehaviour<BombManager>
 {
-    public static bool OnExplosion => _onExplosion;
 
-    /// <summary>Cardを格納する</summary>
-    private static Dictionary<Image, bool> _allBombdic = new Dictionary<Image, bool>();
+    public bool OnExplosion => _onExplosion;
 
-    private static bool _onExplosion = false;
+    private Dictionary<Image, bool> _allBombdic = new Dictionary<Image, bool>();
+    private bool _onExplosion = false;
 
-    public static bool BombInChecker(Image image)
+
+    /// <summary>
+    /// カード選択時のハズレチェック
+    /// </summary>
+    /// <param name="image">選択したカード</param>
+    /// <returns>ボムの有無</returns>
+    public bool BombInChecker(Image image)
     {
         if (_allBombdic[image])
             _onExplosion = true;
-
         return _allBombdic[image];
     }
 
-    public static void BombRandomInstallation()
+    /// <summary>
+    /// ランダムの値でボムのセット
+    /// </summary>
+    public void BombRandomInstallation()
     {
         int cardCount = _allBombdic.Count();
-        int inBombIndex = UnityEngine.Random.Range(0, cardCount);
+        int inBombIndex = Random.Range(0, cardCount);
         Image inBombImage = _allBombdic.Keys.ElementAt(inBombIndex);
         _allBombdic[inBombImage] = true;
-
-        Debug.Log(inBombImage);
+#if Bomb_Debug
+        Debug.Log($"ボムは<color=yellow>{inBombImage}</color>番目のカード");
+#endif 
     }
 
-    public static void BombSet(List<Image> images)
+    /// <summary>
+    /// ボムをセットする前に一度全てカードのセット
+    /// </summary>
+    /// <param name="images"></param>
+    public void CardSet(List<Image> images)
     {
-        images.ForEach(card =>
-        {
-            _allBombdic.Add(card, false);
-        });
+        images.ForEach(card => _allBombdic.Add(card, false));
         BombRandomInstallation();
     }
 
-    public static void AfterExplosion()
+    /// <summary>
+    /// ボムを選択したあとの処理
+    /// </summary>
+    public void AfterExplosion()
     {
         string loseName = NameLifeManager.Instance.CurrentNameReciever();
         NameLifeManager.Instance.ReduceLife(loseName);
+#if Bomb_Debug
         Debug.Log(loseName);
+#endif
         NameLifeManager.Instance.NameListOrderChange();
         GameManager.Instance.SceneLoader("GameSelect");
     }
