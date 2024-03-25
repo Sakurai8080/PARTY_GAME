@@ -8,7 +8,7 @@ using System.Linq;
 /// <summary>
 /// Bombを管理するマネージャー
 /// </summary>
-public class BombManager : SingletonMonoBehaviour<BombManager>
+public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
 {
 
     public bool OnExplosion => _onExplosion;
