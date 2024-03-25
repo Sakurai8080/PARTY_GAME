@@ -32,7 +32,7 @@ public class BombUIPresenter : PresenterBase
 
     private void Setup()
     {
-        BombManager.BombSet(_bombCardImageList);
-        AllBombAnimationController.InitSet(_bombButtonList, _bombCardImageList);
+        BombGameManager.Instance.CardSet(_bombCardImageList);
+        AllUIsAnimationController.Instance.InitSet(_bombButtonList);
     }
 }

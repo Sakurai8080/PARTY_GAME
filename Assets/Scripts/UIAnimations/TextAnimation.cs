@@ -40,6 +40,6 @@ public class TextAnimation : MonoBehaviour
                                       .SetEase(_tweenData.LoopEasing)
                                       .SetLoops(-1, _tweenData.LoopType);
 
-        AllBombAnimationController._allTweenList.Add(_currentScaleTween);
+        AllUIsAnimationController.Instance.TweenAddList(_currentScaleTween);
     }
 }

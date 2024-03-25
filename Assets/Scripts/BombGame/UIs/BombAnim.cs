@@ -9,14 +9,19 @@ using TMPro;
 /// </summary>
 public class BombAnim : TweenBase
 {
-    [Header("Variable")]
     [Tooltip("ループ時のバウンド回数")]
     [SerializeField]
     private int _bounceCount = 4;
 
+    [Tooltip("カードの番号")]
     [SerializeField]
     TextMeshProUGUI _buttonNum = default;
 
+    Action _selectedCallBack;
+
+    /// <summary>
+    /// ゲーム開始時のカードのアニメーション
+    /// </summary>
     protected override void PlayAnimation()
     {
         _currentScaleTween = transform.DOScale(1f, _tweenData.ScaleDuration)
@@ -29,14 +34,20 @@ public class BombAnim : TweenBase
                                       });
     }
 
+    /// <summary>
+    /// ゲーム開始後ループするアニメーション
+    /// </summary>
     protected override void UiLoopAnimation()
     {
         _currentScaleTween = transform.DOShakeScale(_tweenData.ScaleDuration, 0.1f, _bounceCount)
                                       .SetLoops(-1, _tweenData.LoopType);
 
-        AllBombAnimationController._allTweenList.Add(_currentScaleTween);
+        AllUIsAnimationController.Instance.TweenAddList(_currentScaleTween);
     }
 
+    /// <summary>
+    /// カードが選択されたときのアニメーション
+    /// </summary>
     public void SelectedAnimation()
     {
         transform.DOScale(1, 0.25f)
@@ -44,37 +55,53 @@ public class BombAnim : TweenBase
                  .SetDelay(0.1f)
                  .OnComplete(() =>
                  {
-                     _buttonNum.SetText("");
-                     bool inBomb = BombManager.BombInChecker(_targetImage);
-                     AllBombAnimationController.TweenRemoveFromList(CurrentScaleTween);
-                     float duration = 2f;
-                     transform.DOPunchRotation(new Vector3(180f, 270, -45), duration, 5, 1f);
-                     BombAnimation((int)duration + 1, inBomb).Forget();
+                     BombCheckAndAnimation();
                  });
     }
 
-    private async UniTask BombAnimation(int delayTime, bool inBomb)
+    /// <summary>
+    /// カード選択後のボム有無チェック
+    /// </summary>
+    private void BombCheckAndAnimation()
+    {
+        _buttonNum.SetText("");
+        bool inBomb = BombGameManager.Instance.BombInChecker(_targetImage);
+        AllUIsAnimationController.Instance.TweenRemoveFromList(CurrentScaleTween);
+        float duration = 2f;
+        transform.DOPunchRotation(new Vector3(180f, 270, -45), duration, 5, 1f);
+        (inBomb ? InBombAnimation((int)duration + 1) : NonBombAnimation((int)duration + 1)).Forget();
+    }
+
+    /// <summary>
+    /// カードにボムが入っていなかったときのアニメーション
+    /// </summary>
+    /// <param name="delayTime">遅らせる時間</param>
+    private async UniTask NonBombAnimation(int delayTime,Action callback = null)
     {
         await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
-        if (!inBomb)
-        {
-            _targetImage.DOFade(0, 1).SetEase(Ease.InSine)
-                                     .OnComplete(() =>
-                                     {
-                                         _targetImage.gameObject.SetActive(false);
-                                         NameLifeManager.Instance.NameListOrderChange();
-                                         //TOdo:PopUPはここで呼び出す??
-                                     });
+        _targetImage.DOFade(0, 1).SetEase(Ease.InSine)
+                                 .OnComplete(() =>
+                                 {
+                                     _targetImage.gameObject.SetActive(false);
+                                     NameLifeManager.Instance.NameListOrderChange();
+                                 });
 
-            AllBombAnimationController.InteractableValidTask(false,1).Forget();
-        }
-        else
-        {
-            _bounceCount = 20;
-            _currentScaleTween = transform.DOShakeScale(2, 0.5f, _bounceCount)
-                                          .SetEase(Ease.InQuad);
-            await UniTask.Delay(TimeSpan.FromSeconds(5));
-            BombManager.AfterExplosion();
-        }
+        AllUIsAnimationController.Instance.InteractableValidTask(true, 1).Forget();
+        callback?.Invoke();
+    }
+
+    /// <summary>
+    /// カードにボムが入っていたときのアニメーション
+    /// </summary>
+    /// <param name="delayTime">遅らせる時間</param>
+    private async UniTask InBombAnimation(int delayTime, Action callback = null)
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
+        _bounceCount = 10;
+        _currentScaleTween = transform.DOShakeScale(2, 0.5f, _bounceCount);
+        delayTime = 4;
+        await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
+        BombGameManager.Instance.AfterExplosion();
+        callback?.Invoke();
     }
 }
