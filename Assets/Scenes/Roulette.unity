@@ -516,8 +516,6 @@ MonoBehaviour:
   _nextActiveUIs: {fileID: 805299450}
   _currentHideUIs: {fileID: 45742765}
   _rouletteButton: {fileID: 1493973189}
-  _rouletteController: {fileID: 1499424650}
-  _rouletteMaker: {fileID: 569192611}
 --- !u!1 &520288100
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,6 +545,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 569192613}
   - {fileID: 1290226951}
   - {fileID: 1549542293}
   m_Father: {fileID: 805299447}
@@ -581,7 +580,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &569192612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,16 +595,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _imageParentTransform: {fileID: 1290226951}
   _rouletteColors:
-  - {r: 0.3679245, g: 0.071155205, b: 0.071155205, a: 0}
-  - {r: 0.12896049, g: 0.13417423, b: 0.4339623, a: 0}
-  - {r: 0.09772159, g: 0.33962262, b: 0.11244597, a: 0}
-  - {r: 0.3773585, g: 0.36513814, b: 0.105019584, a: 0}
-  - {r: 0.30367395, g: 0.12304201, b: 0.3301887, a: 0}
-  - {r: 0.4433962, g: 0.2690027, b: 0.16104484, a: 0}
-  - {r: 0.16647385, g: 0.36165005, b: 0.4056604, a: 0}
-  - {r: 0.509434, g: 0.15619439, b: 0.4488786, a: 0}
+  - {r: 0.3679245, g: 0.071155205, b: 0.071155205, a: 1}
+  - {r: 0.12896049, g: 0.13417423, b: 0.4339623, a: 1}
+  - {r: 0.09772159, g: 0.33962262, b: 0.11244597, a: 1}
+  - {r: 0.3773585, g: 0.36513814, b: 0.105019584, a: 1}
+  - {r: 0.30367395, g: 0.12304201, b: 0.3301887, a: 1}
+  - {r: 0.4433962, g: 0.2690027, b: 0.16104484, a: 1}
+  - {r: 0.16647385, g: 0.36165005, b: 0.4056604, a: 1}
+  - {r: 0.509434, g: 0.15619439, b: 0.4488786, a: 1}
   _rouletteImage: {fileID: 5460592026221630733, guid: ed729f25ebb4b437f84cfe0511b6e21a, type: 3}
-  _rouletteFrame: {fileID: 2859901393570604356, guid: 291076debd22647598ec562aafc50e53, type: 3}
 --- !u!4 &569192613
 Transform:
   m_ObjectHideFlags: 0
@@ -613,13 +611,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 569192611}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -193.5, y: -332.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 520288101}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &672544372
 GameObject:
@@ -1170,11 +1168,11 @@ RectTransform:
   m_GameObject: {fileID: 1290226950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 520288101}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1379,7 +1377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rouletteObject: {fileID: 1290226950}
-  _text: {fileID: 1657378027}
+  _rotateStartTMP: {fileID: 0}
 --- !u!4 &1499424651
 Transform:
   m_ObjectHideFlags: 0
@@ -1426,7 +1424,7 @@ RectTransform:
   - {fileID: 1493973185}
   - {fileID: 316828661}
   m_Father: {fileID: 520288101}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1829,7 +1827,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1831301448
 GameObject:
@@ -1983,7 +1981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5460592026221630738, guid: ed729f25ebb4b437f84cfe0511b6e21a, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5460592026221630738, guid: ed729f25ebb4b437f84cfe0511b6e21a, type: 3}
       propertyPath: m_AnchorMax.x

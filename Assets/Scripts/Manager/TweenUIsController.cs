@@ -7,7 +7,7 @@ public class TweenUIsController : SingletonMonoBehaviour<TweenUIsController>
 {
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
     }
 
     /// <summary>
