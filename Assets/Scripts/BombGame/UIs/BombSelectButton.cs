@@ -1,15 +1,15 @@
-using System;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-using TMPro;
 
+/// <summary>
+/// 選択するカードのボタン
+/// </summary>
 public class BombSelectButton : MonoBehaviour
 {
+    [Header("カードに付くボタン")]
     [SerializeField]
-    Button _bombButton = default;
+    private Button _bombButton = default;
 
     private BombAnim _bombAnim;
 
@@ -21,8 +21,7 @@ public class BombSelectButton : MonoBehaviour
                    .TakeUntilDestroy(this)
                    .Subscribe(_ =>
                    {
-                       AllUIsAnimationController.Instance.InitButtonSetUp(_bombAnim.InitialColor);
-                       StartCoroutine(AllUIsAnimationController.Instance.PauseTweens());
+                       BombUIsAnimationController.Instance.CardSelected(_bombAnim);
                        _bombAnim.SelectedAnimation();
                    });
     }

@@ -1,24 +1,21 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-using DG.Tweening;
 using Cysharp.Threading.Tasks;
-using System.Linq;
 using UnityEngine.UI;
-
 
 /// <summary>
 /// BombGameのUI同士を仲介するプレゼンター
 /// </summary>
 public class BombUIPresenter : PresenterBase
 {
+    [Tooltip("カードの画像")]
     [SerializeField]
-    List<Image> _bombCardImageList = new List<Image>();
+    private List<Image> _bombCardImageList = new List<Image>();
 
+    [Tooltip("カードのボタン")]
     [SerializeField]
-    List<Button> _bombButtonList = new List<Button>();
+    private List<Button> _bombButtonList = new List<Button>();
 
     protected override void Start()
     {
@@ -33,6 +30,6 @@ public class BombUIPresenter : PresenterBase
     private void Setup()
     {
         BombGameManager.Instance.CardSet(_bombCardImageList);
-        AllUIsAnimationController.Instance.InitSet(_bombButtonList);
+        BombUIsAnimationController.Instance.InitSet(_bombButtonList);
     }
 }

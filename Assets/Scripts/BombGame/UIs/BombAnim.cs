@@ -42,7 +42,7 @@ public class BombAnim : TweenBase
         _currentScaleTween = transform.DOShakeScale(_tweenData.ScaleDuration, 0.1f, _bounceCount)
                                       .SetLoops(-1, _tweenData.LoopType);
 
-        AllUIsAnimationController.Instance.TweenAddList(_currentScaleTween);
+        BombUIsAnimationController.Instance.TweenAddList(_currentScaleTween);
     }
 
     /// <summary>
@@ -66,7 +66,7 @@ public class BombAnim : TweenBase
     {
         _buttonNum.SetText("");
         bool inBomb = BombGameManager.Instance.BombInChecker(_targetImage);
-        AllUIsAnimationController.Instance.TweenRemoveFromList(CurrentScaleTween);
+        BombUIsAnimationController.Instance.TweenRemoveFromList(CurrentScaleTween);
         float duration = 2f;
         transform.DOPunchRotation(new Vector3(180f, 270, -45), duration, 5, 1f);
         (inBomb ? InBombAnimation((int)duration + 1) : NonBombAnimation((int)duration + 1)).Forget();
@@ -86,7 +86,7 @@ public class BombAnim : TweenBase
                                      NameLifeManager.Instance.NameListOrderChange();
                                  });
 
-        AllUIsAnimationController.Instance.InteractableValidTask(true, 1).Forget();
+        BombUIsAnimationController.Instance.InteractableValidTask(true, 1).Forget();
         callback?.Invoke();
     }
 

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// <summary>
 /// カードのTweenアニメーションのコントローラー
 /// </summary>
-public class AllUIsAnimationController : SingletonMonoBehaviour<AllUIsAnimationController>
+public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimationController>
 {
     private List<Tween> _allTweenList = new List<Tween>();
     private List<Button> _allBombButton = new List<Button>();
@@ -31,14 +31,10 @@ public class AllUIsAnimationController : SingletonMonoBehaviour<AllUIsAnimationC
         InteractableValidTask(true, 2.5f).Forget();
     }
 
-    /// <summary>
-    /// ボタンクリックに登録するセットアップ処理
-    /// </summary>
-    /// <param name="color">初期カラー</param>
-    public void InitButtonSetUp(Color color)
+    public void CardSelected(BombAnim initColor)
     {
-        InteractableValidTask(false, 0).Forget();
-        _resetColor = color;
+        InitButtonSetUp(initColor.InitialColor);
+        StartCoroutine(PauseTweens());
     }
 
     /// <summary>
@@ -54,19 +50,6 @@ public class AllUIsAnimationController : SingletonMonoBehaviour<AllUIsAnimationC
             image?.DOFade(1, 0.25f);
             image?.DOColor(_resetColor, 0.25f);
         }
-    }
-
-    /// <summary>
-    /// カード選択時に全てのアニメーションを一時停止
-    /// </summary>
-    /// <returns>待機時間</returns>
-    public IEnumerator PauseTweens()
-    {
-        ResetTransformColor();
-        foreach (var tween in _allTweenList)
-            tween.Pause();
-        yield return new WaitForSeconds(3f);
-        RestartTweens();
     }
 
     /// <summary>
@@ -113,18 +96,6 @@ public class AllUIsAnimationController : SingletonMonoBehaviour<AllUIsAnimationC
     }
 
     /// <summary>
-    /// 特定のTween削除
-    /// </summary>
-    /// <param name="tween">削除するTween</param>
-    public void KillTweens(Tween tween)
-    {
-        tween?.Kill();
-        tween?.Kill();
-        tween = null;
-        tween = null;
-    }
-
-    /// <summary>
     /// 
     /// </summary>
     /// <param name="buttons"></param>
@@ -144,5 +115,28 @@ public class AllUIsAnimationController : SingletonMonoBehaviour<AllUIsAnimationC
         await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
         foreach (var button in _allBombButton)
             button.interactable = toggle;
+    }
+
+    /// <summary>
+    /// ボタンクリックに登録するセットアップ処理
+    /// </summary>
+    /// <param name="color">初期カラー</param>
+    private void InitButtonSetUp(Color color)
+    {
+        InteractableValidTask(false, 0).Forget();
+        _resetColor = color;
+    }
+
+    /// <summary>
+    /// カード選択時に全てのアニメーションを一時停止
+    /// </summary>
+    /// <returns>待機時間</returns>
+    private IEnumerator PauseTweens()
+    {
+        ResetTransformColor();
+        foreach (var tween in _allTweenList)
+            tween.Pause();
+        yield return new WaitForSeconds(3f);
+        RestartTweens();
     }
 }

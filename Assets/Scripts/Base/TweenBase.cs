@@ -45,8 +45,8 @@ public abstract class TweenBase : MonoBehaviour
     protected virtual void OnDisable()
     {
         ImageAlphaController(_targetImage, 1);
-        AllUIsAnimationController.Instance.KillTweens(_currentFadeTween);
-        AllUIsAnimationController.Instance.KillTweens(_currentScaleTween);
+        TweenUIsController.Instance.KillTweens(_currentFadeTween);
+        TweenUIsController.Instance.KillTweens(_currentScaleTween);
     }
 
     protected virtual void Start()
