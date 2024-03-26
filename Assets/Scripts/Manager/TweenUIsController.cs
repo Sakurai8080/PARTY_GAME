@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
-using UnityEngine;
 
+/// <summary>
+/// シーン上のUIアニメーションに共通するコントロール機能
+/// </summary>
 public class TweenUIsController : SingletonMonoBehaviour<TweenUIsController>
 {
-
     private void Awake()
     {
         DontDestroyOnLoad(this);
