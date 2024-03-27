@@ -25,7 +25,7 @@ public class TBGameUIPresenter : PresenterBase
                       });
         }
 
-        _currentHideUIs.OnClickObserver
+        _activeSwitchButton.OnClickObserver
                       .Subscribe(_ =>
                       {
                           TBGameManager.Instance.ButtonRandomHide();

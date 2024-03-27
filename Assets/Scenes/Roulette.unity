@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 45742766}
   - component: {fileID: 45742768}
   - component: {fileID: 45742767}
-  - component: {fileID: 45742765}
   m_Layer: 5
   m_Name: TitleUI_Group
   m_TagString: Untagged
@@ -142,19 +141,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &45742765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45742764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5885ea5b9ab3141fe8ff4d58e42c50c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _toggleButton: {fileID: 73980821}
 --- !u!224 &45742766
 RectTransform:
   m_ObjectHideFlags: 0
@@ -208,8 +194,8 @@ GameObject:
   - component: {fileID: 73980824}
   - component: {fileID: 73980822}
   - component: {fileID: 73980821}
-  - component: {fileID: 73980823}
   - component: {fileID: 73980826}
+  - component: {fileID: 73980827}
   m_Layer: 5
   m_Name: ActiveSwitchButton
   m_TagString: Untagged
@@ -291,18 +277,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &73980823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 73980820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03e0e6871cfad4a05a4d65348ec1bf78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &73980824
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -347,6 +321,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 4.36, y: -5.05}
   m_UseGraphicAlpha: 1
+--- !u!114 &73980827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73980820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5885ea5b9ab3141fe8ff4d58e42c50c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _toggleButton: {fileID: 73980821}
 --- !u!1 &197171502
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,8 +500,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91447e8b4fc694896b3623c5c412dfd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nextActiveUIs: {fileID: 805299450}
-  _currentHideUIs: {fileID: 45742765}
+  _hideUIGroup: {fileID: 45742767}
+  _activeSwitchButton: {fileID: 73980827}
+  _inGameUIGroup: {fileID: 805299448}
+  _InGameUIsParent: {fileID: 520288100}
   _rouletteButton: {fileID: 1493973189}
 --- !u!1 &520288100
 GameObject:
@@ -880,7 +869,6 @@ GameObject:
   - component: {fileID: 805299447}
   - component: {fileID: 805299449}
   - component: {fileID: 805299448}
-  - component: {fileID: 805299450}
   m_Layer: 5
   m_Name: MainGame_Group
   m_TagString: Untagged
@@ -929,20 +917,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805299446}
   m_CullTransparentMesh: 1
---- !u!114 &805299450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 805299446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fce35c4e0b19d4ff8b39c453662ea16a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _testUIGroup: {fileID: 805299448}
-  _testUIParent: {fileID: 520288100}
 --- !u!1 &891195983
 GameObject:
   m_ObjectHideFlags: 0

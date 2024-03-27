@@ -15,7 +15,7 @@ public abstract class TweenBase : MonoBehaviour
     public Tween CurrentFadeTween => _currentFadeTween;
     public Tween CurrentScaleTween => _currentScaleTween;
 
-    [Header("変数s")]
+    [Header("変数")]
     [Tooltip("Tweenのスクリタブルオブジェクト")]
     [SerializeField]
     protected TweenData _tweenData;

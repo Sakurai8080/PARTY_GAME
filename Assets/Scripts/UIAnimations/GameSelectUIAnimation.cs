@@ -1,17 +1,19 @@
-using System;
-using UnityEngine;
+using System.Collections.Generic;
 using DG.Tweening;
+using UnityEngine;
 using UnityEngine.UI;
-using UniRx;
 
 /// <summary>
-/// UIのアニメーションコンポーネント
+/// ゲームセレクトUIのアニメーション
 /// </summary>
 public class GameSelectUIAnimation : MonoBehaviour
 {
+    [Header("変数")]
+    [Tooltip("動かすイメージ")]
     [SerializeField]
     private Image _targetImage = default;
 
+    [Tooltip("ゲームの種類")]
     [SerializeField]
     private GameType _gameType = default;
 
@@ -23,6 +25,14 @@ public class GameSelectUIAnimation : MonoBehaviour
         AnimationSetup();
     }
 
+    private void OnDisable()
+    {
+        TweenUIsController.Instance.KillTweens(new List<Tween> {_currentFadeTween, _currentScaleTween });
+    }
+
+    /// <summary>
+    /// 選択済みでなければアニメーション開始
+    /// </summary>
     private void AnimationSetup()
     {
         bool isSelected = GameManager.Instance.SelectedChecker(_gameType);
@@ -30,6 +40,9 @@ public class GameSelectUIAnimation : MonoBehaviour
             UiLoopAnimation();
     }
 
+    /// <summary>
+    /// アニメーションのループ
+    /// </summary>
     private void UiLoopAnimation()
     {
         _currentScaleTween = transform.DOScale(0.9f, 1f)
@@ -40,11 +53,5 @@ public class GameSelectUIAnimation : MonoBehaviour
                                          .SetEase(Ease.InBounce)
                                          .SetLoops(-1, LoopType.Yoyo);
 
-    }
-
-    public void CurrentTweendKill()
-    {
-        _currentFadeTween?.Kill();
-        _currentScaleTween?.Kill();
     }
 }

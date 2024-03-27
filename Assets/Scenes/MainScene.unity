@@ -4760,7 +4760,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animStartDelayTime: 0.3
   _restartWaitTime: 0.4
-  _nameiInputField: {fileID: 132358662}
 --- !u!1 &1093556412
 GameObject:
   m_ObjectHideFlags: 0
@@ -7191,7 +7190,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animStartDelayTime: 0.2
   _restartWaitTime: 0.5
-  _nameiInputField: {fileID: 132358662}
 --- !u!1 &1755256041
 GameObject:
   m_ObjectHideFlags: 0
@@ -8370,7 +8368,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animStartDelayTime: 0.1
   _restartWaitTime: 0.6
-  _nameiInputField: {fileID: 132358662}
 --- !u!1 &1865418804
 GameObject:
   m_ObjectHideFlags: 0

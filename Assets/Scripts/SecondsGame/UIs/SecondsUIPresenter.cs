@@ -17,12 +17,12 @@ public class SecondsUIPresenter : PresenterBase
 
     protected override void Start()
     {
-        _currentHideUIs.OnClickObserver
+        _activeSwitchButton.OnClickObserver
                        .TakeUntilDestroy(this)
                        .Subscribe(_ =>
                        {
-                           _nextActiveUIs.ToggleUIsVisibility();
-                           _currentHideUIs.gameObject.SetActive(false);
+                           //_nextActiveUIs.ToggleUIsVisibility();
+                           _activeSwitchButton.gameObject.SetActive(false);
                        });
 
         _countUpButton.InProgressObservable

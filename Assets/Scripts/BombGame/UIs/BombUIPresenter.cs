@@ -20,7 +20,7 @@ public class BombUIPresenter : PresenterBase
     protected override void Start()
     {
         base.Start();
-        _currentHideUIs.OnClickObserver
+        _activeSwitchButton.OnClickObserver
                       .Subscribe(_ =>
                       {
                           Setup();

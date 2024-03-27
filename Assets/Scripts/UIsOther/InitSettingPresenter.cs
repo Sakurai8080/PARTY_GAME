@@ -1,15 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-using System.Linq;
 using TMPro;
 
-public class PeopleAmountPresenter : MonoBehaviour
+public class InitSettingPresenter : MonoBehaviour
 {
     [SerializeField]
     GameObject _nextUis = default;
@@ -57,7 +52,7 @@ public class PeopleAmountPresenter : MonoBehaviour
                                 if (!transitionButton.interactable)
                                 {
                                     transitionButton.interactable = true;
-                                    NextTextAnimationSwitch();
+                                    StartNextTextAnimation();
                                 }
                             });
         }
@@ -71,7 +66,7 @@ public class PeopleAmountPresenter : MonoBehaviour
                                  _nameInputField.NameFieldNonAvailable(_joinAmount);
                                  _nextUis.SetActive(true);
                                  _currentUis.SetActive(false);
-                                 NextTextAnimationSwitch();
+                                 KillNextTextAnimation();
                              }
                              else
                                  _nameInputField.NameAndCountChecker();
@@ -87,14 +82,28 @@ public class PeopleAmountPresenter : MonoBehaviour
                        {
                            NamedFailSwitch(true);
                            transitionButton.interactable = true;
-                           NextTextAnimationSwitch();
+                           StartNextTextAnimation();
                        });
+
+        _nameInputField.AllEndEditObserver
+                       .TakeUntilDestroy(this)
+                       .Subscribe(_ => StartNextTextAnimation());
     }
 
-    private void NextTextAnimationSwitch()
+    private void StartNextTextAnimation()
     {
         for (int i = 0; i < _nextTextAnimations.Length; i++)
-            _nextTextAnimations[i].TextAnimationControl();
+        {
+            _nextTextAnimations[i].MakeTweenSequence();
+        }
+    }
+
+    private void KillNextTextAnimation()
+    {
+        for (int i = 0; i < _nextTextAnimations.Length; i++)
+        {
+            _nextTextAnimations[i].StopTween();
+        }
     }
 
     private void NamedFailSwitch(bool valid)

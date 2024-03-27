@@ -38,12 +38,12 @@ public class BallUIPresenter : PresenterBase
                              });
 
         //ゲーム説明画面のボタン押下購読
-        _currentHideUIs.OnClickObserver
+        _activeSwitchButton.OnClickObserver
                        .TakeUntilDestroy(this)
                        .Subscribe(_ =>
                        {
-                           _nextActiveUIs.ToggleUIsVisibility();
-                           _currentHideUIs.gameObject.SetActive(false);
+                           //_nextActiveUIs.ToggleUIsVisibility();
+                           _activeSwitchButton.gameObject.SetActive(false);
                            _backGround.SetActive(false);
                            BallController.Instance.Setup();
                        });

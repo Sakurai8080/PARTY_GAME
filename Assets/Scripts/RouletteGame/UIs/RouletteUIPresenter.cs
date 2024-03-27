@@ -7,7 +7,6 @@ using Cysharp.Threading.Tasks;
 /// </summary>
 public class RouletteUIPresenter : PresenterBase
 {
-    [Header("変数")]
     [Tooltip("ルーレットのボタン")]
     [SerializeField]
     private RouletteButton _rouletteButton;
@@ -16,13 +15,8 @@ public class RouletteUIPresenter : PresenterBase
 
     protected override void Start()
     {
+        base.Start();
         _rouletteStartButtonAnim = _rouletteButton.GetComponent<RouletteStartButtonAnim>();
-        _currentHideUIs.OnClickObserver
-                       .Subscribe(_ =>
-                       {
-                           _nextActiveUIs.ToggleUIsVisibility();
-                           _currentHideUIs.gameObject.SetActive(false);
-                       }).AddTo(this);
 
         _rouletteButton.RouletteButtonClickObserver.TakeUntilDestroy(this)
                                                    .Subscribe(clickCount =>
