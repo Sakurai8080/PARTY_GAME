@@ -1,18 +1,30 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-using DG.Tweening;
 using Cysharp.Threading.Tasks;
-using System.Linq;
-using UnityEngine.UI;
 
+/// <summary>
+/// ボタンゲームのUIプレゼンター
+/// </summary>
 public class TBGameUIPresenter : PresenterBase
 {
+    [Tooltip("各セレクトボタン")]
+    [SerializeField]
+    private TBGameSelectBtn[] _button = default;
+
     protected override void Start()
     {
         base.Start();
+
+        for (int i = 0; i < _button.Length; i++)
+        {
+            _button[i].SelectedObsever
+                      .TakeUntilDestroy(this)
+                      .Subscribe(button =>
+                      {
+                          TBGameManager.Instance.MissButtonChecker(button);
+                      });
+        }
+
         _currentHideUIs.OnClickObserver
                       .Subscribe(_ =>
                       {

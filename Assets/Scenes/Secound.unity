@@ -832,7 +832,7 @@ MonoBehaviour:
   _nextActiveUIs: {fileID: 1247330441}
   _currentHideUIs: {fileID: 1204726179}
   _countUpButton: {fileID: 1385779915}
-  _nameSecoundDisplay: {fileID: 1060473117}
+  _seconsDisplay: {fileID: 1060473117}
 --- !u!1 &603441282
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,7 +1844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentSecondTMP: {fileID: 1272289714}
-  _nameSecoundTMP:
+  _SecoundTMPList:
   - {fileID: 1815939576}
   - {fileID: 1203591851}
   - {fileID: 893124067}

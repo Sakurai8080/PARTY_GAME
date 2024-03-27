@@ -3488,8 +3488,6 @@ MonoBehaviour:
   - {fileID: 41530110}
   - {fileID: 1460965711}
   - {fileID: 1703362613}
-  _backGround: {fileID: 160031807}
-  _testSE: {fileID: 1350392086}
 --- !u!4 &1999079842
 Transform:
   m_ObjectHideFlags: 0
@@ -3913,3 +3911,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nextActiveUIs: {fileID: 1292415212}
   _currentHideUIs: {fileID: 549399518}
+  _button:
+  - {fileID: 840096638}
+  - {fileID: 657755657}
+  - {fileID: 41530113}
+  - {fileID: 1460965714}
+  - {fileID: 1703362616}
