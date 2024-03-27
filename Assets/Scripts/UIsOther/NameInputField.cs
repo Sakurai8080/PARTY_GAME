@@ -27,14 +27,18 @@ public class NameInputField : MonoBehaviour
     {
         for (int i = 0; i < _gamePlayerAmount; i++)
         {
-            _nameField[i].onEndEdit.AddListener(_ => AllOnEditChecker());
+            _nameField[i].onEndEdit.AddListener(inputName =>
+                                   {
+                                       AllOnEditChecker(inputName);
+                                   });
         }
     }
-    
-    private void AllOnEditChecker()
+
+    private void AllOnEditChecker(string name)
     {
-        _onEndEditCount++;
-        Debug.Log(_onEndEditCount);
+        if (name.Length >= 1)
+            _onEndEditCount++;
+
         if (_onEndEditCount >= _gamePlayerAmount)
             _allEndEditSubject.OnNext(Unit.Default);
     }

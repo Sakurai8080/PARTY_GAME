@@ -14,8 +14,6 @@ public class GameSelectButton : MonoBehaviour
     [SerializeField]
     private GameType _gameType = default;
 
-    private GameSelectUIAnimation _gameSelectUIAnimation;
-
     private void Awake()
     {
         InteractiveSet();
@@ -23,14 +21,11 @@ public class GameSelectButton : MonoBehaviour
 
     void Start()
     {
-        _gameSelectUIAnimation = GetComponent<GameSelectUIAnimation>();
-
         _gameTransferBottun.OnClickAsObservable()
                              .TakeUntilDestroy(this)
                              .Subscribe(_ =>
                              {
                                  GameTransition(_gameType);
-                                 _gameSelectUIAnimation.CurrentTweendKill();
                                  GameManager.Instance.GameSelected(_gameType);
                              });
     }

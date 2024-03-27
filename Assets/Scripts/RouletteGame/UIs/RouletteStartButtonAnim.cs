@@ -1,12 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UniRx;
 using DG.Tweening;
-using Cysharp.Threading.Tasks;
-using System.Linq;
-using UnityEngine.UI;
 
 /// <summary>
 /// ルーレットを回すためのUIアニメーション
@@ -18,12 +11,19 @@ public class RouletteStartButtonAnim : TweenBase
         PlayAnimation();
     }
 
+    /// <summary>
+    /// 初期アニメーション
+    /// </summary>
     protected override void PlayAnimation()
     {
         _currentScaleTween = transform.DOScale(1, _tweenData.ScaleDuration)
                                       .SetEase(_tweenData.ScaleEasing);
     }
 
+    /// <summary>
+    /// ループさせるアニメーション
+    /// </summary>
+    /// <param name="clickCount"></param>
     public void UILoopAnimation(int clickCount)
     {
         if (clickCount > 1)

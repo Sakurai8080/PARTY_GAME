@@ -1,16 +1,16 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-using System.Linq;
-using TMPro;
 
+/// <summary>
+/// ボタンゲームの背景操作コンポーネント
+/// </summary>
 public class TBGameBackGround : MonoBehaviour
 {
+    [Header("変数")]
+    [Tooltip("背景にするイメージ")]
     [SerializeField]
     private List<Sprite> _imageList = new List<Sprite>();
 
@@ -21,9 +21,17 @@ public class TBGameBackGround : MonoBehaviour
     {
         _activeBackGround = GetComponent<Image>();
         _initColor = _activeBackGround.color;
+
+        TBGameManager.Instance.TurnChangeObserver
+                              .TakeUntilDestroy(this)
+                              .Subscribe(activeAmount => BackGroundChange(activeAmount));
     }
 
-    public void BackGroundChange(int activeButtonAmount)
+    /// <summary>
+    /// 背景の切り替え処理
+    /// </summary>
+    /// <param name="activeButtonAmount">出現するボタンの数</param>
+    private void BackGroundChange(int activeButtonAmount)
     {
         _activeBackGround.color = _initColor;
         switch(activeButtonAmount)

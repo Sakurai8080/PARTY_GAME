@@ -1,77 +1,50 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
-using UniRx;
 using System.Linq;
-using TMPro;
 
+/// <summary>
+/// 設定画面のNextに使うアニメーション
+/// </summary>
 public class NextTextAnimation : MonoBehaviour
 {
+    [Header("変数")]
+    [Tooltip("アニメーションの開始時間")]
     [SerializeField]
     private float _animStartDelayTime = 0;
 
+    [Tooltip("アニメーションを待ち合わせる時間")]
     [SerializeField]
     private float _restartWaitTime = 0;
 
-    [SerializeField]
-    private NameInputField _nameiInputField = default;
-
-    RectTransform _textRect;
-    Vector3 _initPosition;
-    bool _inAnimation = false;
-    Coroutine _currentCoroutine;
+    private Sequence _sequence;
+    private RectTransform _textRect;
+    private Vector3 _initPosition;
 
     private void Start()
     {
         _textRect = GetComponent<RectTransform>() ;
         _initPosition = _textRect.position;
-
-        _nameiInputField.AllEndEditObserver
-                        .TakeUntilDestroy(this)
-                        .Subscribe(_ =>
-                        {
-                            if (!_inAnimation)
-                                TextAnimationControl();
-                        });
     }
 
-
-    private void OnDisable()
+    /// <summary>
+    /// アニメ用シーケンスを作成
+    /// </summary>
+    public void MakeTweenSequence()
     {
-        if(_currentCoroutine != null)
-        {
-            _currentCoroutine = null;
-        }
+        _sequence = DOTween.Sequence();
+        _sequence.AppendInterval(_animStartDelayTime);
+        _sequence.Append(transform.DOBlendableMoveBy(new Vector3(7f, 0, 0), 0.1f).SetEase(Ease.InCirc));
+        _sequence.AppendInterval(_restartWaitTime);
+        _sequence.SetLoops(-1, LoopType.Restart);
+        _sequence.Play();
     }
 
-    public void TextAnimationControl()
-    {
-        if (!_inAnimation)
-        {
-            _currentCoroutine = StartCoroutine(UiLoopAnimationCoroutine());
-        }
-        else if (_inAnimation)
-        {
-            _inAnimation = false;
-            _currentCoroutine = null;
-        }
-    }
-
-    private IEnumerator UiLoopAnimationCoroutine()
+    /// <summary>
+    /// シーケンスの削除
+    /// </summary>
+    public void StopTween()
     {
         _textRect.position = _initPosition;
-        _inAnimation = true;
-        while (_inAnimation)
-        {
-            yield return new WaitForSeconds(_animStartDelayTime);
-            transform.DOBlendableMoveBy(new Vector3(7f, 0, 0), 0.1f)
-                                      .SetEase(Ease.InCirc);
-            yield return new WaitForSeconds(_restartWaitTime);
-            _textRect.position = _initPosition;
-        }
+        _sequence?.Kill();
     }
 }

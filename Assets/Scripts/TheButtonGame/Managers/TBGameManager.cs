@@ -1,41 +1,63 @@
-#define DebugTBTest
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using System.Linq;
 
+/// <summary>
+/// ボタンゲームの全体を管理するマネージャー
+/// </summary>
 public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
 {
+    public IObservable<int> TurnChangeObserver => _turnChangeSubject;
+
+    [Header("変数")]
+    [Tooltip("操作するボタンのリスト")]
     [SerializeField]
     private List<Button> _allButtonList = new List<Button>();
 
-    [SerializeField]
-    private TBGameBackGround _backGround = default;
-
-    //TODo:SEMANAGERが出来たらけす。SETest用
-    [SerializeField]
-    private AudioSource _testSE;
-
     private Dictionary<Button, bool> _allButtonDic = new Dictionary<Button, bool>();
-    private TBIngamePopup _popup;
+
+    private Subject<int> _turnChangeSubject = new Subject<int>();
 
     private void Awake()
     {
         _allButtonList.ForEach(button => _allButtonDic.Add(button, false));
     }
 
-    private void Start()
+    /// <summary>
+    /// ランダムの値を返す処理
+    /// </summary>
+    /// <param name="maxAmount">最大のアクティブ数</param>
+    /// <returns>アクティブにする数</returns>
+    private int RandomAmountPass(int maxAmount)
     {
-        _popup = GetComponent<TBIngamePopup>();
-        _backGround = _backGround.GetComponent<TBGameBackGround>();
+        return UnityEngine.Random.Range(1, maxAmount);
     }
 
+    /// <summary>
+    /// 失敗となるボタンのセット
+    /// </summary>
+    /// <param name="button">失敗となるボタン</param>
+    private void MissButtonSetter(Button button)
+    {
+        Debug.Log($"ハズレボタンは<color=blue>{button}</color>");
+        _allButtonDic[button] = true;
+    }
+
+    /// <summary>
+    /// 全てのボタンを一度元に戻す処理
+    /// </summary>
+    private void buttonReconfigure()
+    {
+        _allButtonList.ForEach(button => button.gameObject.SetActive(true));
+        _allButtonDic.Values.ToList().ForEach(v => v = false);
+    }
+
+    /// <summary>
+    /// ボタンをランダムの値で非アクティブにする処理
+    /// </summary>
     public void ButtonRandomHide()
     {
         _allButtonList.ForEach(button => button.gameObject.SetActive(false));
@@ -46,48 +68,18 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
         {
             _allButtonList[i].gameObject.SetActive(true);
         }
-        PercentCheckAndPopup(sqeezeButtonAmount);
+        _turnChangeSubject.OnNext(sqeezeButtonAmount);
         int missButtonIndex = UnityEngine.Random.Range(0, sqeezeButtonAmount);
-        if (sqeezeButtonAmount!=1)
+        if (sqeezeButtonAmount != 1)
         {
             MissButtonSetter(_allButtonList[missButtonIndex]);
         }
     }
 
-    public int RandomAmountPass(int maxAmount)
-    {
-        return UnityEngine.Random.Range(1, maxAmount);
-    }
-
-    private void MissButtonSetter(Button button)
-    {
-        Debug.Log($"ハズレボタンは{button}");
-        _allButtonDic[button] = true;
-    }
-
-    public void buttonReconfigure()
-    {
-        _allButtonList.ForEach(button => button.gameObject.SetActive(true));
-        _allButtonDic.Keys.ToList().ForEach(key => _allButtonDic[key] = false);
-        ButtonRandomHide();
-    }
-
-    public void PercentCheckAndPopup(int activeAmount)
-    {
-        _backGround.BackGroundChange(activeAmount);
-        if (activeAmount == 1)
-        {
-#if DebugTBTest
-            _testSE.Play();
-#endif
-            _popup.PercentPopup(100);
-            return;
-        }
-        int missPercent = 100 / activeAmount;
-        int persistenceRate = 100 - missPercent;
-        _popup.PercentPopup(persistenceRate);
-    }
-
+    /// <summary>
+    /// 選択したボタンが失敗ボタンではないか確認する処理
+    /// </summary>
+    /// <param name="selectedButton">選択したボタン</param>
     public void MissButtonChecker(Button selectedButton)
     {
         bool isMiss = _allButtonDic[selectedButton];
@@ -105,6 +97,7 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
             //Todo:PopUp機能で名前表示
 
             buttonReconfigure();
+            ButtonRandomHide();
         }
     }
 }

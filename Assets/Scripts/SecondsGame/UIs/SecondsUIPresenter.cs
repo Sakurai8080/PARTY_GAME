@@ -1,30 +1,28 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 using UniRx;
-using System.Linq;
-using TMPro;
 
+/// <summary>
+/// 10秒ゲームのUIプレゼンター
+/// </summary>
 public class SecondsUIPresenter : PresenterBase
 {
+    [Tooltip("カウント操作するボタン")]
     [SerializeField]
     CountUpButton _countUpButton;
 
+    [Tooltip("秒数表示用コンポーネント")]
     [SerializeField]
-    NameSecondDisplay _nameSecoundDisplay;
+    SecondsDisplay _seconsDisplay;
 
     protected override void Start()
     {
-        _currentHideUIs.OnClickObserver
+        _activeSwitchButton.OnClickObserver
                        .TakeUntilDestroy(this)
                        .Subscribe(_ =>
                        {
-                           _nextActiveUIs.ToggleUIsVisibility();
-                           _currentHideUIs.gameObject.SetActive(false);
+                           //_nextActiveUIs.ToggleUIsVisibility();
+                           _activeSwitchButton.gameObject.SetActive(false);
                        });
 
         _countUpButton.InProgressObservable
@@ -38,7 +36,7 @@ public class SecondsUIPresenter : PresenterBase
                           }
                           else
                           {
-                              _nameSecoundDisplay.ResultTMPActivator();
+                              _seconsDisplay.ResultTMPActivator();
                               SecondsController.Instance.ToggleInProgress(value);
                           }
                       });

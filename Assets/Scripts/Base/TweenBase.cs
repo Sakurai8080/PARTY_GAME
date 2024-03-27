@@ -3,9 +3,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using UniRx;
 using TMPro;
-
 
 /// <summary>
 /// UIのアニメーション用の基底クラス
@@ -17,7 +15,7 @@ public abstract class TweenBase : MonoBehaviour
     public Tween CurrentFadeTween => _currentFadeTween;
     public Tween CurrentScaleTween => _currentScaleTween;
 
-    [Header("Variable")]
+    [Header("変数")]
     [Tooltip("Tweenのスクリタブルオブジェクト")]
     [SerializeField]
     protected TweenData _tweenData;
@@ -30,9 +28,7 @@ public abstract class TweenBase : MonoBehaviour
     [SerializeField]
     protected Button _tweensButton = default;
 
-    /// <summary>現在起動しているScaleに関わるTween操作用</summary>
     protected Tween _currentScaleTween = null;
-    /// <summary>現在起動しているFadeに関わるTween操作用</summary>
     protected Tween _currentFadeTween = null;
     protected Color _initialColor;
     protected TextMeshProUGUI _amountText;
@@ -49,8 +45,8 @@ public abstract class TweenBase : MonoBehaviour
     protected virtual void OnDisable()
     {
         ImageAlphaController(_targetImage, 1);
-        AllBombAnimationController.KillTweens(_currentFadeTween);
-        AllBombAnimationController.KillTweens(_currentScaleTween);
+        TweenUIsController.Instance.KillTweens(_currentFadeTween);
+        TweenUIsController.Instance.KillTweens(_currentScaleTween);
     }
 
     protected virtual void Start()
@@ -58,12 +54,21 @@ public abstract class TweenBase : MonoBehaviour
         _initialColor = _targetImage.color;
     }
 
+    /// <summary>
+    /// アニメーションを遅らせる処理
+    /// </summary>
+    /// <param name="delayTime">遅らせる時間</param>
     //WARNING:引数はミリ秒
     protected async UniTask AnimationDelay(double delayTime)
     {
         await UniTask.Delay(TimeSpan.FromMilliseconds(delayTime));
     }
 
+    /// <summary>
+    /// アルファ値とカラーの変更
+    /// </summary>
+    /// <param name="targetImage">変更する画像</param>
+    /// <param name="alphaAmount">アルファ値</param>
     protected void ImageAlphaController(Image targetImage, float alphaAmount)
     {
         Color color = targetImage.color;
@@ -71,6 +76,9 @@ public abstract class TweenBase : MonoBehaviour
         targetImage.color = _initialColor;
     }
 
+    /// <summary>
+    /// 回転を初期値に戻す処理
+    /// </summary>
     protected void RotationReset()
     {
         if (transform.localEulerAngles != Vector3.zero)
@@ -80,13 +88,15 @@ public abstract class TweenBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// カラーを初期値に戻す処理
+    /// </summary>
     protected void ColorReset()
     {
         if (_initialColor != null)
         {
             if (_initialColor.a != 1)
                 _initialColor.a = 1;
-
             _targetImage.color = _initialColor;
         }
     }
