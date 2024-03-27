@@ -1,11 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UniRx;
 using DG.Tweening;
-using Cysharp.Threading.Tasks;
-using System.Linq;
 
 [Serializable]
 [CreateAssetMenu(fileName = "TweenAnimation",menuName = "Scritable Data/Create TweenData")]

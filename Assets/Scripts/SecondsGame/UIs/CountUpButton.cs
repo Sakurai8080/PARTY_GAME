@@ -1,23 +1,23 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-using System.Linq;
-using TMPro;
 
+/// <summary>
+/// カウントの操作をするボタン
+/// </summary>
 public class CountUpButton : MonoBehaviour
 {
     public IObservable<bool> InProgressObservable => _inProgressSubject;
-    private Subject<bool> _inProgressSubject = new Subject<bool>();
 
+    [Header("変数")]
+    [Tooltip("カウント操作ボタン")]
     [SerializeField]
     Button _countUpButton = default;
 
     private bool _inProgress = false;
+
+    private Subject<bool> _inProgressSubject = new Subject<bool>();
 
     private void Start()
     {

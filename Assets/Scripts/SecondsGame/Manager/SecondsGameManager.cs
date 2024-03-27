@@ -1,45 +1,55 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
-using UniRx;
 using System.Linq;
-using TMPro;
-using System.Threading;
 
+/// <summary>
+/// 10秒ゲーム全体の管理
+/// </summary>
 public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
 {
+    [Header("変数")]
+    [Tooltip("テキスト操作コンポーネント")]
     [SerializeField]
-    NameSecondDisplay _nameSecondsDisplay;
+    private　SecondsDisplay _nameSecondsDisplay;
 
-    Dictionary<TimeSpan, string> _timeNameDic = new Dictionary<TimeSpan, string>();
+    private Dictionary<TimeSpan, string> _timeNameDic = new Dictionary<TimeSpan, string>();
+    private TimeSpan _correctTime = TimeSpan.FromSeconds(10);
+    private int _resultLoseOrder = 0;
 
-    TimeSpan _correctTime = TimeSpan.FromSeconds(10);
-
-    int _resultLoseOrder = 0;
-
+    /// <summary>
+    /// 名前と時間の紐づけ
+    /// </summary>
+    /// <param name="time">時間</param>
+    /// <param name="name">名前</param>
+    /// <param name="callBack">確認後のコールバック</param>
+    /// <returns></returns>
     public async UniTask TimeNameAdd(TimeSpan time, string name, Action callBack = null)
     {
         _timeNameDic.Add(time, name);
-        Debug.Log($"{time},{name}");
-        if (_timeNameDic.Count() >= NameLifeManager.Instance.GamePlayerAmount)
+        Debug.Log($"時間 {time} : 名前 {name}");
+        try
         {
-            ResultCheck();
-            _nameSecondsDisplay.FinalResultTextChange(_resultLoseOrder);
-            await UniTask.Delay(TimeSpan.FromSeconds(4));
-            GameManager.Instance.SceneLoader("GameSelect");
-            return;
-        }
-        else
-        {
+            if (_timeNameDic.Count() >= NameLifeManager.Instance.GamePlayerAmount)
+            {
+                ResultCheck();
+                _nameSecondsDisplay.FinalResultTextChange(_resultLoseOrder);
+                await UniTask.Delay(TimeSpan.FromSeconds(4));
+                GameManager.Instance.SceneLoader("GameSelect");
+                return;
+            }
             callBack?.Invoke();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"カウント確認中にエラー: {ex}");
         }
     }
     
-
+    /// <summary>
+    /// 最終の乖離チェック
+    /// </summary>
     private void ResultCheck()
     {
         TimeSpan currentMaxGapTime = TimeSpan.MinValue;
@@ -61,7 +71,6 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
             currentOrder++;
         }
         string loseName = _timeNameDic[loseTime];
-
         NameLifeManager.Instance.ReduceLife(loseName);
     }
 }
