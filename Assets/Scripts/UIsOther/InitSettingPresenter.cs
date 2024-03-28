@@ -1,123 +1,114 @@
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-using TMPro;
+using System.Linq;
 
+/// <summary>
+/// 初期設定画面のプレゼンター
+/// </summary>
 public class InitSettingPresenter : MonoBehaviour
 {
+    [Header("変数")]
+    [Tooltip("ボタン押下で表示するUI親オブジェクト")]
     [SerializeField]
-    GameObject _nextUis = default;
+    private GameObject _nextActiveUiParent = default;
 
+    [Tooltip("ボタン押下で隠すUI親オブジェクト")]
     [SerializeField]
-    GameObject _currentUis = default;
+    private GameObject _nextHideUiParent = default;
 
+    [Tooltip("参加人数選択ボタン")]
     [SerializeField]
-    private GameObject _namedFailPopUp = default;
+    private PeopleAmountButton[] _peopleDesideButton = default;
 
+    [Tooltip("次に移行するボタン")]
     [SerializeField]
-    TextMeshProUGUI _joinAmountDisplayTMP = default;
+    private TransitionButton _transitionButton = default;
 
+    [Tooltip("名付け失敗時に出すボタン")]
     [SerializeField]
-    TextMeshProUGUI _explosionTMP = default;
+    private NamedFailButton _namedFailButton = default;
 
+    [Tooltip("名前を入力するフィールド")]
     [SerializeField]
-    PeopleAmountButton[] _peopleButton = default;
+    private NameInputField _nameInputField = default;
 
+    [Tooltip("参加人数を表示するTMP")]
     [SerializeField]
-    TransitionButton _transitionButton = default;
+    private TitlePeopleAmountTMP _titlePeopleAmountTMP = default;
 
+    [Tooltip("名付け失敗時のポップアップ")]
     [SerializeField]
-    NamedFailButton _namedFailButton = default;
+    private TitleNameFailPopUp _nameSettingFailPopUp = default;
 
+    [Tooltip("次に移行するボタンのアニメーション")]
     [SerializeField]
-    NameInputField _nameInputField = default;
-
-    [SerializeField]
-    NextTextAnimation[] _nextTextAnimations = default;
+    private NextTMPAnimController _nextTMPAnimController = default;
 
     private int _joinAmount = 0;
 
     void Start()
     {
         Button transitionButton = _transitionButton.GetComponent<Button>();
-        for (int i = 0; i < _peopleButton.Length; i++)
-        {
-            _peopleButton[i].PeopleButtonClickObserver
-                            .TakeUntilDestroy(this)
-                            .Subscribe(chooseNum =>
-                            {
-                                _joinAmount = chooseNum;
-                                JoinAmountTMPControl(chooseNum);
-                                if (!transitionButton.interactable)
-                                {
-                                    transitionButton.interactable = true;
-                                    StartNextTextAnimation();
-                                }
-                            });
-        }
+        _peopleDesideButton.ToList().ForEach(button => button.PeopleButtonClickObserver
+                                                     .TakeUntilDestroy(this)
+                                                     .Subscribe(chooseNum =>
+                                                     {
+                                                         _joinAmount = chooseNum;
+                                                         _titlePeopleAmountTMP.JoinAmountTMPControl(chooseNum);
+                                                         NextButtonState(transitionButton,true);
+                                                     }));
 
         _transitionButton.NextClickObserver
                          .TakeUntilDestroy(this)
-                         .Subscribe(clickCount =>
-                         {
-                             if (clickCount == 1)
-                             {
-                                 _nameInputField.NameFieldNonAvailable(_joinAmount);
-                                 _nextUis.SetActive(true);
-                                 _currentUis.SetActive(false);
-                                 KillNextTextAnimation();
-                             }
-                             else
-                                 _nameInputField.NameAndCountChecker();
-                         });
-
+                         .Subscribe(clickCount => NextTransitionButtonClick(clickCount));
+                         
         _namedFailButton.OnClickObserver
                         .TakeUntilDestroy(this)
-                        .Subscribe(_ => NamedFailSwitch(false));
+                        .Subscribe(_ => _nameSettingFailPopUp.NamedFailSwitch(false));
+
+        _nameInputField.AllEndEditObserver
+                       .TakeUntilDestroy(this)
+                       .Subscribe(_ => NextButtonState(transitionButton,true));
+
 
         _nameInputField.NamedFailObserver
                        .TakeUntilDestroy(this)
                        .Subscribe(_ =>
                        {
-                           NamedFailSwitch(true);
-                           transitionButton.interactable = true;
-                           StartNextTextAnimation();
+                           _nameSettingFailPopUp.NamedFailSwitch(true);
+                           NextButtonState(transitionButton, false);
                        });
-
-        _nameInputField.AllEndEditObserver
-                       .TakeUntilDestroy(this)
-                       .Subscribe(_ => StartNextTextAnimation());
     }
 
-    private void StartNextTextAnimation()
+    /// <summary>
+    /// 次の画面に推移するボタンの処理
+    /// </summary>
+    /// <param name="clickCount">クリック回数</param>
+    private void NextTransitionButtonClick(int clickCount)
     {
-        for (int i = 0; i < _nextTextAnimations.Length; i++)
+        if (clickCount == 1)
         {
-            _nextTextAnimations[i].MakeTweenSequence();
+            _nameInputField.NameFieldNonAvailable(_joinAmount);
+            _nextActiveUiParent.SetActive(true);
+            _nextHideUiParent.SetActive(false);
+            _nextTMPAnimController.TMPAnimationSwitcher(false);
         }
+        else
+            _nameInputField.NameAndCountChecker();
     }
 
-    private void KillNextTextAnimation()
+    /// <summary>
+    /// 次の画面に推移するボタンのアニメーションの状況変更
+    /// </summary>
+    /// <param name="transitionButton">推移するボタン</param>
+    private void NextButtonState(Button transitionButton, bool isStart)
     {
-        for (int i = 0; i < _nextTextAnimations.Length; i++)
-        {
-            _nextTextAnimations[i].StopTween();
-        }
-    }
+        if (isStart && !transitionButton.interactable)
+            transitionButton.interactable = _joinAmount > 0;
+        if (isStart == true && _nextTMPAnimController.OnAnimation)
+            return;
 
-    private void NamedFailSwitch(bool valid)
-    {
-        _namedFailPopUp.SetActive(valid);
-        _explosionTMP.gameObject.SetActive(!valid);
-    }
-
-    private void JoinAmountTMPControl(int choosedNum)
-    {
-        _joinAmount = choosedNum;
-        _joinAmountDisplayTMP.text = $"{choosedNum}";
-        _joinAmountDisplayTMP.transform.DOScale(0, 0);
-        _joinAmountDisplayTMP.transform.DOScale(1, 0.2f)
-                                       .SetEase(Ease.InOutBounce);
+        _nextTMPAnimController.TMPAnimationSwitcher(isStart);
     }
 }

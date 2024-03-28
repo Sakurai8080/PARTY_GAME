@@ -2,24 +2,25 @@ using UnityEngine;
 using UniRx;
 using UnityEngine.UI;
 using System;
-using TMPro;
 
+/// <summary>
+/// 名付け失敗時のボタンコンポーネント
+/// </summary>
 public class NamedFailButton : MonoBehaviour
 {
     public IObservable<Unit> OnClickObserver => _onClickSubject;
 
-    Subject<Unit> _onClickSubject = new Subject<Unit>();
-
+    [Header("変数")]
+    [Tooltip("画面推移ボタン")]
     [SerializeField]
     Button _namedFailButton = default;
+
+    Subject<Unit> _onClickSubject = new Subject<Unit>();
 
     void Start()
     {
         _namedFailButton.OnClickAsObservable()
                         .TakeUntilDestroy(this)
-                        .Subscribe(_ =>
-                        {
-                            _onClickSubject.OnNext(default);
-                        });
+                        .Subscribe(_ => _onClickSubject.OnNext(default));
     }
 }

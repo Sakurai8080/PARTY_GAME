@@ -14,7 +14,6 @@ public class TBGameUIPresenter : PresenterBase
     protected override void Start()
     {
         base.Start();
-
         for (int i = 0; i < _button.Length; i++)
         {
             _button[i].SelectedObsever

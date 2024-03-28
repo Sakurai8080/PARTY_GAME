@@ -21,9 +21,6 @@ public class ToInGameButton : MonoBehaviour
     {
         _toggleButton.OnClickAsObservable()
                            .TakeUntilDestroy(this)
-                           .Subscribe(_ =>
-                           {
-                               _onClickSubject.OnNext(default);
-                           });
+                           .Subscribe(_ => _onClickSubject.OnNext(default));
     }
 }

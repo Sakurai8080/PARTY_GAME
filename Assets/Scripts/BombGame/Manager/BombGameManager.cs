@@ -16,7 +16,6 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
     private Dictionary<Image, bool> _allBombdic = new Dictionary<Image, bool>();
     private bool _onExplosion = false;
 
-
     /// <summary>
     /// カード選択時のハズレチェック
     /// </summary>

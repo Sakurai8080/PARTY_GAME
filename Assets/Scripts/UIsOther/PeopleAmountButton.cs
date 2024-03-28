@@ -1,22 +1,21 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-using System.Linq;
 
-
+/// <summary>
+/// 参加人数を選択するボタン
+/// </summary>
 public class PeopleAmountButton : MonoBehaviour
 {
-
     public IObservable<int> PeopleButtonClickObserver => _peopleButtonClickSubject;
 
+    [Header("変数")]
+    [Tooltip("参加人数選択ボタン")]
     [SerializeField]
     private Button _peopleAmountButton = default;
 
+    [Tooltip("参加人数")]
     [SerializeField]
     private int _peopleAmount = default;
 
@@ -26,9 +25,6 @@ public class PeopleAmountButton : MonoBehaviour
     {
         _peopleAmountButton.OnClickAsObservable()
                            .TakeUntilDestroy(this)
-                           .Subscribe(_ =>
-                           {
-                               _peopleButtonClickSubject.OnNext(_peopleAmount);
-                           });
+                           .Subscribe(_ => _peopleButtonClickSubject.OnNext(_peopleAmount));
     }
 }
