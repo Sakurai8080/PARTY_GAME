@@ -33,7 +33,8 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
     /// <returns>アクティブにする数</returns>
     private int RandomAmountPass(int maxAmount)
     {
-        return UnityEngine.Random.Range(1, maxAmount);
+        int chosenNum = UnityEngine.Random.Range(1, maxAmount+1);
+        return chosenNum;
     }
 
     /// <summary>
@@ -42,7 +43,7 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
     /// <param name="button">失敗となるボタン</param>
     private void MissButtonSetter(Button button)
     {
-        Debug.Log($"ハズレボタンは<color=blue>{button}</color>");
+        Debug.Log($"ハズレボタンは<color=blue>{button.ToString().Substring(6,1)}</color>");
         _allButtonDic[button] = true;
     }
 
@@ -63,7 +64,7 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
         _allButtonList.ForEach(button => button.gameObject.SetActive(false));
         int maxActiveAmount = _allButtonList.Count();
         int activeButtonAmount = RandomAmountPass(maxActiveAmount);
-        int sqeezeButtonAmount = (activeButtonAmount == 1) ? RandomAmountPass(maxActiveAmount) : activeButtonAmount;
+        int sqeezeButtonAmount = (activeButtonAmount <= 2) ? RandomAmountPass(maxActiveAmount) : activeButtonAmount;
         for (int i = 0; i < sqeezeButtonAmount; i++)
         {
             _allButtonList[i].gameObject.SetActive(true);
