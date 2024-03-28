@@ -1,20 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-using DG.Tweening;
 
+/// <summary>
+/// ゲームを選択するボタン
+/// </summary>
 public class GameSelectButton : MonoBehaviour
 {
-
+    [Header("変数")]
+    [Tooltip("ゲーム移行するボタン")]
     [SerializeField]
     private Button _gameTransferBottun = default;
 
+    [Tooltip("ゲームの種類")]
     [SerializeField]
     private GameType _gameType = default;
-
-    private GameSelectUIAnimation _gameSelectUIAnimation;
 
     private void Awake()
     {
@@ -23,24 +23,28 @@ public class GameSelectButton : MonoBehaviour
 
     void Start()
     {
-        _gameSelectUIAnimation = GetComponent<GameSelectUIAnimation>();
-
         _gameTransferBottun.OnClickAsObservable()
                              .TakeUntilDestroy(this)
                              .Subscribe(_ =>
                              {
                                  GameTransition(_gameType);
-                                 _gameSelectUIAnimation.CurrentTweendKill();
                                  GameManager.Instance.GameSelected(_gameType);
                              });
     }
 
+    /// <summary>
+    /// ゲームへの移行処理
+    /// </summary>
+    /// <param name="selectedGame"></param>
     private void GameTransition(GameType selectedGame)
     {
         string sceneName = selectedGame.ToString();
         GameManager.Instance.SceneLoader(sceneName);
     }
 
+    /// <summary>
+    /// 選択済みのゲームなら選択不可に
+    /// </summary>
     private void InteractiveSet()
     {
         bool isSelected = GameManager.Instance.SelectedChecker(_gameType);

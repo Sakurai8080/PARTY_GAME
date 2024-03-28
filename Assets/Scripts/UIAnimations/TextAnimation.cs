@@ -1,12 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
-using UniRx;
-using System.Linq;
 using TMPro;
 
 /// <summary>
@@ -14,10 +7,10 @@ using TMPro;
 /// </summary>
 public class TextAnimation : MonoBehaviour
 {
-    [Header("Variable")]
+    [Header("変数")]
     [Tooltip("Tweenのスクリタブルオブジェクト")]
     [SerializeField]
-    TweenData _tweenData = default;
+    protected TweenData _tweenData;
 
     [Tooltip("動かすテキスト")]
     [SerializeField]
@@ -27,19 +20,25 @@ public class TextAnimation : MonoBehaviour
     [SerializeField]
     int _bounceCount = 2;
 
-    private Tween _currentScaleTween;
+    Tween _currentScaleTween;
 
-    void Start()
+    private void Start()
     {
         UiLoopAnimation();
     }
 
+    private void OnDisable()
+    {
+        TweenUIsController.Instance.KillTweens(_currentScaleTween);
+    }
+
+    /// <summary>
+    /// ループさせるアニメーション
+    /// </summary>
     private void UiLoopAnimation()
     {
         _currentScaleTween = transform.DOShakeScale(_tweenData.ScaleDuration, 0.1f, _bounceCount)
                                       .SetEase(_tweenData.LoopEasing)
                                       .SetLoops(-1, _tweenData.LoopType);
-
-        AllBombAnimationController._allTweenList.Add(_currentScaleTween);
     }
 }

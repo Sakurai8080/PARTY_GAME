@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5a86309013f04296bc5b444d603fcd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameText: {fileID: 1055073632507435947}
+  _nameTMP: {fileID: 1055073632507435947}
   _ballNamedButon: {fileID: 8407717064328483502}
   _targetBall: {fileID: 8923898532068782818}
 --- !u!1 &8473456833891688082

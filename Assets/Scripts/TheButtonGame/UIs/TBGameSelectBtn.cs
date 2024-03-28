@@ -1,17 +1,21 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-using System.Linq;
 
+/// <summary>
+/// ボタンゲームの選択ボタン
+/// </summary>
 public class TBGameSelectBtn : MonoBehaviour
 {
+    public IObservable<Button> SelectedObsever => _selectedSubject;
+
+    [Header("変数")]
+    [Tooltip("選択するボタン")]
     [SerializeField]
-    Button _theButton = default;
+    private Button _theButton = default;
+
+    private Subject<Button> _selectedSubject = new Subject<Button>();
 
     void Start()
     {
@@ -19,12 +23,7 @@ public class TBGameSelectBtn : MonoBehaviour
                   .TakeUntilDestroy(this)
                   .Subscribe(_ =>
                   {
-                      ButtonCheck();
+                      _selectedSubject.OnNext(_theButton);
                   });
-    }
-
-    private void ButtonCheck()
-    {
-        TBGameManager.Instance.MissButtonChecker(_theButton);
     }
 }

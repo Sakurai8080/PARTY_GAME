@@ -1,23 +1,20 @@
-using System;
-using System.Collections;
+#define DEBUG
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 using UniRx;
 using System.Linq;
 
+/// <summary>
+/// 名前とライフを管理するマネージャー
+/// </summary>
 public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
 {
     public List<string> NameList => _nameList;
     public Dictionary<string, int> NameLifeDic => _nameLifeDic;
     public int GamePlayerAmount => _gamePlayerAmount;
-
-    List<string> _nameList = new List<string>();
-    Dictionary<string, int> _nameLifeDic = new Dictionary<string, int>();
-
-    /// <summary>参加人数</summary>
+    
+    private List<string> _nameList = new List<string>();
+    private Dictionary<string, int> _nameLifeDic = new Dictionary<string, int>();
     private int _gamePlayerAmount = 0;
     private int _currentOrder = 0;
 
@@ -26,34 +23,49 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
         DontDestroyOnLoad(this);
     }
 
-    public void Setup(List<string> names)
+    /// <summary>
+    /// 名前とライフポイント3の初期設定
+    /// </summary>
+    /// <param name="names">参加者の名前</param>
+    public void Setup(HashSet<string> names)
     {
         if (names.Count() >= 1)
         {
             _gamePlayerAmount = names.Count();
-            for (int i = 0; i < names.Count; i++)
-            {
-                _nameLifeDic.Add(names[i], 3);
-            }
+            names.ToList().ForEach(name => _nameLifeDic.Add(name, 3));
             _nameList.AddRange(names);
         }
     }
 
+    /// <summary>
+    /// 負けたプレイヤーのライフを減らす処理
+    /// </summary>
+    /// <param name="loseName">負けたプレイヤーの名前</param>
     public void ReduceLife(string loseName)
     {
         _nameLifeDic[loseName]--;
         //TODO:0になったらゲームマネージャーでゲームオーバーを呼び出す
+
+#if DEBUG
         foreach (var item in _nameLifeDic.Keys)
-        {
             Debug.Log($"{item} : {_nameLifeDic[item]}");
-        }
+#endif
     }
 
+
+    /// <summary>
+    /// 名前からライフの確認
+    /// </summary>
+    /// <param name="checkName">確認する名前</param>
+    /// <returns>ライフ数</returns>
     public int NamefromLifePass(string checkName)
     {
         return _nameLifeDic[checkName];
     }
 
+    /// <summary>
+    /// 順序を入れ替える処理
+    /// </summary>
     public void NameListOrderChange()
     {
         _currentOrder++;
@@ -63,6 +75,10 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
         }
     }
 
+    /// <summary>
+    /// 順序が1番目のプレイヤーを取得
+    /// </summary>
+    /// <returns></returns>
     public string CurrentNameReciever()
     {
         return _nameList[_currentOrder];

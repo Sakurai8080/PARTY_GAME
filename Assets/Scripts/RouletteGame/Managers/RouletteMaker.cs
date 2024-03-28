@@ -1,23 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
+/// <summary>
+/// ルーレットの作成機能
+/// </summary>
 public class RouletteMaker : MonoBehaviour
 {
+    [Header("変数")]
+    [Tooltip("ルーレットを格納する親")]
     [SerializeField]
     private Transform _imageParentTransform;
 
+    [Tooltip("ルーレットのカラー")]
     [SerializeField]
     private List<Color> _rouletteColors;
 
+    [Tooltip("ルーレットの基盤となる画像")]
     [SerializeField]
     private Image _rouletteImage;
-
-    [SerializeField]
-    private Image _rouletteFrame;
 
     private void Start()
     {
@@ -30,15 +33,20 @@ public class RouletteMaker : MonoBehaviour
             obj.color = _rouletteColors[(playerAmount) - 1 - i];
             obj.fillAmount = ratePerRoulette * (playerAmount - i);
             string currentName = NameLifeManager.Instance.NameList[playerAmount - 1 - i];
-            AngleAndNamelinker(obj.fillAmount, currentName);
+            AngleAndNameLinker(obj.fillAmount, currentName);
             obj.GetComponentInChildren<TextMeshProUGUI>().text = currentName;
             obj.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, ((rotatePerRoulette / 2) + rotatePerRoulette * i) - 90);
-            obj.DOFade(1, 5);
         }
-        var frame = Instantiate(_rouletteFrame, _imageParentTransform);
+            _imageParentTransform.transform.DOScale(1, 1.5f)
+                                      .SetEase(Ease.OutBounce);
     }
 
-    private void AngleAndNamelinker(float currentAngle, string name)
+    /// <summary>
+    /// アングルに紐づける名前をコントローラーに渡す
+    /// </summary>
+    /// <param name="currentAngle">渡すアングル</param>
+    /// <param name="name">紐づける名前</param>
+    private void AngleAndNameLinker(float currentAngle, string name)
     {
         float angle = currentAngle * 360;
         RouletteController.Instance.AngleNameDicAdd(angle, name);

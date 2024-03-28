@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u308A\u3087\u3046"
+  m_text: "\u306F\u3066\u306A"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f160866a897c7447994b6c200f5d59eb, type: 2}
   m_sharedMaterial: {fileID: -6289384667801655249, guid: f160866a897c7447994b6c200f5d59eb, type: 2}
@@ -197,6 +197,7 @@ GameObject:
   - component: {fileID: 5460592026221630738}
   - component: {fileID: 5460592026221630732}
   - component: {fileID: 5460592026221630733}
+  - component: {fileID: 3700030921030512688}
   m_Layer: 5
   m_Name: RouletteImage
   m_TagString: Untagged
@@ -263,3 +264,18 @@ MonoBehaviour:
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3700030921030512688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5460592026221630739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1

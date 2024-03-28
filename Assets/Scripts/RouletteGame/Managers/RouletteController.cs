@@ -1,25 +1,24 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
-using System.Linq;
-using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// ルーレットを管理するコントローラー
+/// </summary>
 public class RouletteController : SingletonMonoBehaviour<RouletteController>
 {
-    public IObservable<Unit> RouletteStopObserver => _rouletteStopSubject;
-
-    private Subject<Unit> _rouletteStopSubject = new Subject<Unit>();
-
+    [Header("変数")]
+    [Tooltip("ルーレットプレハブ")]
     [SerializeField]
     private GameObject _rouletteObject;
 
+    [Tooltip("回転開始ボタンのTMP")]
     [SerializeField]
-    private TextMeshProUGUI _text;
+    private TextMeshProUGUI _rotateStartTMP;
 
     private Tween _currentTween;
     private Dictionary<double, string> _angleNameDic = new Dictionary<double, string>();
@@ -31,12 +30,21 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
         _peopleAmount = NameLifeManager.Instance.GamePlayerAmount;
     }
 
-    public void AngleNameDicAdd(float currentAngle,string name)
+    /// <summary>
+    /// 角度と名前の紐づけ
+    /// </summary>
+    /// <param name="loseAngle">角度</param>
+    /// <param name="name">名前</param>
+    public void AngleNameDicAdd(float loseAngle,string name)
     {
-        _angleNameDic.Add(currentAngle, name);
-        _angleList.Add(currentAngle);
+        _angleNameDic.Add(loseAngle, name);
+        _angleList.Add(loseAngle);
     }
 
+    /// <summary>
+    /// 回転ボタンの挙動
+    /// </summary>
+    /// <param name="count">何回押しているか</param>
     public void RouletteRotate(int count)
     {
         if (count > 1)
@@ -49,9 +57,8 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                                                      .SetEase(Ease.OutBack)
                                                      .OnComplete(async () =>
                                                      {
-                                                         RouletteStop();
                                                          DeterminePerson();
-                                                         _text.DOColor(Color.blue, 0);
+                                                         _rotateStartTMP.DOColor(Color.blue, 0);
                                                          await UniTask.Delay(TimeSpan.FromSeconds(1));
                                                          GameManager.Instance.SceneLoader("GameSelect");
                                                      });
@@ -70,6 +77,9 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
         }
     }
 
+    /// <summary>
+    /// 回り終わったあとの負け判定
+    /// </summary>
     private void DeterminePerson()
     {
         RectTransform stopRectTransform = _rouletteObject.GetComponent<RectTransform>();
@@ -94,10 +104,5 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                 Debug.LogError($"回転の値が正しくありません。");
             }
         }
-    }
-
-    private void RouletteStop()
-    {
-        _rouletteStopSubject.OnNext(Unit.Default);
     }
 }
