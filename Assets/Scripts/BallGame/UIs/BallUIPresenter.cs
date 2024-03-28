@@ -23,7 +23,7 @@ public class BallUIPresenter : PresenterBase
 
     protected override void Start()
     {
-        //全てボールが選択されたときの通知
+        base.Start();
         BallGameManager.Instance.InGameReady
                              .TakeUntilDestroy(this)
                              .Subscribe(value =>
@@ -37,18 +37,14 @@ public class BallUIPresenter : PresenterBase
                                  }
                              });
 
-        //ゲーム説明画面のボタン押下購読
         _activeSwitchButton.OnClickObserver
                        .TakeUntilDestroy(this)
                        .Subscribe(_ =>
                        {
-                           //_nextActiveUIs.ToggleUIsVisibility();
-                           _activeSwitchButton.gameObject.SetActive(false);
                            _backGround.SetActive(false);
                            BallController.Instance.Setup();
                        });
 
-        //ボールを落とすボタンの押下検知
         _fallButton.FallButtonClickObserver
                    .TakeUntilDestroy(this)
                    .Subscribe(_ =>

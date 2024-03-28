@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,7 +11,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public Dictionary<GameType, bool> GameTypeDic => _gameTypeDic;
 
     [Header("変数")]
-    [Tooltip("ミニゲームのタイプ")]
+    [Tooltip("ミニゲームの種類")]
     [SerializeField]
     private List<GameType> _gameTypeList = new List<GameType>();
 

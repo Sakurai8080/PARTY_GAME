@@ -268,7 +268,6 @@ GameObject:
   - component: {fileID: 16399872}
   - component: {fileID: 16399870}
   - component: {fileID: 16399871}
-  - component: {fileID: 16399868}
   m_Layer: 0
   m_Name: SelectUI_Group
   m_TagString: Untagged
@@ -276,20 +275,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &16399868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16399867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fce35c4e0b19d4ff8b39c453662ea16a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _testUIGroup: {fileID: 16399870}
-  _testUIParent: {fileID: 1588627636}
 --- !u!224 &16399869
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3426,7 +3411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5afe76d5c6147431a9d06702a06e118b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifeUIs:
+  _lifeUIParents:
   - {fileID: 533977733}
   - {fileID: 6852913}
   - {fileID: 523208363}
@@ -3435,7 +3420,7 @@ MonoBehaviour:
   - {fileID: 1383703617}
   - {fileID: 842389757}
   - {fileID: 517656880}
-  _nameTmpro:
+  _nameTMP:
   - {fileID: 268106934}
   - {fileID: 369464447}
   - {fileID: 469834835}

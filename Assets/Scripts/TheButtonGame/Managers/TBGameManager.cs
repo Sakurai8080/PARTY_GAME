@@ -52,7 +52,7 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
     private void buttonReconfigure()
     {
         _allButtonList.ForEach(button => button.gameObject.SetActive(true));
-        _allButtonDic.Values.ToList().ForEach(v => v = false);
+        _allButtonDic.Keys.ToList().ForEach(keys => _allButtonDic[keys] = false);
     }
 
     /// <summary>

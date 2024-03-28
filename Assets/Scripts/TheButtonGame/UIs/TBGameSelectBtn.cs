@@ -13,7 +13,7 @@ public class TBGameSelectBtn : MonoBehaviour
     [Header("変数")]
     [Tooltip("選択するボタン")]
     [SerializeField]
-    Button _theButton = default;
+    private Button _theButton = default;
 
     private Subject<Button> _selectedSubject = new Subject<Button>();
 

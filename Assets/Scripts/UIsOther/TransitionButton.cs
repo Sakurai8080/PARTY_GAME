@@ -1,17 +1,17 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-using System.Linq;
 
+/// <summary>
+/// 初期設定画面の推移ボタン
+/// </summary>
 public class TransitionButton : MonoBehaviour
 {
     public IObservable<int> NextClickObserver => _nextClickSubject;
 
+    [Header("変数")]
+    [Tooltip("推移ボタン")]
     [SerializeField]
     private Button _transitionButton = default;
 

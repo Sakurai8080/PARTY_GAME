@@ -1,30 +1,30 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
-using UniRx;
-using System.Linq;
 using TMPro;
 
+/// <summary>
+/// TMPの表示限度機能
+/// </summary>
 public class TMProLimit : MonoBehaviour
 {
+    [Header("変数")]
+    [Tooltip("最大のTMP表示数")]
     [SerializeField]
     private int _textMaxAmount = 3;
 
-    private TextMeshProUGUI _text;
+    private TextMeshProUGUI _activeText;
 
     private void Start()
     {
-        _text = GetComponent<TextMeshProUGUI>();
+        _activeText = GetComponent<TextMeshProUGUI>();
         TextLimitter();
     }
 
+    /// <summary>
+    /// テキストの限度だけ表示する機能
+    /// </summary>
     private void TextLimitter()
     {
-        string currentName = _text.text.ToString();
-        _text.text = (currentName.Length > _textMaxAmount) ? currentName.Substring(0, _textMaxAmount) : currentName;
+        string currentName = _activeText.text.ToString();
+        _activeText.text = (currentName.Length > _textMaxAmount) ? currentName.Substring(0, _textMaxAmount) : currentName;
     }
 }
