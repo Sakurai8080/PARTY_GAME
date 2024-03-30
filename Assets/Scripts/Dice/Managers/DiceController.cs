@@ -29,10 +29,8 @@ public class DiceController : SingletonMonoBehaviour<DiceController>
 
     public void DiceGenerate()
     {
-        Debug.Log($"初期確認{_diceQueue.Count()}");
         if (_diceQueue.Count() > 0)
         {
-            Debug.Log($"Queueに入ってる{_diceQueue.Count()}");
             while (_diceQueue.Count() > 0)
             {
                 Dice reuseDice = _diceQueue.Dequeue();
@@ -53,7 +51,6 @@ public class DiceController : SingletonMonoBehaviour<DiceController>
                     madeDice.InActiveObservar.Subscribe(_ => _diceQueue.Enqueue(madeDice));
                 }
             }
-            Debug.Log($"生成!!{_diceQueue.Count()}");
         }
     }
 
