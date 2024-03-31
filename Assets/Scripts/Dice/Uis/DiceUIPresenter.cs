@@ -9,6 +9,10 @@ public class DiceUIPresenter : PresenterBase
     [SerializeField]
     private GameObject _backGround = default;
 
+    [Tooltip("サイコロを振るボタン")]
+    [SerializeField]
+    private DiceRollButton _diceRollButton = default;
+
     protected override void Start()
     {
         base.Start();
@@ -17,8 +21,13 @@ public class DiceUIPresenter : PresenterBase
                        .Subscribe(_ =>
                        {
                            _backGround.SetActive(false);
-                           BallController.Instance.Setup();
                        });
 
+        _diceRollButton.IsRollObserver
+                       .TakeUntilDestroy(this)
+                       .Subscribe(_ =>
+                       {
+                           DiceController.Instance.DiceGenerate();
+                       });
     }
 }
