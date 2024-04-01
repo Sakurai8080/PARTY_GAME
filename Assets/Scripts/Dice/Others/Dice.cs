@@ -17,12 +17,12 @@ public class Dice : MonoBehaviour
 
     private void Start()
     {
-        Invoke("ReturnPool", 5);   
+        Invoke("ReturnPool", 10);   
     }
 
     private void OnEnable()
     {
-        Invoke("ReturnPool", 5);
+        Invoke("ReturnPool", 10);
     }
 
     private void OnDisable()

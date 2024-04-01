@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UniRx;
 using UnityEngine;
+using UnityEngine.UI;
+using UniRx;
 
 public class DiceUIPresenter : PresenterBase
 {
@@ -19,9 +20,7 @@ public class DiceUIPresenter : PresenterBase
         _activeSwitchButton.OnClickObserver
                        .TakeUntilDestroy(this)
                        .Subscribe(_ =>
-                       {
-                           _backGround.SetActive(false);
-                       });
+                           _backGround.SetActive(false));
 
         _diceRollButton.IsRollObserver
                        .TakeUntilDestroy(this)

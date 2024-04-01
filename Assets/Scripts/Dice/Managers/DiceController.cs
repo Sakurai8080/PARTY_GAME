@@ -39,7 +39,7 @@ public class DiceController : SingletonMonoBehaviour<DiceController>
                 OnRollDice(reuseDice);
             }
         }
-        else if(_diceQueue.Count() == 0)
+        else if(_diceQueue.Count() <= 0)
         {
             for (int i = 0; i < 2; i++)
             {
@@ -56,11 +56,9 @@ public class DiceController : SingletonMonoBehaviour<DiceController>
 
     private void OnRollDice(Dice dice)
     {
-        float randomAddForce = UnityEngine.Random.Range(-5, 5);
-        float randomRotateAmount = UnityEngine.Random.Range(-360, 360);
+        float randomRotateAmount = UnityEngine.Random.Range(-1000, 1000);
         Rigidbody diceRD = dice.GetComponent<Rigidbody>();
-        diceRD.AddForce(randomAddForce, 2, randomAddForce);
-        dice.transform.Rotate(randomRotateAmount, randomRotateAmount, randomRotateAmount);
+        dice.transform.DORotate(new Vector3(randomRotateAmount, randomRotateAmount), 0,RotateMode.FastBeyond360);
         diceRD.useGravity =true;
     }
 }
