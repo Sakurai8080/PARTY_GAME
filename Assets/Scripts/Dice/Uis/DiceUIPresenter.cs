@@ -1,3 +1,5 @@
+#define DebugTest 
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +16,9 @@ public class DiceUIPresenter : PresenterBase
     [SerializeField]
     private DiceRollButton _diceRollButton = default;
 
+    [SerializeField]
+    private AudioSource _se = default;
+
     protected override void Start()
     {
         base.Start();
@@ -27,6 +32,17 @@ public class DiceUIPresenter : PresenterBase
                        .Subscribe(_ =>
                        {
                            DiceController.Instance.DiceGenerate();
+#if DebugTest
+                           Invoke("TestSE", 0.5f);
+#endif
                        });
     }
+
+#if DebugTest
+    //todo:テスト用。
+    private void TestSE()
+    {
+        _se.Play();
+    }
+#endif
 }
