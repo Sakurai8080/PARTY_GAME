@@ -2133,6 +2133,8 @@ MonoBehaviour:
     Camera: {fileID: 1619506665}
   - CameraName: DollyCamera
     Camera: {fileID: 127633683}
+  _currentMoveCam: 1
+  _currentTypes: 4
 --- !u!1 &1269014079
 GameObject:
   m_ObjectHideFlags: 0
