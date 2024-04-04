@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using TMPro;
 
 public class DiceUIPresenter : PresenterBase
 {
@@ -19,23 +20,38 @@ public class DiceUIPresenter : PresenterBase
     [SerializeField]
     private AudioSource _se = default;
 
+    [SerializeField]
+    private TextMeshProUGUI _inGameTMP = default;
+
     protected override void Start()
     {
         base.Start();
         _activeSwitchButton.OnClickObserver
                        .TakeUntilDestroy(this)
                        .Subscribe(_ =>
-                           _backGround.SetActive(false));
-
+                       {
+                           _backGround.SetActive(false);
+                           CinemaChineController.Instance.DollySet(InGameUIsActivator);
+                       });
+    
         _diceRollButton.IsRollObserver
                        .TakeUntilDestroy(this)
                        .Subscribe(_ =>
                        {
+                           _inGameTMP.gameObject.SetActive(false);
                            DiceController.Instance.DiceGenerate();
+                           CinemaChineController.Instance.DiceCheck(InGameUIsActivator);
 #if DebugTest
                            Invoke("TestSE", 0.5f);
 #endif
                        });
+    }
+
+    private void InGameUIsActivator()
+    {
+        _diceRollButton.gameObject.SetActive(true);
+        _inGameTMP.gameObject.SetActive(true);
+        _diceRollButton.GetComponent<Button>().interactable = true;
     }
 
 #if DebugTest

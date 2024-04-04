@@ -19,10 +19,18 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
     [SerializeField]
     private ActivationCamera[] _virtualCamera;
 
+    [SerializeField]
+    private CameraType _currentMoveCam;
+
+    [SerializeField]
+    private GameType _currentTypes;
+
     private CinemachineTrackedDolly _dolly;
     private Dictionary<CameraType, CinemachineVirtualCamera> _cameraDic = new Dictionary<CameraType, CinemachineVirtualCamera>();
     private float _pathPositionMax;
+    private float _pathPositionMin;
     private Action _dollyFinalCallBack;
+    private Action _returnDollyCallBack;
 
     private const int PRIORITY_AMOUNT = 11;
 
@@ -44,15 +52,49 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
         _cameraDic[cameraType].Priority = PRIORITY_AMOUNT;
     }
 
+    public void DiceCheck(Action callBack = null)
+    {
+        _returnDollyCallBack += callBack;
+        _returnDollyCallBack += () => CameraReturnMove();
+        _dolly = _cameraDic[CameraType.cam2].GetCinemachineComponent<CinemachineTrackedDolly>();
+        DollyMoveTask(2, 2, 5,Ease.OutExpo , ()=>CameraReturnMove(_returnDollyCallBack)).Forget();
+    }
+
+    private void CameraReturnMove(Action callBack = null)
+    {
+        _pathPositionMin = _dolly.m_Path.MinPos;
+        DOTween.To(() => _dolly.m_PathPosition,
+        value => _dolly.m_PathPosition = value,
+        _pathPositionMin, 0)
+        .SetEase(Ease.InFlash);
+        callBack?.Invoke();
+        _returnDollyCallBack = null;
+    }
+
     /// <summary>
     /// ドリーカメラを動かす処理
     /// </summary>
-    public void DollySet()
+    public void DollySet(Action callBack = null)
     {
-        _dolly = _cameraDic[CameraType.cam2].GetCinemachineComponent<CinemachineTrackedDolly>();
-        _pathPositionMax = _dolly.m_Path.MaxPos;
-        _dollyFinalCallBack += BallController.Instance.OnAllGravity;
-        DollyMoveTask(_dollyFinalCallBack).Forget();
+        switch (_currentTypes)
+        {
+            case GameType.Ball:
+                _dolly = _cameraDic[CameraType.cam2].GetCinemachineComponent<CinemachineTrackedDolly>();
+                _pathPositionMax = _dolly.m_Path.MaxPos;
+                _dollyFinalCallBack += BallController.Instance.OnAllGravity;
+                DollyMoveTask(500, 5,1, Ease.InOutFlash, _dollyFinalCallBack).Forget();
+                break;
+
+            case GameType.Dice:
+                _dolly = _cameraDic[_currentMoveCam].GetCinemachineComponent<CinemachineTrackedDolly>();
+                _pathPositionMax = _dolly.m_Path.MaxPos;
+                callBack += () => ActivateCameraChange(CameraType.cam2);
+
+                DollyMoveTask(0, 5,0, Ease.Linear, callBack).Forget();
+                break;
+            default:
+                break;
+        }
     }
 
     /// <summary>
@@ -60,19 +102,20 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
     /// </summary>
     /// <param name="callBack">ドリーが終わったあとのEvent</param>
     /// <returns>待ち合わせ時間</returns>
-    private async UniTask DollyMoveTask(Action callBack = null)
+    private async UniTask DollyMoveTask(float waitTime, float durationTime, float afterWaitTime, Ease ease, Action callBack = null)
     {
-        await UniTask.Delay(TimeSpan.FromMilliseconds(500));
-        float duration = 5f;
+        await UniTask.Delay(TimeSpan.FromMilliseconds(waitTime));
+        float duration = durationTime;
 
         DOTween.To(() => _dolly.m_PathPosition,
                 value => _dolly.m_PathPosition = value,
                 _pathPositionMax, duration)
-                .SetEase(Ease.InOutFlash)
+                .SetEase(ease)
                 .OnComplete(async () =>
                 {
-                    await UniTask.Delay(TimeSpan.FromSeconds(1));
+                    await UniTask.Delay(TimeSpan.FromSeconds(afterWaitTime));
                     callBack?.Invoke();
+                    _dollyFinalCallBack = null;
                 });
     }
 }
