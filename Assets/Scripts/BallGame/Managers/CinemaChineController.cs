@@ -14,6 +14,9 @@ using Cinemachine;
 /// </summary>
 public class CinemaChineController : SingletonMonoBehaviour<CinemaChineController>
 {
+
+    public IObservable<Unit> CameraReturnObserver => _cameraReturnSubject;
+
     [Header("変数")]
     [Tooltip("シネマシーンカメラ")]
     [SerializeField]
@@ -30,11 +33,12 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
     private float _pathPositionMax;
     private float _pathPositionMin;
     private Action _dollyFinalCallBack;
-    private Action _returnDollyCallBack;
 
     private const int PRIORITY_AMOUNT = 11;
+    private int _returnCount = 0;
 
-    
+    private Subject<Unit> _cameraReturnSubject = new Subject<Unit>();
+
     private void Awake()
     {
         for (int i = 0; i < _virtualCamera.Length; i++)
@@ -52,12 +56,14 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
         _cameraDic[cameraType].Priority = PRIORITY_AMOUNT;
     }
 
-    public void DiceCheck(Action callBack = null)
+    public void DiceCheckMove(Action callBack = null)
     {
-        _returnDollyCallBack += callBack;
-        _returnDollyCallBack += () => CameraReturnMove();
+        _returnCount++;
+        callBack += () => CameraReturnMove();
+        if (_returnCount >= NameLifeManager.Instance.GamePlayerAmount)
+            callBack = null;
         _dolly = _cameraDic[CameraType.cam2].GetCinemachineComponent<CinemachineTrackedDolly>();
-        DollyMoveTask(2, 2, 5,Ease.OutExpo , ()=>CameraReturnMove(_returnDollyCallBack)).Forget();
+        DollyMoveTask(2, 2, 5,Ease.OutExpo ,() => CameraReturnMove(callBack)).Forget();
     }
 
     private void CameraReturnMove(Action callBack = null)
@@ -67,8 +73,9 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
         value => _dolly.m_PathPosition = value,
         _pathPositionMin, 0)
         .SetEase(Ease.InFlash);
+        //ToDo:コールバックは無くしてUniRxだけにする。
         callBack?.Invoke();
-        _returnDollyCallBack = null;
+        _cameraReturnSubject.OnNext(Unit.Default);
     }
 
     /// <summary>
@@ -90,7 +97,7 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
                 _pathPositionMax = _dolly.m_Path.MaxPos;
                 callBack += () => ActivateCameraChange(CameraType.cam2);
 
-                DollyMoveTask(0, 5,0, Ease.Linear, callBack).Forget();
+                DollyMoveTask(0, 7,0, Ease.InOutSine, callBack).Forget();
                 break;
             default:
                 break;
