@@ -15,6 +15,9 @@ public class Dice : MonoBehaviour
     public int Result => _result;
 
     public IObservable<Unit> InActiveObservar => _inactiveSubject;
+    public IObservable<Unit> DiceStopObserver => _diceStopSubject;
+    public IObservable<int> CheckedObserver => _checkedSubject;
+
 
     [Header("変数")]
     [Tooltip("サイコロの各目の位置")]
@@ -22,26 +25,34 @@ public class Dice : MonoBehaviour
     private List<Transform> _dicePoints = default;
 
     private int _result = 0;
-    Rigidbody _rd;
+    private Rigidbody _rd;
+    private Vector3 _initPosition;
+    private Coroutine _currentCoroutine;
 
     private Subject<Unit> _inactiveSubject = new Subject<Unit>();
     private Subject<Unit> _diceStopSubject = new Subject<Unit>();
+    private Subject<int> _checkedSubject = new Subject<int>();
 
     private void Start()
     {
-        Invoke("ReturnPool", 10);
+        _initPosition = transform.position;
         _rd = GetComponent<Rigidbody>();
-        _diceStopSubject.Subscribe(_ => CheckResult());
-        StartCoroutine(StopCheckCoroutine());
+        _diceStopSubject.TakeUntilDestroy(this).Subscribe(_ => CheckResult());
+        CinemaChineController.Instance.CameraReturnObserver
+                                      .TakeUntilDestroy(this)
+                                      .Subscribe(_ => ReturnPool());
     }
 
     private void OnEnable()
     {
-        Invoke("ReturnPool", 10);
+        _currentCoroutine = StartCoroutine(StopCheckCoroutine());
     }
 
     private void OnDisable()
     {
+        transform.position = _initPosition;
+        if (_currentCoroutine != null)
+            _currentCoroutine = null;
         _inactiveSubject.OnNext(Unit.Default);
     }
 
@@ -58,6 +69,7 @@ public class Dice : MonoBehaviour
 
         Debug.Log(resultPoint);
         _result = resultPoint;
+        _checkedSubject.OnNext(_result);
     }
 
     private IEnumerator StopCheckCoroutine()
@@ -72,5 +84,7 @@ public class Dice : MonoBehaviour
                 break;
             }
         }
+
+        Debug.Log("抜けた!");
     }
 }
