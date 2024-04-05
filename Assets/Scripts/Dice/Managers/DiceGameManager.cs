@@ -1,18 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using System.Linq;
 
-public class DiceGameManager : MonoBehaviour
+public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    private SortedList<int,string> _diceResultNameDic = new SortedList<int, string>();
+
+    public async UniTask ResultReciever(int currentResult)
     {
-        
+        string currentName = NameLifeManager.Instance.CurrentNameReciever();
+        _diceResultNameDic.Add(currentResult, currentName);
+        Debug.Log($"{currentName}:{currentResult}");
+        NameLifeManager.Instance.NameListOrderChange();
+        if (_diceResultNameDic.Count() >= NameLifeManager.Instance.GamePlayerAmount)
+        {
+            loseCheck();
+            await UniTask.Delay(TimeSpan.FromSeconds(4));
+            GameManager.Instance.SceneLoader("GameSelect");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void loseCheck()
     {
-        
+        int minNum = _diceResultNameDic.Keys[0];
+        string loseName = _diceResultNameDic[minNum];
+        NameLifeManager.Instance.ReduceLife(loseName);
     }
 }
