@@ -27,6 +27,5 @@ public class DiceRollButton : MonoBehaviour
                        _rollButton.gameObject.SetActive(false);
                        _rollSubject.OnNext(Unit.Default);
                    });
-        //todo:次のターンが回ったときにinteractableをtrueに。
     }
 }

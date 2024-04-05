@@ -23,6 +23,9 @@ public class DiceUIPresenter : PresenterBase
     [SerializeField]
     private TextMeshProUGUI _inGameTMP = default;
 
+    [SerializeField]
+    private DiceResultTMP _diceResultTMP = default;
+
     protected override void Start()
     {
         base.Start();
@@ -40,11 +43,19 @@ public class DiceUIPresenter : PresenterBase
                        {
                            _inGameTMP.gameObject.SetActive(false);
                            DiceController.Instance.DiceGenerate();
-                           CinemaChineController.Instance.DiceCheck(InGameUIsActivator);
+                           CinemaChineController.Instance.DiceCheckMove(InGameUIsActivator);
 #if DebugTest
                            Invoke("TestSE", 0.5f);
 #endif
                        });
+
+        DiceController.Instance.CaliculatedObserver
+                               .TakeUntilDestroy(this)
+                               .Subscribe(result =>
+                               {
+                                   _diceResultTMP.FadeTMP(result);
+                               });
+
     }
 
     private void InGameUIsActivator()
