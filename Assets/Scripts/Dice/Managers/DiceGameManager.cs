@@ -7,12 +7,12 @@ using System.Linq;
 
 public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
 {
-    private SortedList<int,string> _diceResultNameDic = new SortedList<int, string>();
+    private List<KeyValuePair<int, string>> _diceResultNameDic = new List<KeyValuePair<int, string>>();
 
     public async UniTask ResultReciever(int currentResult)
     {
         string currentName = NameLifeManager.Instance.CurrentNameReciever();
-        _diceResultNameDic.Add(currentResult, currentName);
+        _diceResultNameDic.Add(new KeyValuePair<int, string>(currentResult, currentName));
         Debug.Log($"{currentName}:{currentResult}");
         NameLifeManager.Instance.NameListOrderChange();
         if (_diceResultNameDic.Count() >= NameLifeManager.Instance.GamePlayerAmount)
@@ -25,8 +25,13 @@ public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
 
     private void loseCheck()
     {
-        int minNum = _diceResultNameDic.Keys[0];
-        string loseName = _diceResultNameDic[minNum];
-        NameLifeManager.Instance.ReduceLife(loseName);
+        _diceResultNameDic.Sort((x,y)=> x.Key.CompareTo(y.Key));
+
+        int minkey = _diceResultNameDic[0].Key;
+        List<string> loseNames = _diceResultNameDic.Where(entry => entry.Key == minkey)
+                                                   .Select(entry => entry.Value)
+                                                   .ToList();
+        loseNames.ForEach(name => Debug.Log(name));
+        loseNames.ForEach(name => NameLifeManager.Instance.ReduceLife(name));
     }
 }
