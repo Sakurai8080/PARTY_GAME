@@ -33,9 +33,12 @@ public class SecondsDisplay : MonoBehaviour
     /// 最終結果で負けた秒数の色変化
     /// </summary>
     /// <param name="order">負けた秒数の要素数</param>
-    public void FinalResultTextChange(int order)
+    public void FinalResultTextChange(params int[] order)
     {
-        _SecoundTMPList[order].DOColor(Color.red, 3)
-                              .SetEase(Ease.OutQuad);
+        for (int i = 0; i < order.Length; i++)
+        {
+            _SecoundTMPList[order[i]].DOColor(Color.red, 3)
+                                     .SetEase(Ease.OutQuad);
+        }
     }
 }

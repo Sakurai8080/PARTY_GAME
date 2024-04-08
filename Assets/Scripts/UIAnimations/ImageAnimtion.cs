@@ -1,4 +1,5 @@
 using DG.Tweening;
+using UniRx;
 
 /// <summary>
 /// 全イメージに使えるアニメーションコンポーネント
