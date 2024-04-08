@@ -14,9 +14,7 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
     [SerializeField]
     private　SecondsDisplay _nameSecondsDisplay;
 
-    private Dictionary<TimeSpan, string> _timeNameDic = new Dictionary<TimeSpan, string>();
-    private TimeSpan _correctTime = TimeSpan.FromSeconds(10);
-    private int _resultLoseOrder = 0;
+    private List<KeyValuePair<TimeSpan, string>> _timeNameDic = new List<KeyValuePair<TimeSpan, string>>();
 
     /// <summary>
     /// 名前と時間の紐づけ
@@ -25,18 +23,15 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
     /// <param name="name">名前</param>
     /// <param name="callBack">確認後のコールバック</param>
     /// <returns></returns>
-    public async UniTask TimeNameAdd(TimeSpan time, string name, Action callBack = null)
+    public void TimeNameAdd(TimeSpan time, string name, Action callBack = null)
     {
-        _timeNameDic.Add(time, name);
-        Debug.Log($"時間 {time} : 名前 {name}");
+        _timeNameDic.Add(new KeyValuePair<TimeSpan, string>(time, name));
+        Debug.Log($"<color=blue>時間 {time} : 名前 {name}</color>");
         try
-        {
+        { 
             if (_timeNameDic.Count() >= NameLifeManager.Instance.GamePlayerAmount)
             {
                 ResultCheck();
-                _nameSecondsDisplay.FinalResultTextChange(_resultLoseOrder);
-                await UniTask.Delay(TimeSpan.FromSeconds(4));
-                GameManager.Instance.SceneLoader("GameSelect");
                 return;
             }
             callBack?.Invoke();
@@ -52,25 +47,56 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
     /// </summary>
     private void ResultCheck()
     {
-        TimeSpan currentMaxGapTime = TimeSpan.MinValue;
-        TimeSpan loseTime = TimeSpan.MinValue;
-        int currentOrder = 0;
-        foreach (var item in _timeNameDic.Keys)
+        IEnumerable<TimeSpan> timeGaps = _timeNameDic.Select(x => CalculateTimeGap(x.Key));
+        var (maxGap, maxGapOrders) = GetMaxGapAndOrders(timeGaps);
+        maxGapOrders.ForEach(order => LosePlayerProcess(order,maxGap));
+        _nameSecondsDisplay.FinalResultTextChange(maxGapOrders.ToArray());
+        DelayAndLoadSceneTask().Forget();
+    }
+
+    private TimeSpan CalculateTimeGap(TimeSpan measuredTime)
+    {
+        TimeSpan offsetTime = TimeSpan.FromMilliseconds(-1);
+        TimeSpan correctTime = TimeSpan.FromSeconds(10);
+        TimeSpan gap = correctTime - measuredTime;
+        return (gap < TimeSpan.Zero) ? TimeSpan.FromTicks(-gap.Ticks)+ offsetTime: gap + offsetTime;
+    }
+
+    private (TimeSpan, List<int>) GetMaxGapAndOrders(IEnumerable<TimeSpan> timeGaps)
+    {
+        TimeSpan maxGap = TimeSpan.MinValue;
+        List<int> maxGapOrders = new List<int>();
+
+        string tempGap = "";
+        for (int i = 0; i < timeGaps.Count(); i++)
         {
-            TimeSpan gap = _correctTime - item;
+            TimeSpan gap = timeGaps.ElementAt(i);
+            string gapFormat = gap.ToString(@"ss\.ff");
+            Debug.Log($"{_timeNameDic[i].Value}は<color=yellow>{gapFormat}</color>");
 
-            gap = (gap < TimeSpan.Zero) ? TimeSpan.FromTicks(-gap.Ticks) : gap;
-
-            Debug.Log($"<color=red>{gap}</color>");
-            if (currentMaxGapTime < gap)
+            if (maxGap <= gap || tempGap == gapFormat)
             {
-                currentMaxGapTime = gap;
-                _resultLoseOrder = currentOrder;
-                loseTime = item;
+                if (maxGap < gap && tempGap != gapFormat)
+                    maxGapOrders.Clear();
+
+                tempGap = gapFormat;
+                Debug.Log($"<color=red>{tempGap}</color>");
+                maxGap = gap;
+                maxGapOrders.Add(i);
             }
-            currentOrder++;
         }
-        string loseName = _timeNameDic[loseTime];
-        NameLifeManager.Instance.ReduceLife(loseName);
+        return (maxGap, maxGapOrders);
+    }
+
+    private void LosePlayerProcess(int order,TimeSpan maxGap)
+    {
+        NameLifeManager.Instance.ReduceLife(_timeNameDic[order].Value);
+        Debug.Log($"{_timeNameDic[order].Value}は{maxGap}で負け");
+    }
+
+    private async UniTask DelayAndLoadSceneTask()
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(4));
+        GameManager.Instance.SceneLoader("GameSelect");
     }
 }
