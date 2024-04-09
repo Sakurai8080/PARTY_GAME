@@ -25,11 +25,6 @@ public class GameSelectUIAnimation : MonoBehaviour
         AnimationSetup();
     }
 
-    private void OnDisable()
-    {
-        TweenUIsController.Instance.KillTweens(new List<Tween> {_currentFadeTween, _currentScaleTween });
-    }
-
     /// <summary>
     /// 選択済みでなければアニメーション開始
     /// </summary>
@@ -47,11 +42,13 @@ public class GameSelectUIAnimation : MonoBehaviour
     {
         _currentScaleTween = transform.DOScale(0.9f, 1f)
                                       .SetEase(Ease.InFlash)
-                                      .SetLoops(-1, LoopType.Yoyo);
+                                      .SetLoops(-1, LoopType.Yoyo)
+                                      .SetLink(gameObject);
 
         _currentFadeTween = _targetImage.DOFade(0.8f, 1)
                                          .SetEase(Ease.InBounce)
-                                         .SetLoops(-1, LoopType.Yoyo);
+                                         .SetLoops(-1, LoopType.Yoyo)
+                                         .SetLink(gameObject);
 
     }
 }

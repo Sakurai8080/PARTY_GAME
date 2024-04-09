@@ -39,6 +39,7 @@ public class TextAnimation : MonoBehaviour
     {
         _currentScaleTween = transform.DOShakeScale(_tweenData.ScaleDuration, 0.1f, _bounceCount)
                                       .SetEase(_tweenData.LoopEasing)
-                                      .SetLoops(-1, _tweenData.LoopType);
+                                      .SetLoops(-1, _tweenData.LoopType)
+                                      .SetLink(gameObject);
     }
 }

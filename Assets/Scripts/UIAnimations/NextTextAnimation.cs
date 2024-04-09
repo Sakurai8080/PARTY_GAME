@@ -36,7 +36,8 @@ public class NextTextAnimation : MonoBehaviour
         _sequence.Append(transform.DOBlendableMoveBy(new Vector3(7f, 0, 0), 0.1f).SetEase(Ease.InCirc));
         _sequence.AppendInterval(_restartWaitTime);
         _sequence.SetLoops(-1, LoopType.Restart);
-        _sequence.Play();
+        _sequence.Play()
+                 .SetLink(gameObject);
     }
 
     /// <summary>
