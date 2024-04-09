@@ -84,7 +84,5 @@ public class Dice : MonoBehaviour
                 break;
             }
         }
-
-        Debug.Log("抜けた!");
     }
 }

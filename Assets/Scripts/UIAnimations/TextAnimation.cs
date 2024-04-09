@@ -12,9 +12,9 @@ public class TextAnimation : MonoBehaviour
     [SerializeField]
     protected TweenData _tweenData;
 
-    [Tooltip("動かすテキスト")]
-    [SerializeField]
-    TextMeshProUGUI _moveText = default;
+    //[Tooltip("動かすテキスト")]
+    //[SerializeField]
+    //TextMeshProUGUI _moveText = default;
 
     [Tooltip("弾ませるカウント")]
     [SerializeField]
@@ -29,7 +29,7 @@ public class TextAnimation : MonoBehaviour
 
     private void OnDisable()
     {
-        TweenUIsController.Instance.KillTweens(_currentScaleTween);
+        Dispose();
     }
 
     /// <summary>
@@ -39,7 +39,12 @@ public class TextAnimation : MonoBehaviour
     {
         _currentScaleTween = transform.DOShakeScale(_tweenData.ScaleDuration, 0.1f, _bounceCount)
                                       .SetEase(_tweenData.LoopEasing)
-                                      .SetLoops(-1, _tweenData.LoopType)
-                                      .SetLink(gameObject);
+                                      .SetLoops(-1, _tweenData.LoopType);
+    }
+
+    public void Dispose()
+    {
+        _currentScaleTween?.Kill();
+        _currentScaleTween = null;
     }
 }

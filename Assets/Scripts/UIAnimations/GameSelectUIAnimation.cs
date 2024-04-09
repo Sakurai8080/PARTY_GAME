@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 /// <summary>
 /// ゲームセレクトUIのアニメーション
 /// </summary>
-public class GameSelectUIAnimation : MonoBehaviour
+public class GameSelectUIAnimation : MonoBehaviour, IDisposable
 {
     [Header("変数")]
     [Tooltip("動かすイメージ")]
@@ -23,6 +24,11 @@ public class GameSelectUIAnimation : MonoBehaviour
     private void Start()
     {
         AnimationSetup();
+    }
+
+    private void OnDisable()
+    {
+        Dispose();
     }
 
     /// <summary>
@@ -49,6 +55,13 @@ public class GameSelectUIAnimation : MonoBehaviour
                                          .SetEase(Ease.InBounce)
                                          .SetLoops(-1, LoopType.Yoyo)
                                          .SetLink(gameObject);
+    }
 
+    public void Dispose()
+    {
+        _currentFadeTween?.Kill();
+        _currentFadeTween = null;
+        _currentScaleTween?.Kill();
+        _currentScaleTween = null;
     }
 }

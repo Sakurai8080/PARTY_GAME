@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 using System.Linq;
@@ -5,7 +6,7 @@ using System.Linq;
 /// <summary>
 /// 設定画面のNextに使うアニメーション
 /// </summary>
-public class NextTextAnimation : MonoBehaviour
+public class NextTextAnimation : MonoBehaviour, IDisposable
 {
     [Header("変数")]
     [Tooltip("アニメーションの開始時間")]
@@ -24,6 +25,11 @@ public class NextTextAnimation : MonoBehaviour
     {
         _textRect = GetComponent<RectTransform>() ;
         _initPosition = _textRect.position;
+    }
+
+    private void OnDisable()
+    {
+        Dispose();
     }
 
     /// <summary>
@@ -46,6 +52,12 @@ public class NextTextAnimation : MonoBehaviour
     public void StopTween()
     {
         _textRect.position = _initPosition;
+        Dispose();
+    }
+
+    public void Dispose()
+    {
         _sequence?.Kill();
+        _sequence = null;
     }
 }
