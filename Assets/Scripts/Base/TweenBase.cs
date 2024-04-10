@@ -8,7 +8,7 @@ using TMPro;
 /// <summary>
 /// UIのアニメーション用の基底クラス
 /// </summary>
-public abstract class TweenBase : MonoBehaviour
+public abstract class TweenBase : MonoBehaviour, IDisposable
 {
     public Image TargetImage => _targetImage;
     public Color InitialColor => _initialColor;
@@ -45,8 +45,7 @@ public abstract class TweenBase : MonoBehaviour
     protected virtual void OnDisable()
     {
         ImageAlphaController(_targetImage, 1);
-        TweenUIsController.Instance.KillTweens(_currentFadeTween);
-        TweenUIsController.Instance.KillTweens(_currentScaleTween);
+        Dispose();
     }
 
     protected virtual void Start()
@@ -99,5 +98,13 @@ public abstract class TweenBase : MonoBehaviour
                 _initialColor.a = 1;
             _targetImage.color = _initialColor;
         }
+    }
+
+    public void Dispose()
+    {
+        _currentFadeTween?.Kill();
+        _currentFadeTween = null;
+        _currentScaleTween?.Kill();
+        _currentScaleTween = null;
     }
 }

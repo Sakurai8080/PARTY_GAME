@@ -15,6 +15,8 @@ using System.Linq;
 /// </summary>
 public class DiceController : SingletonMonoBehaviour<DiceController>
 {
+    public IObservable<int> CaliculatedObserver => _calculatedSubject;
+
     [Header("変数")]
     [Tooltip("サイコロ")]
     [SerializeField]
@@ -25,8 +27,14 @@ public class DiceController : SingletonMonoBehaviour<DiceController>
     private Transform _diceParent = default;
 
     private Queue<Dice> _diceQueue = new Queue<Dice>();
-    private Dictionary<Dice, Vector3> _diceInitPosDic = new Dictionary<Dice, Vector3>();
+    private List<int> _resultDice = new List<int>();
+    private const int GENERATE_MULT = 2;
 
+    private Subject<int> _calculatedSubject = new Subject<int>();
+
+    /// <summary>
+    /// サイコロの生成(プール機能)
+    /// </summary>
     public void DiceGenerate()
     {
         if (_diceQueue.Count() > 0)
@@ -34,19 +42,18 @@ public class DiceController : SingletonMonoBehaviour<DiceController>
             while (_diceQueue.Count() > 0)
             {
                 Dice reuseDice = _diceQueue.Dequeue();
-                reuseDice.transform.position = _diceInitPosDic[reuseDice];
                 reuseDice.gameObject.SetActive(true);
                 OnRollDice(reuseDice);
             }
         }
-        else if(_diceQueue.Count() == 0)
+        else if(_diceQueue.Count() <= 0)
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < GENERATE_MULT; i++)
             {
                 foreach (var dice in _diceList)
                 {
                     Dice madeDice = Instantiate(dice, _diceParent);
-                    _diceInitPosDic.Add(madeDice, madeDice.transform.localPosition);
+                    madeDice.CheckedObserver.Subscribe(value => DiceResultChecker(value));
                     OnRollDice(madeDice);
                     madeDice.InActiveObservar.Subscribe(_ => _diceQueue.Enqueue(madeDice));
                 }
@@ -54,13 +61,31 @@ public class DiceController : SingletonMonoBehaviour<DiceController>
         }
     }
 
+    private void DiceResultChecker(int diceResult)
+    {
+        _resultDice.Add(diceResult);
+        if (_resultDice.Count() >= _diceList.Count * GENERATE_MULT)
+        {
+            int finalResult = DiceCalc.DiceSum(_resultDice.ToArray());
+            Debug.Log($"サイコロの結果 : {finalResult}");
+            _resultDice.Clear();
+            ResultPass(finalResult);
+            _calculatedSubject.OnNext(finalResult);
+        }
+    }
+
+    private void ResultPass(int res)
+    {
+        DiceGameManager.Instance.ResultReciever(res).Forget();
+    }
+
+    /// <summary>
+    /// サイコロを振る処理
+    /// </summary>
+    /// <param name="dice">振るサイコロ</param>
     private void OnRollDice(Dice dice)
     {
-        float randomAddForce = UnityEngine.Random.Range(-5, 5);
         float randomRotateAmount = UnityEngine.Random.Range(-360, 360);
-        Rigidbody diceRD = dice.GetComponent<Rigidbody>();
-        diceRD.AddForce(randomAddForce, 2, randomAddForce);
-        dice.transform.Rotate(randomRotateAmount, randomRotateAmount, randomRotateAmount);
-        diceRD.useGravity =true;
+        dice.transform.DORotate(new Vector3(randomRotateAmount, randomRotateAmount,randomRotateAmount), 0.7f,RotateMode.FastBeyond360);
     }
 }

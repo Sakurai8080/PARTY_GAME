@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 /// <summary>
 /// ゲームセレクトUIのアニメーション
 /// </summary>
-public class GameSelectUIAnimation : MonoBehaviour
+public class GameSelectUIAnimation : MonoBehaviour, IDisposable
 {
     [Header("変数")]
     [Tooltip("動かすイメージ")]
@@ -27,7 +28,7 @@ public class GameSelectUIAnimation : MonoBehaviour
 
     private void OnDisable()
     {
-        TweenUIsController.Instance.KillTweens(new List<Tween> {_currentFadeTween, _currentScaleTween });
+        Dispose();
     }
 
     /// <summary>
@@ -47,11 +48,20 @@ public class GameSelectUIAnimation : MonoBehaviour
     {
         _currentScaleTween = transform.DOScale(0.9f, 1f)
                                       .SetEase(Ease.InFlash)
-                                      .SetLoops(-1, LoopType.Yoyo);
+                                      .SetLoops(-1, LoopType.Yoyo)
+                                      .SetLink(gameObject);
 
         _currentFadeTween = _targetImage.DOFade(0.8f, 1)
                                          .SetEase(Ease.InBounce)
-                                         .SetLoops(-1, LoopType.Yoyo);
+                                         .SetLoops(-1, LoopType.Yoyo)
+                                         .SetLink(gameObject);
+    }
 
+    public void Dispose()
+    {
+        _currentFadeTween?.Kill();
+        _currentFadeTween = null;
+        _currentScaleTween?.Kill();
+        _currentScaleTween = null;
     }
 }
