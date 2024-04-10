@@ -1,11 +1,7 @@
 using System;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-using TMPro;
-using System.Threading;
 
 /// <summary>
 /// サイコロを振るボタン
@@ -25,6 +21,11 @@ public class DiceRollButton : MonoBehaviour
     {
         _rollButton.OnClickAsObservable()
                    .TakeUntilDestroy(this)
-                   .Subscribe(_ =>_rollSubject.OnNext(Unit.Default));
+                   .Subscribe(_ =>
+                   {
+                       _rollButton.interactable = false;
+                       _rollButton.gameObject.SetActive(false);
+                       _rollSubject.OnNext(Unit.Default);
+                   });
     }
 }

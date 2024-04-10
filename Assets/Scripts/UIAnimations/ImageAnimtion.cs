@@ -1,4 +1,5 @@
 using DG.Tweening;
+using UniRx;
 
 /// <summary>
 /// 全イメージに使えるアニメーションコンポーネント
@@ -22,11 +23,14 @@ public class ImageAnimtion : TweenBase
     {
         _currentScaleTween = transform.DOScale(_tweenData.ScaleAmount, _tweenData.ScaleDuration)
                                       .SetEase(_tweenData.LoopEasing)
-                                      .SetLoops(-1, _tweenData.LoopType);
+                                      .SetLoops(-1, _tweenData.LoopType)
+                                      .SetLink(gameObject);
 
 
         _currentFadeTween = _targetImage.DOFade(0.9f, _tweenData.FadeDuration)
                                          .SetEase(_tweenData.LoopEasing)
-                                         .SetLoops(-1, _tweenData.LoopType);
+                                         .SetLoops(-1, _tweenData.LoopType)
+                                         .SetLink(gameObject);
+                                         
     }
 }
