@@ -28,7 +28,7 @@ public class BallUIsController : MonoBehaviour
     private RectTransform _nameTextRect;
     private RectTransform _ballButtonRect;
     private Vector3 _textOffsetYpos = new Vector3(0,0.2f, 0);
-
+    private Vector3 _previousPosition;
 
     void Start()
     {
@@ -58,7 +58,10 @@ public class BallUIsController : MonoBehaviour
 
     void FixedUpdate()
     {
-        _nameTextRect.position = RectTransformUtility.WorldToScreenPoint(Camera.main,_targetBall.transform.position + _textOffsetYpos);
+        Vector3 velocity = (_targetBall.transform.position - _previousPosition) / Time.fixedDeltaTime;
+        Vector3 predictedPosition = _targetBall.transform.position + velocity * Time.fixedDeltaTime;
+        _nameTextRect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, predictedPosition + _textOffsetYpos);
+        _previousPosition = _targetBall.transform.position;
     }
 
     /// <summary>
@@ -78,24 +81,18 @@ public class BallUIsController : MonoBehaviour
     {
         Vector3 onGameOffset = new Vector3(0, 0, 0.2f);
         float duration = 6f;
-        TextFadeSwitcher(0.25f);
+        TextFadeSwitcher(0,0.25f);
         DOTween.To(() => _textOffsetYpos, (value) => _textOffsetYpos = value, onGameOffset, duration).SetEase(Ease.InOutSine);
     }
 
     /// <summary>
     /// カメラ移動演出時のテキストを隠す処理
     /// </summary>
-    /// <param name="duration">アクティブを切り替える時間</param>
-    private void TextFadeSwitcher(float duration)
+    /// <param name="duration">切り替える時間</param>
+    public void TextFadeSwitcher(float alphaAmount, float duration)
     {
-        _nameTMP.DOFade(0, duration)
-                 .SetEase(Ease.Linear)
-                 .OnComplete(async () =>
-                 {
-                     await UniTask.Delay(TimeSpan.FromSeconds(4));
-                     duration = 3;
-                     _nameTMP.DOFade(1, duration)
-                              .SetEase(Ease.InFlash);
-                 });
+        _nameTMP.DOFade(alphaAmount, duration)
+                 .SetEase(Ease.Linear);
     }
+
 }
