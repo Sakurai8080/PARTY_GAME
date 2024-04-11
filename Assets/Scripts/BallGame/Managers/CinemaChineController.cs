@@ -22,8 +22,8 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
     [SerializeField]
     private ActivationCamera[] _virtualCamera;
 
-    [SerializeField]
-    private CameraType _currentMoveCam;
+    //[SerializeField]
+    //private CameraType _currentMoveCam;
 
     [SerializeField]
     private GameType _currentTypes;
@@ -81,21 +81,23 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
     /// <summary>
     /// ドリーカメラを動かす処理
     /// </summary>
-    public void DollySet(Action callBack = null)
+    public void DollySet(CameraType type, CameraType nextCamera = CameraType.None, Action callBack = null)
     {
         switch (_currentTypes)
         {
             case GameType.Ball:
-                _dolly = _cameraDic[CameraType.cam2].GetCinemachineComponent<CinemachineTrackedDolly>();
+                _dolly = _cameraDic[type].GetCinemachineComponent<CinemachineTrackedDolly>();
                 _pathPositionMax = _dolly.m_Path.MaxPos;
                 _dollyFinalCallBack += BallController.Instance.OnAllGravity;
+                _dollyFinalCallBack += () => ActivateCameraChange(nextCamera);
                 DollyMoveTask(500, 5,1, Ease.InOutFlash, _dollyFinalCallBack).Forget();
                 break;
 
             case GameType.Dice:
-                _dolly = _cameraDic[_currentMoveCam].GetCinemachineComponent<CinemachineTrackedDolly>();
+                _dolly = _cameraDic[type].GetCinemachineComponent<CinemachineTrackedDolly>();
                 _pathPositionMax = _dolly.m_Path.MaxPos;
-                callBack += () => ActivateCameraChange(CameraType.cam2);
+                if (nextCamera != CameraType.None)
+                    callBack += () => ActivateCameraChange(nextCamera);
 
                 DollyMoveTask(0, 7,0, Ease.InOutSine, callBack).Forget();
                 break;
@@ -137,5 +139,7 @@ public class ActivationCamera
 public enum CameraType
 {
     cam1,
-    cam2
+    cam2,
+    cam3,
+    None,
 }

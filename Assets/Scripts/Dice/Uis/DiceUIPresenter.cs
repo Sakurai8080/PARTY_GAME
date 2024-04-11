@@ -34,7 +34,7 @@ public class DiceUIPresenter : PresenterBase
                        .Subscribe(_ =>
                        {
                            _backGround.SetActive(false);
-                           CinemaChineController.Instance.DollySet(InGameUIsActivator);
+                           CinemaChineController.Instance.DollySet(CameraType.cam1,CameraType.cam2,InGameUIsActivator);
                        });
     
         _diceRollButton.IsRollObserver
