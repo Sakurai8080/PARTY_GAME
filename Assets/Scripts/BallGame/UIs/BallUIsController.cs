@@ -28,7 +28,6 @@ public class BallUIsController : MonoBehaviour
     private RectTransform _nameTextRect;
     private RectTransform _ballButtonRect;
     private Vector3 _textOffsetYpos = new Vector3(0,0.2f, 0);
-    private Vector3 _previousPosition;
 
     void Start()
     {
@@ -56,12 +55,9 @@ public class BallUIsController : MonoBehaviour
                        });
     }
 
-    void FixedUpdate()
+    void OnGUI()
     {
-        Vector3 velocity = (_targetBall.transform.position - _previousPosition) / Time.fixedDeltaTime;
-        Vector3 predictedPosition = _targetBall.transform.position + velocity * Time.fixedDeltaTime;
-        _nameTextRect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, predictedPosition + _textOffsetYpos);
-        _previousPosition = _targetBall.transform.position;
+        _nameTextRect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, _targetBall.transform.position + _textOffsetYpos);
     }
 
     /// <summary>
@@ -79,20 +75,32 @@ public class BallUIsController : MonoBehaviour
     /// </summary>
     private void TextOffsetChange()
     {
-        Vector3 onGameOffset = new Vector3(0, 0, 0.2f);
+        Vector3 onGameOffset = new Vector3(0, 0.2f, 0.2f);
         float duration = 6f;
-        TextFadeSwitcher(0,0.25f);
+        Action gameStartCallBack = InGameTextState;
+        TextFadeSwitcher(0,0.25f,gameStartCallBack);
         DOTween.To(() => _textOffsetYpos, (value) => _textOffsetYpos = value, onGameOffset, duration).SetEase(Ease.InOutSine);
+    }
+
+    private void InGameTextState()
+    {
+        _nameTMP.fontSize = 13;
+        TextFadeSwitcher(1, 0.5f);
     }
 
     /// <summary>
     /// カメラ移動演出時のテキストを隠す処理
     /// </summary>
     /// <param name="duration">切り替える時間</param>
-    public void TextFadeSwitcher(float alphaAmount, float duration)
+    public void TextFadeSwitcher(float alphaAmount, float duration, Action callBack = null)
     {
         _nameTMP.DOFade(alphaAmount, duration)
-                 .SetEase(Ease.Linear);
+                 .SetEase(Ease.Linear)
+                 .OnComplete(async () =>
+                 {
+                     await UniTask.Delay(TimeSpan.FromSeconds(6));
+                     callBack?.Invoke();
+                 });
     }
 
 }

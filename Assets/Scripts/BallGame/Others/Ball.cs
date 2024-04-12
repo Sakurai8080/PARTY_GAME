@@ -15,7 +15,7 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        _ballUIsController.TextFadeSwitcher(1, 0);
+        _ballUIsController.TextFadeSwitcher(0,0);
         BallController.Instance.BallListRemover(this);
     }
 }
