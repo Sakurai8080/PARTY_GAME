@@ -11,6 +11,15 @@ using UnityEngine.UI;
 /// </summary>
 public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimationController>
 {
+    [Header("変数")]
+    [SerializeField]
+    [Tooltip("回復用イメージ")]
+    private Image _goldAppleImage;
+
+    [SerializeField]
+    [Tooltip("ボムイメージ")]
+    private Image _bombImage;
+
     private List<Tween> _allTweenList = new List<Tween>();
     private List<Button> _allBombButton = new List<Button>();
     private Color _resetColor = default;
@@ -96,7 +105,7 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
     }
 
     /// <summary>
-    /// 
+    /// コントロールするためUIリスト追加
     /// </summary>
     /// <param name="buttons"></param>
     public void AddListButton(List<Button> buttons)
@@ -138,5 +147,10 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
             tween.Pause();
         yield return new WaitForSeconds(3f);
         RestartTweens();
+    }
+
+    public Image GetImageCompornent(BoxContents content)
+    {
+        return content == BoxContents.Bomb ? _bombImage : _goldAppleImage; 
     }
 }
