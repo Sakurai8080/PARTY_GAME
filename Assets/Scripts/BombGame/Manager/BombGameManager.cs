@@ -1,9 +1,8 @@
-#define Bomb_Debug
-
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 
 /// <summary>
 /// Bombを管理するマネージャー
@@ -13,7 +12,7 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
 
     public bool OnExplosion => _onExplosion;
 
-    private Dictionary<Image, bool> _allBombdic = new Dictionary<Image, bool>();
+    private Dictionary<Image, BoxContents> _allBombdic = new Dictionary<Image, BoxContents>();
     private bool _onExplosion = false;
 
     /// <summary>
@@ -21,10 +20,11 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
     /// </summary>
     /// <param name="image">選択したカード</param>
     /// <returns>ボムの有無</returns>
-    public bool BombInChecker(Image image)
+    public BoxContents BombInChecker(Image image)
     {
-        if (_allBombdic[image])
+        if (_allBombdic[image] == BoxContents.Bomb)
             _onExplosion = true;
+
         return _allBombdic[image];
     }
 
@@ -33,13 +33,17 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
     /// </summary>
     public void BombRandomInstallation()
     {
-        int cardCount = _allBombdic.Count();
-        int inBombIndex = Random.Range(0, cardCount);
-        Image inBombImage = _allBombdic.Keys.ElementAt(inBombIndex);
-        _allBombdic[inBombImage] = true;
-#if Bomb_Debug
-        Debug.Log($"ボムは<color=yellow>{inBombImage}</color>番目のカード");
-#endif 
+        int inCount = 2;
+        List<Image> availableCards = _allBombdic.Keys.ToList();
+
+        for (int i = 0; i < inCount; i++)
+        {
+            int randomIndex = Random.Range(0, availableCards.Count());
+            Image inBombImage = availableCards[randomIndex];
+            _allBombdic[inBombImage] = (BoxContents)i+1;
+            Debug.Log($"ボムは<color=yellow>{inBombImage}</color>番目のカード");
+            availableCards.RemoveAt(randomIndex);
+        }
     }
 
     /// <summary>
@@ -48,8 +52,15 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
     /// <param name="images"></param>
     public void CardSet(List<Image> images)
     {
-        images.ForEach(card => _allBombdic.Add(card, false));
+        images.ForEach(card => _allBombdic.Add(card, BoxContents.None));
         BombRandomInstallation();
+    }
+
+    public void AfterEmptySelected()
+    {
+        BombUIsAnimationController.Instance.RestartTweens();
+        BombUIsAnimationController.Instance.InteractableValidTask(true, 1).Forget();
+        NameLifeManager.Instance.NameListOrderChange();
     }
 
     /// <summary>
@@ -59,10 +70,26 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
     {
         string loseName = NameLifeManager.Instance.CurrentNameReciever();
         NameLifeManager.Instance.ReduceLife(loseName);
-#if Bomb_Debug
         Debug.Log(loseName);
-#endif
         NameLifeManager.Instance.NameListOrderChange();
         GameManager.Instance.SceneLoader("GameSelect");
     }
+
+    public void AfterAppleSelect()
+    {
+        string lifeUpName = NameLifeManager.Instance.CurrentNameReciever();
+        NameLifeManager.Instance.ReduceLife(lifeUpName);
+        Debug.Log(lifeUpName);
+        NameLifeManager.Instance.NameListOrderChange();
+        BombUIsAnimationController.Instance.AfterImageValid(0,0.25f,false);
+        BombUIsAnimationController.Instance.RestartTweens();
+        BombUIsAnimationController.Instance.InteractableValidTask(true, 1).Forget();
+    }
+}
+
+public enum BoxContents
+{
+    None,
+    Bomb,
+    Apple
 }
