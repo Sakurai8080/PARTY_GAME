@@ -50,7 +50,7 @@ public class BallUIPresenter : PresenterBase
                    .Subscribe(_ =>
                    {
                        CinemaChineController.Instance.ActivateCameraChange(CameraType.cam2);
-                       CinemaChineController.Instance.DollySet();
+                       CinemaChineController.Instance.DollySet(CameraType.cam2, CameraType.cam3);
                        BallController.Instance.RotateBallParent();
                    });
     }
