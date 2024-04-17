@@ -53,9 +53,9 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
     /// ライフを増やす処理
     /// </summary>
     /// <param name="loseName">回復するプレイヤーの名前</param>
-    public void IncreaseLife(string loseName)
+    public void IncreaseLife(string lifeUpName)
     {
-        _nameLifeDic[loseName]++;
+        _nameLifeDic[lifeUpName] += _nameLifeDic[lifeUpName] != 3 ? 1 : 0;
         foreach (var item in _nameLifeDic.Keys)
             Debug.Log($"{item} : {_nameLifeDic[item]}");
     }
