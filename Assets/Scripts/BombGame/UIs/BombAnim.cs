@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
 using System;
 using TMPro;
+
 
 /// <summary>
 /// ボムカード用のアニメーションコンポーネント
@@ -17,7 +19,8 @@ public class BombAnim : TweenBase
     [SerializeField]
     TextMeshProUGUI _buttonNum = default;
 
-    Action _selectedCallBack;
+    private Action _selectedCallBack;
+    private BoxContents _boxContent;
 
     /// <summary>
     /// ゲーム開始時のカードのアニメーション
@@ -53,10 +56,7 @@ public class BombAnim : TweenBase
         transform.DOScale(1, 0.25f)
                  .SetEase(Ease.OutQuint)
                  .SetDelay(0.1f)
-                 .OnComplete(() =>
-                 {
-                     BombCheckAndAnimation();
-                 });
+                 .OnComplete(() => BombCheckAndAnimation());
     }
 
     /// <summary>
@@ -65,43 +65,72 @@ public class BombAnim : TweenBase
     private void BombCheckAndAnimation()
     {
         _buttonNum.SetText("");
-        bool inBomb = BombGameManager.Instance.BombInChecker(_targetImage);
+        _boxContent = BombGameManager.Instance.BombInChecker(_targetImage);
         BombUIsAnimationController.Instance.TweenRemoveFromList(CurrentScaleTween);
         float duration = 2f;
         transform.DOPunchRotation(new Vector3(180f, 270, -45), duration, 5, 1f);
-        (inBomb ? InBombAnimation((int)duration + 1) : NonBombAnimation((int)duration + 1)).Forget();
+        switch (_boxContent)
+        {
+            case BoxContents.None:
+                _selectedCallBack += BombGameManager.Instance.AfterEmptySelected;
+                NonBombAnimation((int)duration + 1, _selectedCallBack).Forget();
+                break;
+
+            case BoxContents.Bomb:
+                _selectedCallBack += BombGameManager.Instance.AfterExplosion;
+                InBoxAnimation((int)duration + 1, _selectedCallBack).Forget();
+                break;
+
+            case BoxContents.Apple:
+                _selectedCallBack += BombGameManager.Instance.AfterAppleSelect;
+                InBoxAnimation((int)duration + 1, _selectedCallBack).Forget();
+                break;
+
+            default:
+                Debug.LogError($"BoxContents :{_boxContent} が見つかりません");
+                break;
+        }
     }
 
     /// <summary>
     /// カードにボムが入っていなかったときのアニメーション
     /// </summary>
     /// <param name="delayTime">遅らせる時間</param>
-    private async UniTask NonBombAnimation(int delayTime,Action callback = null)
+    private async UniTask NonBombAnimation(int delayTime, Action callback = null)
     {
         await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
         _targetImage.DOFade(0, 1).SetEase(Ease.InSine)
-                                 .OnComplete(() =>
-                                 {
-                                     _targetImage.gameObject.SetActive(false);
-                                     NameLifeManager.Instance.NameListOrderChange();
-                                 });
-
-        BombUIsAnimationController.Instance.InteractableValidTask(true, 1).Forget();
+                                 .OnComplete(() => _targetImage.gameObject.SetActive(false));
         callback?.Invoke();
     }
 
     /// <summary>
-    /// カードにボムが入っていたときのアニメーション
+    /// ボックスに何か入っていたときのアニメーション
     /// </summary>
     /// <param name="delayTime">遅らせる時間</param>
-    private async UniTask InBombAnimation(int delayTime, Action callback = null)
+    private async UniTask InBoxAnimation(int delayTime, Action callback = null)
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
-        _bounceCount = 10;
-        _currentScaleTween = transform.DOShakeScale(2, 0.5f, _bounceCount);
-        delayTime = 4;
-        await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
-        BombGameManager.Instance.AfterExplosion();
-        callback?.Invoke();
+        try
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
+            _bounceCount = 10;
+            _currentScaleTween = transform.DOShakeScale(2, 0.5f, _bounceCount);
+            delayTime = 4;
+            await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
+            ImageChange();
+            GetComponent<Button>().image.DOFade(0, 0.5f)
+                                  .OnComplete(()=> _targetImage.gameObject.SetActive(false));
+            await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
+            callback?.Invoke();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex);
+        }
+    }
+
+    private void ImageChange()
+    {
+        BombUIsAnimationController.Instance.AfterImageSet(_boxContent,_targetImage.rectTransform);
     }
 }

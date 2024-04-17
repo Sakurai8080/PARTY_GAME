@@ -1,4 +1,3 @@
-#define DEBUG
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -46,10 +45,19 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
         _nameLifeDic[loseName]--;
         //TODO:0になったらゲームマネージャーでゲームオーバーを呼び出す
 
-#if DEBUG
         foreach (var item in _nameLifeDic.Keys)
             Debug.Log($"{item} : {_nameLifeDic[item]}");
-#endif
+    }
+
+    /// <summary>
+    /// ライフを増やす処理
+    /// </summary>
+    /// <param name="loseName">回復するプレイヤーの名前</param>
+    public void IncreaseLife(string lifeUpName)
+    {
+        _nameLifeDic[lifeUpName] += _nameLifeDic[lifeUpName] != 3 ? 1 : 0;
+        foreach (var item in _nameLifeDic.Keys)
+            Debug.Log($"{item} : {_nameLifeDic[item]}");
     }
 
 

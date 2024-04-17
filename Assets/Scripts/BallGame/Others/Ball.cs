@@ -6,16 +6,16 @@ using TMPro;
 /// </summary>
 public class Ball : MonoBehaviour
 {
-    private TextMeshProUGUI _nameText = default;
+    private BallUIsController _ballUIsController;
 
     private void Start()
     {
-        _nameText = GetComponentInChildren<TextMeshProUGUI>();
+        _ballUIsController = GetComponentInChildren<BallUIsController>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        _nameText.enabled = false;
+        _ballUIsController.TextFadeSwitcher(0,0);
         BallController.Instance.BallListRemover(this);
     }
 }

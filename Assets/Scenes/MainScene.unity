@@ -6469,7 +6469,6 @@ MonoBehaviour:
     Camera: {fileID: 0}
   - CameraName: 
     Camera: {fileID: 0}
-  _currentMoveCam: 0
   _currentTypes: 0
 --- !u!1 &1697241691
 GameObject:

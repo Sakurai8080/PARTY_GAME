@@ -29,7 +29,6 @@ public class BallUIsController : MonoBehaviour
     private RectTransform _ballButtonRect;
     private Vector3 _textOffsetYpos = new Vector3(0,0.2f, 0);
 
-
     void Start()
     {
         _nameTextRect = _nameTMP.GetComponent<RectTransform>();
@@ -56,9 +55,9 @@ public class BallUIsController : MonoBehaviour
                        });
     }
 
-    void FixedUpdate()
+    void OnGUI()
     {
-        _nameTextRect.position = RectTransformUtility.WorldToScreenPoint(Camera.main,_targetBall.transform.position + _textOffsetYpos);
+        _nameTextRect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, _targetBall.transform.position + _textOffsetYpos);
     }
 
     /// <summary>
@@ -76,26 +75,32 @@ public class BallUIsController : MonoBehaviour
     /// </summary>
     private void TextOffsetChange()
     {
-        Vector3 onGameOffset = new Vector3(0, 0, 0.2f);
+        Vector3 onGameOffset = new Vector3(0, 0.2f, 0.2f);
         float duration = 6f;
-        TextFadeSwitcher(0.25f);
+        Action gameStartCallBack = InGameTextState;
+        TextFadeSwitcher(0,0.25f,gameStartCallBack);
         DOTween.To(() => _textOffsetYpos, (value) => _textOffsetYpos = value, onGameOffset, duration).SetEase(Ease.InOutSine);
+    }
+
+    private void InGameTextState()
+    {
+        _nameTMP.fontSize = 13;
+        TextFadeSwitcher(1, 0.5f);
     }
 
     /// <summary>
     /// カメラ移動演出時のテキストを隠す処理
     /// </summary>
-    /// <param name="duration">アクティブを切り替える時間</param>
-    private void TextFadeSwitcher(float duration)
+    /// <param name="duration">切り替える時間</param>
+    public void TextFadeSwitcher(float alphaAmount, float duration, Action callBack = null)
     {
-        _nameTMP.DOFade(0, duration)
+        _nameTMP.DOFade(alphaAmount, duration)
                  .SetEase(Ease.Linear)
                  .OnComplete(async () =>
                  {
-                     await UniTask.Delay(TimeSpan.FromSeconds(4));
-                     duration = 3;
-                     _nameTMP.DOFade(1, duration)
-                              .SetEase(Ease.InFlash);
+                     await UniTask.Delay(TimeSpan.FromSeconds(6));
+                     callBack?.Invoke();
                  });
     }
+
 }

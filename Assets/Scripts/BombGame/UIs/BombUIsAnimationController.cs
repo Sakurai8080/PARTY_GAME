@@ -11,6 +11,19 @@ using UnityEngine.UI;
 /// </summary>
 public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimationController>
 {
+    [Header("変数")]
+    [SerializeField]
+    [Tooltip("回復用イメージ")]
+    private Sprite _goldAppleImage;
+
+    [SerializeField]
+    [Tooltip("ボムイメージ")]
+    private Sprite _bombImage;
+
+    [SerializeField]
+    [Tooltip("変更用画像")]
+    private Image _afterImage;
+
     private List<Tween> _allTweenList = new List<Tween>();
     private List<Button> _allBombButton = new List<Button>();
     private Color _resetColor = default;
@@ -34,7 +47,7 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
     public void CardSelected(BombAnim initColor)
     {
         InitButtonSetUp(initColor.InitialColor);
-        StartCoroutine(PauseTweens());
+        PauseTweens();
     }
 
     /// <summary>
@@ -57,11 +70,8 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
     /// </summary>
     public void RestartTweens()
     {
-        if (!BombGameManager.Instance.OnExplosion)
-        {
-            foreach (var tween in _allTweenList)
-                tween.Play();
-        }
+         foreach (var tween in _allTweenList)
+             tween.Play();
     }
 
     /// <summary>
@@ -96,7 +106,7 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
     }
 
     /// <summary>
-    /// 
+    /// コントロールするためUIリスト追加
     /// </summary>
     /// <param name="buttons"></param>
     public void AddListButton(List<Button> buttons)
@@ -131,12 +141,24 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
     /// カード選択時に全てのアニメーションを一時停止
     /// </summary>
     /// <returns>待機時間</returns>
-    private IEnumerator PauseTweens()
+    private void PauseTweens()
     {
         ResetTransformColor();
         foreach (var tween in _allTweenList)
             tween.Pause();
-        yield return new WaitForSeconds(3f);
-        RestartTweens();
+    }
+
+    public void AfterImageSet(BoxContents content, RectTransform transform)
+    {
+        Sprite changeSprite = content == BoxContents.Bomb ? _bombImage : _goldAppleImage;
+        _afterImage.sprite = changeSprite;
+        AfterImageValid(1,0,true);
+        _afterImage.rectTransform.anchoredPosition = transform.anchoredPosition;
+    }
+
+    public void AfterImageValid(float fadeAmount,float delayTime,bool isActive)
+    {
+        _afterImage.DOFade(fadeAmount, delayTime);
+        _afterImage.enabled = isActive;
     }
 }
