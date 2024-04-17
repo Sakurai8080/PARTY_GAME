@@ -78,7 +78,7 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
     public void AfterAppleSelect()
     {
         string lifeUpName = NameLifeManager.Instance.CurrentNameReciever();
-        NameLifeManager.Instance.ReduceLife(lifeUpName);
+        NameLifeManager.Instance.IncreaseLife(lifeUpName);
         Debug.Log(lifeUpName);
         NameLifeManager.Instance.NameListOrderChange();
         BombUIsAnimationController.Instance.AfterImageValid(0,0.25f,false);
