@@ -49,8 +49,8 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
     /// <summary>
     /// ボムをセットする前に一度全てカードのセット
     /// </summary>
-    /// <param name="images"></param>
-    public void CardSet(List<Image> images)
+    /// <param name="images">カードのイメージ</param>
+    public void CardSet(List<Image>　images)
     {
         images.ForEach(card => _allBombdic.Add(card, BoxContents.None));
         BombRandomInstallation();
