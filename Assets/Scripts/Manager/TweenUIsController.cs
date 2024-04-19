@@ -33,9 +33,6 @@ public class TweenUIsController : SingletonMonoBehaviour<TweenUIsController>
     public void KillTweens <T> (IEnumerable<T> tweens) where T : Tween
     {
         foreach (var tween in tweens)
-        {
             KillTweens(tween);
-            Debug.Log("AAA");
-        }
     }
 }

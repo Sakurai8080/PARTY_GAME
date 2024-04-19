@@ -4450,6 +4450,19 @@ MonoBehaviour:
   - {fileID: 244712542}
   - {fileID: 1420981388}
   - {fileID: 882580984}
+  _bombSelectButton:
+  - {fileID: 1720632936}
+  - {fileID: 1927839139}
+  - {fileID: 301879051}
+  - {fileID: 1876412276}
+  - {fileID: 298732060}
+  - {fileID: 207667961}
+  - {fileID: 1936071238}
+  - {fileID: 12105569}
+  - {fileID: 400989776}
+  - {fileID: 244712546}
+  - {fileID: 1420981392}
+  - {fileID: 882580988}
 --- !u!1 &1876412270
 GameObject:
   m_ObjectHideFlags: 0
