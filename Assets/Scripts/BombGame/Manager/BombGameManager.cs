@@ -76,6 +76,9 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
         GameManager.Instance.SceneLoader("GameSelect");
     }
 
+    /// <summary>
+    /// りんご選択後の処理
+    /// </summary>
     public void AfterAppleSelect()
     {
         string lifeUpName = NameLifeManager.Instance.CurrentNameReciever();

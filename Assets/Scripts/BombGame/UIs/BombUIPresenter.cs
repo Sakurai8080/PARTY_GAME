@@ -34,6 +34,9 @@ public class BombUIPresenter : PresenterBase
                                                  }));
     }
 
+    /// <summary>
+    /// 初期セットアップ
+    /// </summary>
     private void Setup()
     {
         List<Image> imageList = _bombButtonList.Select(button => button.image).ToList();
