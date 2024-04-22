@@ -34,6 +34,9 @@ public class BallController : SingletonMonoBehaviour<BallController>
     private List<Ball> _ballObjList = new List<Ball>();
     private Dictionary<Ball, string> _ballNameDic = new Dictionary<Ball, string>();
 
+    protected override void Awake()
+    {
+    }
 
     public void Setup()
     {

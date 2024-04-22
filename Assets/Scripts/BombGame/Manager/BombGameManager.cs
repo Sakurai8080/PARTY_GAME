@@ -10,11 +10,14 @@ using Cysharp.Threading.Tasks;
 /// </summary>
 public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
 {
-
     public bool OnExplosion => _onExplosion;
 
     private Dictionary<Image, BoxContents> _allBombdic = new Dictionary<Image, BoxContents>();
     private bool _onExplosion = false;
+
+    protected override void Awake()
+    {
+    }
 
     /// <summary>
     /// カード選択時のハズレチェック

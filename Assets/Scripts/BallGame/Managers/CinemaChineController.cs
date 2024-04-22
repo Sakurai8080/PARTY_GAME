@@ -22,9 +22,6 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
     [SerializeField]
     private ActivationCamera[] _virtualCamera;
 
-    //[SerializeField]
-    //private CameraType _currentMoveCam;
-
     [SerializeField]
     private GameType _currentTypes;
 
@@ -39,7 +36,7 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
 
     private Subject<Unit> _cameraReturnSubject = new Subject<Unit>();
 
-    private void Awake()
+    protected override void Awake()
     {
         for (int i = 0; i < _virtualCamera.Length; i++)
             _cameraDic.Add((CameraType)i, _virtualCamera[i].Camera);

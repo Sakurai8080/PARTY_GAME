@@ -16,6 +16,11 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
 
     private List<KeyValuePair<TimeSpan, string>> _timeNameDic = new List<KeyValuePair<TimeSpan, string>>();
 
+
+    protected override void Awake()
+    {
+    }
+
     /// <summary>
     /// 名前と時間の紐づけ
     /// </summary>
