@@ -29,9 +29,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     /// シーンのロード
     /// </summary>
     /// <param name="sceneName">ロードするシーン</param>
-    public void SceneLoader(string sceneName)
+    public void SceneLoader(string sceneName, BGMType bgm = BGMType.None)
     {
         SceneManager.LoadScene(sceneName);
+        if (bgm != BGMType.None)
+        {
+            AudioManager.Instance.PlayBGM(bgm);
+        }
     }
 
     /// <summary>
