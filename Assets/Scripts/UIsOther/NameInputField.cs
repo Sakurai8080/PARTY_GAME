@@ -83,6 +83,6 @@ public class NameInputField : MonoBehaviour
     private void NamedSetupComplete()
     {
         NameLifeManager.Instance.Setup(_namesSet);
-        GameManager.Instance.SceneLoader("GameSelect");
+        GameManager.Instance.SceneLoader("GameSelect",BGMType.InGame);
     }
 }
