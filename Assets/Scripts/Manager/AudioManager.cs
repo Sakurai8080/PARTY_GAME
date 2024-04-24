@@ -6,12 +6,15 @@ using System.Linq;
 using UnityEngine.Audio;
 using UniRx;
 
+/// <summary>
+/// オーディオ関連のマネージャー
+/// </summary>
 public class AudioManager : SingletonMonoBehaviour<AudioManager>
 {
     public int CurrentBGMVolume { get; set; } = 5;
     public int CurrentSEVolume { get; set; } = 5;
 
-    [Header("Variable")]
+    [Header("変数")]
     [Tooltip("全体の音量")]
     [SerializeField, Range(0f, 1f)]
     private float _masterVolume = 1.0f;
