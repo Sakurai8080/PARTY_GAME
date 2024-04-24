@@ -126,7 +126,7 @@ public class SecondsController : SingletonMonoBehaviour<SecondsController>
         }
         finally
         {
-            _countToggleButton.enabled = true;
+            _countToggleButton.enabled = (SecondsGameManager.Instance.CurrentCompleteAmount == NameLifeManager.Instance.GamePlayerAmount) ? false : true;
             CancelToken();
         }
     }
