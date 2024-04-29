@@ -11,6 +11,14 @@ public class RouletteUIPresenter : PresenterBase
     [SerializeField]
     private RouletteButton _rouletteButton;
 
+    [Tooltip("矢印のアニメーションコンポーネント")]
+    [SerializeField]
+    private ArrowImageAnim _arrowImageAnim;
+
+    [Tooltip("ルーレットを描画するコンポーネント")]
+    [SerializeField]
+    private RouletteMaker _rouletteMaker;
+
     private RouletteStartButtonAnim _rouletteStartButtonAnim;
 
     protected override void Start()
@@ -24,6 +32,10 @@ public class RouletteUIPresenter : PresenterBase
                                                        PresenterNotification(clickCount);
                                                        _rouletteStartButtonAnim.UILoopAnimation(clickCount);
                                                    });
+
+        _rouletteMaker.RouletteMadeObserver.TakeUntilDestroy(this)
+                                           .Subscribe(_ => _arrowImageAnim.ImagePlayAnimation());
+                                           
     }
 
     /// <summary>

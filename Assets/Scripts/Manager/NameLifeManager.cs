@@ -17,11 +17,6 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
     private int _gamePlayerAmount = 0;
     private int _currentOrder = 0;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(this);
-    }
-
     /// <summary>
     /// 名前とライフポイント3の初期設定
     /// </summary>

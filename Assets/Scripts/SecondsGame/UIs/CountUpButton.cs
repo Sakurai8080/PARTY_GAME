@@ -13,7 +13,7 @@ public class CountUpButton : MonoBehaviour
     [Header("変数")]
     [Tooltip("カウント操作ボタン")]
     [SerializeField]
-    Button _countUpButton = default;
+    private Button _countUpButton = default;
 
     private bool _inProgress = false;
 

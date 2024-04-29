@@ -24,10 +24,6 @@ public abstract class TweenBase : MonoBehaviour, IDisposable
     [SerializeField]
     protected Image _targetImage = default;
 
-    [Tooltip("スケールをコントロールするUI")]
-    [SerializeField]
-    protected Button _tweensButton = default;
-
     protected Tween _currentScaleTween = null;
     protected Tween _currentFadeTween = null;
     protected Color _initialColor;

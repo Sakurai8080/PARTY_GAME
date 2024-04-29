@@ -505,6 +505,8 @@ MonoBehaviour:
   _inGameUIGroup: {fileID: 805299448}
   _InGameUIsParent: {fileID: 520288100}
   _rouletteButton: {fileID: 1493973189}
+  _arrowImageAnim: {fileID: 689971729}
+  _rouletteMaker: {fileID: 569192612}
 --- !u!1 &520288100
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,8 +826,10 @@ GameObject:
   - component: {fileID: 689971725}
   - component: {fileID: 689971727}
   - component: {fileID: 689971726}
+  - component: {fileID: 689971728}
+  - component: {fileID: 689971729}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ArrowImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -838,17 +842,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689971724}
-  m_LocalRotation: {x: 0.9940563, y: 0, z: 0, w: 0.108867005}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316828661}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 167.5, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.1, y: 182.7}
+  m_AnchoredPosition: {x: -0.4, y: 155.39}
   m_SizeDelta: {x: 68.7, y: 71}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &689971726
@@ -864,14 +868,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
+  m_Color: {r: 0.6981132, g: 0.21404415, b: 0.21404415, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7a3c291ae1eb343c987dc2b30534ce13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3b4d57ce7e75447e7885b4adecbbb64c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -889,6 +893,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689971724}
   m_CullTransparentMesh: 1
+--- !u!114 &689971728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689971724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.83137256}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
+--- !u!114 &689971729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689971724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa33f21e33124caf83f3a8742bf00ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tweenData: {fileID: 11400000, guid: d40789ea9ec5e4f6da5517f1a00f34ea, type: 2}
+  _targetImage: {fileID: 689971726}
 --- !u!1 &800572581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1367,7 +1400,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tweenData: {fileID: 11400000, guid: d611be13221bc419484cf0926cfbc6f6, type: 2}
   _targetImage: {fileID: 1493973187}
-  _tweensButton: {fileID: 1493973186}
 --- !u!114 &1493973191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2251,7 +2283,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tweenData: {fileID: 11400000, guid: 9aafefd35a6194a39b373d74e6e1afd7, type: 2}
-  _moveText: {fileID: 2129507795}
   _bounceCount: 1
 --- !u!114 &2129507795
 MonoBehaviour:

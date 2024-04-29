@@ -60,7 +60,7 @@ public class NameInputField : MonoBehaviour
         int maxPeople = 8;
 
         for (int i = _gamePlayerAmount; i < maxPeople; i++)
-            _nameField[i].interactable = false;
+            _nameField[i].gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -83,6 +83,6 @@ public class NameInputField : MonoBehaviour
     private void NamedSetupComplete()
     {
         NameLifeManager.Instance.Setup(_namesSet);
-        GameManager.Instance.SceneLoader("GameSelect");
+        GameManager.Instance.SceneLoader("GameSelect",BGMType.InGame);
     }
 }

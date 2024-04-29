@@ -17,10 +17,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private Dictionary<GameType, bool> _gameTypeDic = new Dictionary<GameType, bool>();
 
-    private void Awake()
+    protected override void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-
+        //DontDestroyOnLoad(gameObject);
+        base.Awake();
         for (int i = 0; i < _gameTypeList.Count(); i++)
             _gameTypeDic.Add((GameType)i, false);
     }
@@ -29,9 +29,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     /// シーンのロード
     /// </summary>
     /// <param name="sceneName">ロードするシーン</param>
-    public void SceneLoader(string sceneName)
+    public void SceneLoader(string sceneName, BGMType bgm = BGMType.None)
     {
         SceneManager.LoadScene(sceneName);
+        if (bgm != BGMType.None)
+        {
+            AudioManager.Instance.PlayBGM(bgm);
+        }
     }
 
     /// <summary>

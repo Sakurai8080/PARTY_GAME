@@ -21,7 +21,7 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
 
     private Subject<int> _turnChangeSubject = new Subject<int>();
 
-    private void Awake()
+    protected override void Awake()
     {
         _allButtonList.ForEach(button => _allButtonDic.Add(button, false));
     }
