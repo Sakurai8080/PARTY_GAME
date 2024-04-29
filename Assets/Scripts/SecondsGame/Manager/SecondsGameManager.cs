@@ -9,12 +9,17 @@ using System.Linq;
 /// </summary>
 public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
 {
+    public int CurrentCompleteAmount => _currentCompleteAmount;
+
     [Header("変数")]
     [Tooltip("テキスト操作コンポーネント")]
     [SerializeField]
     private　SecondsDisplay _nameSecondsDisplay;
 
     private List<KeyValuePair<TimeSpan, string>> _timeNameDic = new List<KeyValuePair<TimeSpan, string>>();
+    private int _currentCompleteAmount  = 0;
+
+    protected override void Awake(){}
 
     /// <summary>
     /// 名前と時間の紐づけ
@@ -26,6 +31,7 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
     public void TimeNameAdd(TimeSpan time, string name, Action callBack = null)
     {
         _timeNameDic.Add(new KeyValuePair<TimeSpan, string>(time, name));
+        _currentCompleteAmount++;
         Debug.Log($"<color=blue>時間 {time} : 名前 {name}</color>");
         try
         { 

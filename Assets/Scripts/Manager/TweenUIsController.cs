@@ -11,11 +11,6 @@ using UnityEngine.UI;
 /// </summary>
 public class TweenUIsController : SingletonMonoBehaviour<TweenUIsController>
 {
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
     /// <summary>
     /// 特定のTween削除
     /// </summary>

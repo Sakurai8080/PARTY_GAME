@@ -22,6 +22,10 @@ public class BallGameManager : SingletonMonoBehaviour<BallGameManager>
     private ReactiveProperty<bool> _inGameReady = new ReactiveProperty<bool>();
     private int _chooseBallCount = 0;
 
+    protected override void Awake()
+    {
+    }
+
     /// <summary>
     /// ボタンを全て選択されたら通知
     /// </summary>

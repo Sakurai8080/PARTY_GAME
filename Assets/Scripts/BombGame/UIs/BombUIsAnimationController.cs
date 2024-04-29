@@ -44,6 +44,10 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
         InteractableValidTask(true, 2.5f).Forget();
     }
 
+    /// <summary>
+    /// カードを選択したときの処理
+    /// </summary>
+    /// <param name="initColor">カラーの初期値</param>
     public void CardSelected(BombAnim initColor)
     {
         InitButtonSetUp(initColor.InitialColor);
@@ -119,7 +123,6 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
     /// </summary>
     /// <param name="toggle">インタラクティブの切り替え</param>
     /// <param name="delayTime">何秒後か</param>
-    /// <returns></returns>
     public async UniTask InteractableValidTask(bool toggle, float delayTime)
     {
         await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
@@ -148,6 +151,11 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
             tween.Pause();
     }
 
+    /// <summary>
+    /// ボムかりんごを選択したときの画像セット
+    /// </summary>
+    /// <param name="content">カードの中身タイプ</param>
+    /// <param name="transform">選択したカードの位置</param>
     public void AfterImageSet(BoxContents content, RectTransform transform)
     {
         Sprite changeSprite = content == BoxContents.Bomb ? _bombImage : _goldAppleImage;
@@ -156,9 +164,15 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
         _afterImage.rectTransform.anchoredPosition = transform.anchoredPosition;
     }
 
-    public void AfterImageValid(float fadeAmount,float delayTime,bool isActive)
+    /// <summary>
+    /// イメージのフェード
+    /// </summary>
+    /// <param name="alphaAmount">設定するのアルファ値</param>
+    /// <param name="delayTime">かける時間</param>
+    /// <param name="isActive">フェードインかアウトか</param>
+    public void AfterImageValid(float alphaAmount,float delayTime,bool isActive)
     {
-        _afterImage.DOFade(fadeAmount, delayTime);
+        _afterImage.DOFade(alphaAmount, delayTime);
         _afterImage.enabled = isActive;
     }
 }

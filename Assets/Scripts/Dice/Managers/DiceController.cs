@@ -32,6 +32,10 @@ public class DiceController : SingletonMonoBehaviour<DiceController>
 
     private Subject<int> _calculatedSubject = new Subject<int>();
 
+    protected override void Awake()
+    {
+    }
+
     /// <summary>
     /// サイコロの生成(プール機能)
     /// </summary>

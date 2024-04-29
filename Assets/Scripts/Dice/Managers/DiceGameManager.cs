@@ -9,6 +9,10 @@ public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
 {
     private List<KeyValuePair<int, string>> _diceResultNameDic = new List<KeyValuePair<int, string>>();
 
+    protected override void Awake()
+    {
+    }
+
     public async UniTask ResultReciever(int currentResult)
     {
         string currentName = NameLifeManager.Instance.CurrentNameReciever();

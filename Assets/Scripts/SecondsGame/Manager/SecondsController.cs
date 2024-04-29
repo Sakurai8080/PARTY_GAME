@@ -30,7 +30,7 @@ public class SecondsController : SingletonMonoBehaviour<SecondsController>
     private Action _resetUpCallBack;
     private ReactiveProperty<float> _currentActiveTime = new ReactiveProperty<float>();
 
-    private void Awake()
+    protected override void Awake()
     {
         SetupSecounds();
         _resetUpCallBack += SetupSecounds;
@@ -126,7 +126,7 @@ public class SecondsController : SingletonMonoBehaviour<SecondsController>
         }
         finally
         {
-            _countToggleButton.enabled = true;
+            _countToggleButton.enabled = (SecondsGameManager.Instance.CurrentCompleteAmount == NameLifeManager.Instance.GamePlayerAmount) ? false : true;
             CancelToken();
         }
     }
