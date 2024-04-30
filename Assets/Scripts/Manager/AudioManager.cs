@@ -75,6 +75,11 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         }
     }
 
+    /// <summary>
+    /// BGMの再生
+    /// </summary>
+    /// <param name="type">BGMの種類</param>
+    /// <param name="loopType">ループするかしないか</param>
     public void PlayBGM(BGMType type, bool loopType = true)
     {
         var bgm = GetBGM(type);
@@ -104,6 +109,10 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         }
     }
 
+    /// <summary>
+    /// SEの再生
+    /// </summary>
+    /// <param name="type">SEの種類</param>
     public void PlaySE(SEType type)
     {
         var se = GetSE(type);
@@ -128,17 +137,27 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         }
     }
 
+    /// <summary>
+    /// BGMの停止　
+    /// </summary>
     public void StopBGM()
     {
         Instance._bgmSource.Stop();
         Instance._bgmSource = null;
     }
 
+    /// <summary>
+    /// BGMの停止させる時間の操作
+    /// </summary>
+    /// <param name="stopTime">停止するまでの時間</param>
     public void GraduallStopBGM(float stopTime)
     {
         Instance.StartCoroutine(Instance.LowerVolume(stopTime));
     }
 
+    /// <summary>
+    /// SEを停止する処理
+    /// </summary>
     public void StopSE()
     {
         foreach (var s in Instance._seAudioSourceList)
@@ -148,30 +167,54 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         }
     }
 
+    /// <summary>
+    /// マスターボリュームの変更
+    /// </summary>
+    /// <param name="masterValue">音量</param>
     public void MasterVolChange(float masterValue)
     {
         Instance._masterVolume = masterValue;
         Instance._bgmSource.volume = Instance._bgmVolume * Instance._masterVolume;
     }
 
+    /// <summary>
+    /// ミキサーの特定のボリュームを変更
+    /// </summary>
+    /// <param name="audioType">ミキサー内のタイプ</param>
+    /// <param name="recieveVolume">変更後のボリューム</param>
     public void VolumeChange(string audioType, float recieveVolume)
     {
         var volume = Mathf.Clamp(Mathf.Log10(Mathf.Clamp(recieveVolume, 0f, 1f)) * 20f, -80f, 0f);
         Instance._mixer.SetFloat(audioType, volume);
     }
 
+    /// <summary>
+    /// BGMの取得
+    /// </summary>
+    /// <param name="type">BGMの種類</param>
+    /// <returns>BGM</returns>
     private BGM GetBGM(BGMType type)
     {
         var bgm = Instance._bgmList.FirstOrDefault(b => b.BGMType == type);
         return bgm;
     }
 
+    /// <summary>
+    /// SEの取得
+    /// </summary>
+    /// <param name="type">SEの種類</param>
+    /// <returns>SE</returns>
     private SE GetSE(SEType type)
     {
         var se = Instance._seList.FirstOrDefault(s => s.SEType == type);
         return se;
     }
 
+    /// <summary>
+    /// 再生中のBGMがあればBGMを変更する処理
+    /// </summary>
+    /// <param name="afterBgm">次のBGM</param>
+    /// <param name="loopType">ループするかしないか</param>
     IEnumerator SwitchingBgm(BGM afterBgm, bool loopType = true)
     {
         _isStoping = false;
@@ -195,6 +238,10 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         _bgmSource.volume = currentVol;
     }
 
+    /// <summary>
+    /// ボリュームを徐々に下げる処理
+    /// </summary>
+    /// <param name="time">下げるために要する時間</param>
     IEnumerator LowerVolume(float time)
     {
         float currentVol = _bgmSource.volume;
