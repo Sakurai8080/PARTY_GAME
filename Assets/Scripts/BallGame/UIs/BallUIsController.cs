@@ -82,6 +82,9 @@ public class BallUIsController : MonoBehaviour
         DOTween.To(() => _textOffsetYpos, (value) => _textOffsetYpos = value, onGameOffset, duration).SetEase(Ease.InOutSine);
     }
 
+    /// <summary>
+    /// ボールゲームが始まったときのテキストサイズ変更
+    /// </summary>
     private void InGameTextState()
     {
         _nameTMP.fontSize = 13;
