@@ -10,6 +10,9 @@ using TMPro;
 using System.Threading;
 using System.Linq;
 
+/// <summary>
+/// サイコロの機能
+/// </summary>
 public class Dice : MonoBehaviour
 {
     public int Result => _result;
@@ -56,11 +59,25 @@ public class Dice : MonoBehaviour
         _inactiveSubject.OnNext(Unit.Default);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (CompareTag("Bowl"))
+        {
+            AudioManager.Instance.PlaySE(SEType.Dice);
+        }
+    }
+
+    /// <summary>
+    /// プールに戻す
+    /// </summary>
     public void ReturnPool()
     {
         gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// サイコロが止まった際の自身の目の確認
+    /// </summary>
     public void CheckResult()
     {
         int resultPoint = _dicePoints.Select((point, index) => new { Index = index, YPos = point.position.y })
@@ -72,6 +89,9 @@ public class Dice : MonoBehaviour
         _checkedSubject.OnNext(_result);
     }
 
+    /// <summary>
+    /// サイコロが止まったかどうかの確認
+    /// </summary>
     private IEnumerator StopCheckCoroutine()
     {
         WaitForSeconds waitTime = new WaitForSeconds(0.1f);

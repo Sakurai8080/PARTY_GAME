@@ -7,6 +7,9 @@ using UnityEngine.UI;
 using UniRx;
 using TMPro;
 
+/// <summary>
+/// サイコロゲームのプレゼンター
+/// </summary>
 public class DiceUIPresenter : PresenterBase
 {
     [Tooltip("説明画面の背景")]
@@ -16,9 +19,6 @@ public class DiceUIPresenter : PresenterBase
     [Tooltip("サイコロを振るボタン")]
     [SerializeField]
     private DiceRollButton _diceRollButton = default;
-
-    [SerializeField]
-    private AudioSource _se = default;
 
     [SerializeField]
     private TextMeshProUGUI _inGameTMP = default;
@@ -34,9 +34,9 @@ public class DiceUIPresenter : PresenterBase
                        .Subscribe(_ =>
                        {
                            _backGround.SetActive(false);
-                           CinemaChineController.Instance.DollySet(CameraType.cam1,CameraType.cam2,InGameUIsActivator);
+                           CinemaChineController.Instance.DollySet(CameraType.cam1, CameraType.cam2, InGameUIsActivator);
                        });
-    
+
         _diceRollButton.IsRollObserver
                        .TakeUntilDestroy(this)
                        .Subscribe(_ =>
@@ -44,9 +44,6 @@ public class DiceUIPresenter : PresenterBase
                            _inGameTMP.gameObject.SetActive(false);
                            DiceController.Instance.DiceGenerate();
                            CinemaChineController.Instance.DiceCheckMove(InGameUIsActivator);
-#if DebugTest
-                           Invoke("TestSE", 0.5f);
-#endif
                        });
 
         DiceController.Instance.CaliculatedObserver
@@ -64,12 +61,4 @@ public class DiceUIPresenter : PresenterBase
         _inGameTMP.gameObject.SetActive(true);
         _diceRollButton.GetComponent<Button>().interactable = true;
     }
-
-#if DebugTest
-    //todo:テスト用。
-    private void TestSE()
-    {
-        _se.Play();
-    }
-#endif
 }

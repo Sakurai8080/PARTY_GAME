@@ -10,11 +10,18 @@ using TMPro;
 using System.Threading;
 using System.Linq;
 
+/// <summary>
+/// サイコロの最終結果を表示するTMP
+/// </summary>
 public class DiceResultTMP : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI _resultTMP = default;
 
+    /// <summary>
+    /// TMPのフェード機能
+    /// </summary>
+    /// <param name="diceResult">和の数</param>
     public void FadeTMP(int diceResult)
     {
         _resultTMP.text = diceResult.ToString();
