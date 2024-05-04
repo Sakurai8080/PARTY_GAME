@@ -13,6 +13,6 @@ public class SE
 
 public enum SEType
 {
-    //The Button Game
-    oneHundred
+    OneHundred,
+    Dice
 }

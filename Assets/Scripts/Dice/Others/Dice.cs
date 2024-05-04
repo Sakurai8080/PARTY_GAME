@@ -31,6 +31,7 @@ public class Dice : MonoBehaviour
     private Rigidbody _rd;
     private Vector3 _initPosition;
     private Coroutine _currentCoroutine;
+    private bool _onSE = false;
 
     private Subject<Unit> _inactiveSubject = new Subject<Unit>();
     private Subject<Unit> _diceStopSubject = new Subject<Unit>();
@@ -59,10 +60,11 @@ public class Dice : MonoBehaviour
         _inactiveSubject.OnNext(Unit.Default);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision other)
     {
-        if (CompareTag("Bowl"))
+        if (other.gameObject.CompareTag("Bowl") && !_onSE)
         {
+            _onSE = true;
             AudioManager.Instance.PlaySE(SEType.Dice);
         }
     }
@@ -73,6 +75,7 @@ public class Dice : MonoBehaviour
     public void ReturnPool()
     {
         gameObject.SetActive(false);
+        _onSE = false;
     }
 
     /// <summary>
