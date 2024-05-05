@@ -14,7 +14,7 @@ public class BombUIPresenter : PresenterBase
     [SerializeField]
     private List<Button> _bombButtonList = new List<Button>();
 
-    List<BombSelectButton> _bombSelectButton = new List<BombSelectButton>();
+    private List<BombSelectButton> _bombSelectButton = new List<BombSelectButton>();
 
     protected override void Start()
     {

@@ -846,7 +846,6 @@ MonoBehaviour:
   _InGameUIsParent: {fileID: 1666386808}
   _backGround: {fileID: 469448338}
   _diceRollButton: {fileID: 1789875155}
-  _se: {fileID: 1346508956}
   _inGameTMP: {fileID: 2036087637}
   _diceResultTMP: {fileID: 215431219}
 --- !u!1 &338635363
@@ -4207,7 +4206,7 @@ GameObject:
   - component: {fileID: 8584394101711669386}
   m_Layer: 0
   m_Name: FlatWhite01_LOD0
-  m_TagString: Untagged
+  m_TagString: Bowl
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

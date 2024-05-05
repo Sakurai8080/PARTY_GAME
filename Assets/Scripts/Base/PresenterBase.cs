@@ -38,6 +38,9 @@ public abstract class PresenterBase : MonoBehaviour
                             }).AddTo(this);
     }
 
+    /// <summary>
+    /// UIのアクティブ切り替え
+    /// </summary>
     protected virtual void ToggleUIsVisibility()
     {
         _isUIsActive = !_isUIsActive;

@@ -53,6 +53,10 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
         _cameraDic[cameraType].Priority = PRIORITY_AMOUNT;
     }
 
+    /// <summary>
+    /// サイコロを振ったときの挙動
+    /// </summary>
+    /// <param name="callBack">挙動後のコールバック</param>
     public void DiceCheckMove(Action callBack = null)
     {
         _returnCount++;
@@ -63,6 +67,10 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
         DollyMoveTask(2, 2, 5,Ease.OutExpo ,() => CameraReturnMove(callBack)).Forget();
     }
 
+    /// <summary>
+    /// カメラを元の位置に戻す処理
+    /// </summary>
+    /// <param name="callBack">挙動後のコールバック</param>
     private void CameraReturnMove(Action callBack = null)
     {
         _pathPositionMin = _dolly.m_Path.MinPos;
