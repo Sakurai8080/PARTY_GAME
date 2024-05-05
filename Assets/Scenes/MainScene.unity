@@ -1912,7 +1912,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tweenData: {fileID: 11400000, guid: e4de09a60093b40cb98297cfa57ee4e0, type: 2}
   _targetImage: {fileID: 299413139}
-  _tweensButton: {fileID: 299413138}
 --- !u!114 &299413142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2466,6 +2465,10 @@ MonoBehaviour:
     SEType: 0
     Clip: {fileID: 8300000, guid: a5b9c4439faa6450e991b2502dedda3e, type: 3}
     Volume: 0.4
+  - SEName: DIce
+    SEType: 1
+    Clip: {fileID: 8300000, guid: 9e2c9ca10bad146eaac24684cffaa828, type: 3}
+    Volume: 0.2
   _bgmSource: {fileID: 1186002826}
   _seSourcesParent: {fileID: 1724806284}
   _mixer: {fileID: 24100000, guid: f8d81e7f0a9644157955131241fc8f2a, type: 2}
@@ -3245,7 +3248,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tweenData: {fileID: 11400000, guid: e4de09a60093b40cb98297cfa57ee4e0, type: 2}
   _targetImage: {fileID: 830268873}
-  _tweensButton: {fileID: 830268872}
 --- !u!114 &830268876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5277,7 +5279,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tweenData: {fileID: 11400000, guid: e4de09a60093b40cb98297cfa57ee4e0, type: 2}
   _targetImage: {fileID: 1251378017}
-  _tweensButton: {fileID: 1251378016}
 --- !u!114 &1251378020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5980,7 +5981,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tweenData: {fileID: 11400000, guid: e4de09a60093b40cb98297cfa57ee4e0, type: 2}
   _targetImage: {fileID: 1492202629}
-  _tweensButton: {fileID: 1492202628}
 --- !u!114 &1492202632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6284,7 +6284,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tweenData: {fileID: 11400000, guid: e4de09a60093b40cb98297cfa57ee4e0, type: 2}
   _targetImage: {fileID: 1611921660}
-  _tweensButton: {fileID: 1611921659}
 --- !u!114 &1611921663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8437,7 +8436,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tweenData: {fileID: 11400000, guid: e4de09a60093b40cb98297cfa57ee4e0, type: 2}
   _targetImage: {fileID: 1865418807}
-  _tweensButton: {fileID: 1865418806}
 --- !u!114 &1865418810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9337,7 +9335,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tweenData: {fileID: 11400000, guid: e4de09a60093b40cb98297cfa57ee4e0, type: 2}
   _targetImage: {fileID: 1993913709}
-  _tweensButton: {fileID: 1993913708}
 --- !u!114 &1993913712
 MonoBehaviour:
   m_ObjectHideFlags: 0

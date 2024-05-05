@@ -32,9 +32,7 @@ public class DiceController : SingletonMonoBehaviour<DiceController>
 
     private Subject<int> _calculatedSubject = new Subject<int>();
 
-    protected override void Awake()
-    {
-    }
+    protected override void Awake(){}
 
     /// <summary>
     /// サイコロの生成(プール機能)
@@ -65,6 +63,10 @@ public class DiceController : SingletonMonoBehaviour<DiceController>
         }
     }
 
+    /// <summary>
+    /// サイコロの結果確認
+    /// </summary>
+    /// <param name="diceResult">一つ一つのサイコロの結果</param>
     private void DiceResultChecker(int diceResult)
     {
         _resultDice.Add(diceResult);
@@ -78,6 +80,10 @@ public class DiceController : SingletonMonoBehaviour<DiceController>
         }
     }
 
+    /// <summary>
+    /// 結果をマネージャーに渡す
+    /// </summary>
+    /// <param name="res">合計の結果</param>
     private void ResultPass(int res)
     {
         DiceGameManager.Instance.ResultReciever(res).Forget();

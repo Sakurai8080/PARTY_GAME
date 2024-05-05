@@ -28,11 +28,6 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
     private List<Button> _allBombButton = new List<Button>();
     private Color _resetColor = default;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
     /// <summary>
     /// 初期値設定
     /// </summary>

@@ -15,9 +15,7 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
     private Dictionary<Image, BoxContents> _allBombdic = new Dictionary<Image, BoxContents>();
     private bool _onExplosion = false;
 
-    protected override void Awake()
-    {
-    }
+    protected override void Awake(){}
 
     /// <summary>
     /// カード選択時のハズレチェック
@@ -60,6 +58,9 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
         BombRandomInstallation();
     }
 
+    /// <summary>
+    /// ボムが入っていなかったときの処理
+    /// </summary>
     public void AfterEmptySelected()
     {
         BombUIsAnimationController.Instance.RestartTweens();

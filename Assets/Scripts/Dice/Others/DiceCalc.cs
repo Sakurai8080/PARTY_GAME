@@ -1,3 +1,6 @@
+/// <summary>
+/// サイコロの目を足すクラス
+/// </summary>
 public static class DiceCalc
 {
     public static int DiceSum(params int[] nums)

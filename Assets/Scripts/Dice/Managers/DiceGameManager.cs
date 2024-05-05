@@ -5,14 +5,20 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using System.Linq;
 
+/// <summary>
+/// サイコロゲームを管理するマネージャー
+/// </summary>
 public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
 {
     private List<KeyValuePair<int, string>> _diceResultNameDic = new List<KeyValuePair<int, string>>();
 
-    protected override void Awake()
-    {
-    }
+    protected override void Awake(){}
 
+    /// <summary>
+    /// サイコロの結果を名前と紐づける処理
+    /// </summary>
+    /// <param name="currentResult">サイコロの和の結果</param>
+    /// <returns></returns>
     public async UniTask ResultReciever(int currentResult)
     {
         string currentName = NameLifeManager.Instance.CurrentNameReciever();
@@ -27,6 +33,9 @@ public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
         }
     }
 
+    /// <summary>
+    /// 最終的に負けたプレイヤーの確認
+    /// </summary>
     private void loseCheck()
     {
         _diceResultNameDic.Sort((x,y)=> x.Key.CompareTo(y.Key));
