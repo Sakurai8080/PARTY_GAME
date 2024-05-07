@@ -59,6 +59,9 @@ public class TBGameBackGround : MonoBehaviour
         BackGroundFade();
     }
 
+    /// <summary>
+    /// 背景のフェード機能
+    /// </summary>
     private void BackGroundFade()
     {
         _activeBackGround.DOColor(Color.white, 2f)

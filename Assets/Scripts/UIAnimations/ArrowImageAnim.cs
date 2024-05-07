@@ -1,6 +1,9 @@
 using DG.Tweening;
 using UnityEngine;
 
+/// <summary>
+/// ルーレットの矢印コンポーネント
+/// </summary>
 public class ArrowImageAnim : TweenBase
 {
     protected override void OnEnable()
@@ -8,6 +11,9 @@ public class ArrowImageAnim : TweenBase
         transform.localScale = Vector3.zero;
     }
 
+    /// <summary>
+    /// アニメーションの再生
+    /// </summary>
     public void ImagePlayAnimation()
     {
         _currentScaleTween = transform.DOScale(_tweenData.ScaleAmount, _tweenData.ScaleDuration)
