@@ -15,7 +15,7 @@ public class ToInGameButton : MonoBehaviour
     [SerializeField]
     Button _toggleButton = default;
 
-    Subject<Unit> _onClickSubject = new Subject<Unit>();
+    private Subject<Unit> _onClickSubject = new Subject<Unit>();
 
     void Start()
     {
