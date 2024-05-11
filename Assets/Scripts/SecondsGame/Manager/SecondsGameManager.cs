@@ -60,6 +60,10 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
         DelayAndLoadSceneTask().Forget();
     }
 
+    /// <summary>
+    /// 10秒からのギャップを計算
+    /// </summary>
+    /// <param name="measuredTime"></param>
     private TimeSpan CalculateTimeGap(TimeSpan measuredTime)
     {
         TimeSpan offsetTime = TimeSpan.FromMilliseconds(-1);
@@ -68,6 +72,11 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
         return (gap < TimeSpan.Zero) ? TimeSpan.FromTicks(-gap.Ticks)+ offsetTime: gap + offsetTime;
     }
 
+    /// <summary>
+    /// 一番大きいギャップを調べる処理
+    /// </summary>
+    /// <param name="timeGaps">各ギャップ</param>
+    /// <returns>最大のギャップタイムとその要素数</returns>
     private (TimeSpan, List<int>) GetMaxGapAndOrders(IEnumerable<TimeSpan> timeGaps)
     {
         TimeSpan maxGap = TimeSpan.MinValue;
@@ -94,12 +103,20 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
         return (maxGap, maxGapOrders);
     }
 
+    /// <summary>
+    /// 負けたプレイヤーのライフを要素数から減らす処理
+    /// </summary>
+    /// <param name="order">負けたプレイヤーの要素数</param>
+    /// <param name="maxGap">10秒との差</param>
     private void LosePlayerProcess(int order,TimeSpan maxGap)
     {
         NameLifeManager.Instance.ReduceLife(_timeNameDic[order].Value);
         Debug.Log($"{_timeNameDic[order].Value}は{maxGap}で負け");
     }
 
+    /// <summary>
+    /// ゲーム選択画面への推移 
+    /// </summary>
     private async UniTask DelayAndLoadSceneTask()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(4));
