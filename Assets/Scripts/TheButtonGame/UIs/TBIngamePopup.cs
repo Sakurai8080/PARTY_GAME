@@ -38,9 +38,9 @@ public class TBIngamePopup : MonoBehaviour
     /// <summary>
     /// ポップアップ処理
     /// </summary>
-    /// <param name="percent"></param>
+    /// <param name="percent">継続確率</param>
     private void PercentPopup(int percent)
     {
-        _percentageText.text = $"継続率{percent} %";
+        _percentageText.text = $"{percent}%";
     }
 }
