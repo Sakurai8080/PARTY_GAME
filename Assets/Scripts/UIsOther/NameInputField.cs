@@ -16,7 +16,7 @@ public class NameInputField : MonoBehaviour
     [Header("変数")]
     [Tooltip("全入力フィールド")]
     [SerializeField]
-    TMP_InputField[] _nameField = default;
+    private TMP_InputField[] _nameField = default;
 
     private HashSet<string> _namesSet = new HashSet<string>();
     private int _gamePlayerAmount = 0;

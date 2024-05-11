@@ -25,9 +25,7 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
     private List<float> _angleList = new List<float>();
     private int _peopleAmount = 0;
 
-    protected override void Awake()
-    {
-    }
+    protected override void Awake(){}
 
     private void Start()
     {
