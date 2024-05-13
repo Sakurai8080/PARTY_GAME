@@ -13,6 +13,10 @@ public class SE
 
 public enum SEType
 {
+    Dice,
+    Fifty,
+    SixtySix,
+    SeventyFive,
+    Eighty,
     OneHundred,
-    Dice
 }
