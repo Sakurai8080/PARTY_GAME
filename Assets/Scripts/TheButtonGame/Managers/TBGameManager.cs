@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using System.Linq;
+using Cysharp.Threading.Tasks;
+
 
 /// <summary>
 /// ボタンゲームの全体を管理するマネージャー
@@ -77,6 +79,11 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
         }
     }
 
+    private void NextOrderActivetor()
+    {
+        FadeManager.Instance.OrderChangeFadeAnimation();
+    }
+
     /// <summary>
     /// 選択したボタンが失敗ボタンではないか確認する処理
     /// </summary>
@@ -95,8 +102,7 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
         else
         {
             NameLifeManager.Instance.NameListOrderChange();
-            //Todo:PopUp機能で名前表示
-
+            NextOrderActivetor();
             buttonReconfigure();
             ButtonRandomHide();
         }
