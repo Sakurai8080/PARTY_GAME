@@ -5,12 +5,15 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 /// <summary>
 /// カードのTweenアニメーションのコントローラー
 /// </summary>
 public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimationController>
 {
+    public IObservable<Unit> OrderChangeObserver => _orderChangeSubject;
+
     [Header("変数")]
     [SerializeField]
     [Tooltip("回復用イメージ")]
@@ -27,6 +30,7 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
     private List<Tween> _allTweenList = new List<Tween>();
     private List<Button> _allBombButton = new List<Button>();
     private Color _resetColor = default;
+    private Subject<Unit> _orderChangeSubject = new Subject<Unit>();
 
     /// <summary>
     /// 初期値設定
@@ -123,6 +127,10 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
         await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
         foreach (var button in _allBombButton)
             button.interactable = toggle;
+        if (toggle)
+        {
+            _orderChangeSubject.OnNext(Unit.Default);
+        }
     }
 
     /// <summary>

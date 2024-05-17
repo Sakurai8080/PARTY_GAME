@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-
+using UniRx;
 
 /// <summary>
 /// Bombを管理するマネージャー
@@ -15,8 +15,14 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
     private Dictionary<Image, BoxContents> _allBombdic = new Dictionary<Image, BoxContents>();
     private bool _onExplosion = false;
 
-    protected override void Awake(){}
+    protected override void Awake() { }
 
+    private void Start()
+    {
+        BombUIsAnimationController.Instance.OrderChangeObserver
+                                           .TakeUntilDestroy(this)
+                                           .Subscribe(_ =>FadeManager.Instance.OrderChangeFadeAnimation());
+    }
     /// <summary>
     /// カード選択時のハズレチェック
     /// </summary>
