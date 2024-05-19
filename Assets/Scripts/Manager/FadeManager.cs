@@ -62,8 +62,9 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
         
     }
 
-    public void OrderChangeFadeAnimation()
+    public async UniTask OrderChangeFadeAnimation(float durationTime = 0)
     {
+        await UniTask.Delay(TimeSpan.FromSeconds(durationTime));
         _orderChangePanel.gameObject.SetActive(true);
         string nextName = NameLifeManager.Instance.CurrentNameReciever();
         _nextOrderName.text = nextName.Length > 5 ? nextName.Substring(0, 5) : nextName;  
@@ -74,6 +75,8 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
                              _nextTMPSequence.Restart();
                              _nameGroupSequence.Restart();
                          });
+
+        //Todo:完了通知用のサブジェクト追加
     }
 
     private void NameFadeReset()
