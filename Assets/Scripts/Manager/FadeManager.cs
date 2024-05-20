@@ -6,13 +6,16 @@ using UnityEngine.UI;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
 using TMPro;
-
+using UniRx;
 
 /// <summary>
 /// 画面のフェードを管理するクラス
 /// </summary>
 public class FadeManager : SingletonMonoBehaviour<FadeManager>
 {
+     
+    public IObservable<Unit> NameAnimCompletedObserver => _nameAnimCompletedSubject;
+
     [Header("変数")]
     [Tooltip("フェードにかける時間")]
     [SerializeField]
@@ -42,49 +45,16 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
     private bool _isFading = false;
     private Vector3 _nextTextInitPos;
     private Vector3 _nameGroupInitPos;
-
     private Sequence _nextTMPSequence;
     private Sequence _nameGroupSequence;
+
+    private Subject<Unit> _nameAnimCompletedSubject = new Subject<Unit>();
 
     private void Start()
     {
         InitializeSequence();
         _nextTextInitPos = _nextTMP.transform.position;
         _nameGroupInitPos = _nameGroup.transform.position;
-    }
-
-    public void Fade(FadeType type, Action callback = null)
-    {
-        if (_isFading)
-            return;
-
-        StartCoroutine(ShaderFade(type, callback));
-        
-    }
-
-    public async UniTask OrderChangeFadeAnimation(float durationTime = 0)
-    {
-        await UniTask.Delay(TimeSpan.FromSeconds(durationTime));
-        _orderChangePanel.gameObject.SetActive(true);
-        string nextName = NameLifeManager.Instance.CurrentNameReciever();
-        _nextOrderName.text = nextName.Length > 5 ? nextName.Substring(0, 5) : nextName;  
-        _orderChangePanel.DOFade(0.95f, 0.25f)
-                         .SetEase(Ease.InQuint)
-                         .OnComplete(() =>
-                         {
-                             _nextTMPSequence.Restart();
-                             _nameGroupSequence.Restart();
-                         });
-
-        //Todo:完了通知用のサブジェクト追加
-    }
-
-    private void NameFadeReset()
-    {
-        _nextTMP.transform.position = _nextTextInitPos;
-        _nameGroup.transform.position = _nameGroupInitPos;
-        _orderChangePanel.DOFade(0, 0.25f)
-                         .OnComplete(()=>_orderChangePanel.gameObject.SetActive(false));
     }
 
     private void InitializeSequence()
@@ -103,6 +73,37 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
                           .Pause();
     }
 
+    private void NameFadeReset()
+    {
+        _nextTMP.transform.position = _nextTextInitPos;
+        _nameGroup.transform.position = _nameGroupInitPos;
+        _orderChangePanel.DOFade(0, 0.25f)
+                         .OnComplete(() => _orderChangePanel.gameObject.SetActive(false));
+    }
+
+    public async UniTask OrderChangeFadeAnimation(float durationTime = 0)
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(durationTime));
+        _orderChangePanel.gameObject.SetActive(true);
+        string nextName = NameLifeManager.Instance.CurrentNameReciever();
+        _nextOrderName.text = nextName.Length > 5 ? nextName.Substring(0, 5) : nextName;
+        _orderChangePanel.DOFade(0.95f, 0.25f)
+                         .SetEase(Ease.InQuint)
+                         .OnComplete(() =>
+                         {
+                             _nextTMPSequence.Restart();
+                             _nameGroupSequence.Restart();
+                             _nameAnimCompletedSubject.OnNext(Unit.Default);
+                         });
+    }
+
+    public void Fade(FadeType type, Action callback = null)
+    {
+        if (_isFading)
+            return;
+
+        StartCoroutine(ShaderFade(type, callback));
+    }
 
     private IEnumerator ShaderFade(FadeType type, Action callBack = null)
     {

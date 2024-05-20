@@ -21,7 +21,7 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
     {
         BombUIsAnimationController.Instance.OrderChangeObserver
                                            .TakeUntilDestroy(this)
-                                           .Subscribe(_ =>FadeManager.Instance.OrderChangeFadeAnimation());
+                                           .Subscribe(_ =>FadeManager.Instance.OrderChangeFadeAnimation().Forget());
     }
     /// <summary>
     /// カード選択時のハズレチェック
