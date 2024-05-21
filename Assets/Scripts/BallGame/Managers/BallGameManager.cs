@@ -22,8 +22,13 @@ public class BallGameManager : SingletonMonoBehaviour<BallGameManager>
     private ReactiveProperty<bool> _inGameReady = new ReactiveProperty<bool>();
     private int _chooseBallCount = 0;
 
-    protected override void Awake()
+    protected override void Awake(){}
+
+    private void Start()
     {
+        BallController.Instance.AllBallInstancedObserver
+                               .TakeUntilDestroy(this)
+                               .Subscribe(_ => FadeManager.Instance.OrderChangeFadeAnimation().Forget());
     }
 
     /// <summary>
@@ -33,7 +38,11 @@ public class BallGameManager : SingletonMonoBehaviour<BallGameManager>
     {
         _chooseBallCount++;
         if (_chooseBallCount == NameLifeManager.Instance.GamePlayerAmount)
+        {
             _inGameReady.Value = true;
+            return;
+        }
+        FadeManager.Instance.OrderChangeFadeAnimation().Forget();
     }
 
     /// <summary>

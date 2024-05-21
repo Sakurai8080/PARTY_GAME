@@ -24,16 +24,19 @@ public class BallUIsController : MonoBehaviour
     [SerializeField]
     private Ball _targetBall;
 
-
     private RectTransform _nameTextRect;
     private RectTransform _ballButtonRect;
-    private Vector3 _textOffsetYpos = new Vector3(0,0.2f, 0);
+    private Vector3 _textOffsetYpos = new Vector3(0, 0.2f, 0);
 
     void Start()
     {
         _nameTextRect = _nameTMP.GetComponent<RectTransform>();
         _ballButtonRect = _ballNamedButon.GetComponent<RectTransform>();
         _ballButtonRect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, _targetBall.transform.position);
+
+        BallController.Instance.AllBallInstancedObserver
+                               .TakeUntilDestroy(this)
+                               .Subscribe(_ => _ballNamedButon.enabled = true);
 
         BallGameManager.Instance.InGameObserver
                                 .TakeUntilDestroy(this)
@@ -105,5 +108,4 @@ public class BallUIsController : MonoBehaviour
                      callBack?.Invoke();
                  });
     }
-
 }
