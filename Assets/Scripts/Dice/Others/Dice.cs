@@ -42,9 +42,13 @@ public class Dice : MonoBehaviour
         _initPosition = transform.position;
         _rd = GetComponent<Rigidbody>();
         _diceStopSubject.TakeUntilDestroy(this).Subscribe(_ => CheckResult());
-        CinemaChineController.Instance.CameraReturnObserver
-                                      .TakeUntilDestroy(this)
-                                      .Subscribe(_ => ReturnPool());
+        FadeManager.Instance.NameAnimCompletedObserver
+                            .TakeUntilDestroy(this)
+                            .Subscribe(async _ =>
+                            {
+                                await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+                                ReturnPool();
+                            });
     }
 
     private void OnEnable()

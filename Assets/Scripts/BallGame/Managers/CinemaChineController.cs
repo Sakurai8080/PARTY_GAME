@@ -102,8 +102,10 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
                 _dolly = _cameraDic[type].GetCinemachineComponent<CinemachineTrackedDolly>();
                 _pathPositionMax = _dolly.m_Path.MaxPos;
                 if (nextCamera != CameraType.None)
+                {
                     callBack += () => ActivateCameraChange(nextCamera);
-
+                    callBack += () => FadeManager.Instance.OrderChangeFadeAnimation(0.5f).Forget();
+                }
                 DollyMoveTask(0, 7,0, Ease.InOutSine, callBack).Forget();
                 break;
             default:

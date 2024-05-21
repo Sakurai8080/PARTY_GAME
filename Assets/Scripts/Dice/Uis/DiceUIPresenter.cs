@@ -1,5 +1,3 @@
-#define DebugTest 
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,9 +18,11 @@ public class DiceUIPresenter : PresenterBase
     [SerializeField]
     private DiceRollButton _diceRollButton = default;
 
+    [Tooltip("次の動作を指示するTMP")]
     [SerializeField]
-    private TextMeshProUGUI _inGameTMP = default;
+    private TextMeshProUGUI _naviTMP = default;
 
+    [Tooltip("サイコロの結果を表示するTMP")]
     [SerializeField]
     private DiceResultTMP _diceResultTMP = default;
 
@@ -34,31 +34,29 @@ public class DiceUIPresenter : PresenterBase
                        .Subscribe(_ =>
                        {
                            _backGround.SetActive(false);
-                           CinemaChineController.Instance.DollySet(CameraType.cam1, CameraType.cam2, InGameUIsActivator);
+                           CinemaChineController.Instance.DollySet(CameraType.cam1, CameraType.cam2);
                        });
 
         _diceRollButton.IsRollObserver
                        .TakeUntilDestroy(this)
                        .Subscribe(_ =>
                        {
-                           _inGameTMP.gameObject.SetActive(false);
+                           _naviTMP.gameObject.SetActive(false);
                            DiceController.Instance.DiceGenerate();
-                           CinemaChineController.Instance.DiceCheckMove(InGameUIsActivator);
+                           CinemaChineController.Instance.DiceCheckMove();
                        });
 
         DiceController.Instance.CaliculatedObserver
                                .TakeUntilDestroy(this)
-                               .Subscribe(result =>
-                               {
-                                   _diceResultTMP.FadeTMP(result);
-                               });
+                               .Subscribe(result => _diceResultTMP.FadeTMP(result));
 
-    }
-
-    private void InGameUIsActivator()
-    {
-        _diceRollButton.gameObject.SetActive(true);
-        _inGameTMP.gameObject.SetActive(true);
-        _diceRollButton.GetComponent<Button>().interactable = true;
+        FadeManager.Instance.NameAnimCompletedObserver
+                            .TakeUntilDestroy(this)
+                            .Subscribe(_ =>
+                            {
+                                _diceRollButton.gameObject.SetActive(true);
+                                _naviTMP.gameObject.SetActive(true);
+                                _diceRollButton.GetComponent<Button>().interactable = true;
+                            });
     }
 }
