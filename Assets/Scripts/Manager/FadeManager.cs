@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Cysharp.Threading.Tasks;
+using TMPro;
+using UniRx;
 
 /// <summary>
 /// 画面のフェードを管理するクラス
 /// </summary>
 public class FadeManager : SingletonMonoBehaviour<FadeManager>
 {
+     
+    public IObservable<Unit> NameAnimCompletedObserver => _nameAnimCompletedSubject;
 
     [Header("変数")]
     [Tooltip("フェードにかける時間")]
@@ -20,9 +25,77 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
     [SerializeField]
     private Material _fadeMaterial = null;
 
+    [Tooltip("順番変更時のフェード用パネル")]
+    [SerializeField]
+    private Image _orderChangePanel = default;
+
+    [Tooltip("次の順番を表示する名前用TMP")]
+    [SerializeField]
+    private TextMeshProUGUI _nextOrderName = default;
+
+    [Tooltip("ネクストTMP")]
+    [SerializeField]
+    private TextMeshProUGUI _nextTMP = default;
+
+    [Tooltip("名前表示周りのグループ")]
+    [SerializeField]
+    private GameObject _nameGroup = default;
+
     private readonly int _progressId = Shader.PropertyToID("_progress");
     private bool _isFading = false;
-    private float _fadeWaitTime = 1.0f;
+    private Vector3 _nextTextInitPos;
+    private Vector3 _nameGroupInitPos;
+    private Sequence _nextTMPSequence;
+    private Sequence _nameGroupSequence;
+
+    private Subject<Unit> _nameAnimCompletedSubject = new Subject<Unit>();
+
+    private void Start()
+    {
+        InitializeSequence();
+        _nextTextInitPos = _nextTMP.transform.position;
+        _nameGroupInitPos = _nameGroup.transform.position;
+    }
+
+    private void InitializeSequence()
+    {
+        _nextTMPSequence = DOTween.Sequence();
+        _nextTMPSequence.Append(_nextTMP.transform.DOLocalMoveX(-30, 0.25f).SetEase(Ease.InBack))
+                        .Append(_nextTMP.transform.DOLocalMoveX(400, 0.25f).SetEase(Ease.InBack).SetDelay(2.5f))
+                        .SetAutoKill(false)
+                        .Pause();
+
+        _nameGroupSequence = DOTween.Sequence();
+        _nameGroupSequence.Append(_nameGroup.transform.DOLocalMoveX(0, 0.25f).SetEase(Ease.OutQuad).SetDelay(0.25f))
+                          .Append(_nameGroup.transform.DOLocalMoveX(400, 0.25f).SetEase(Ease.InBack).SetDelay(2.5f)
+                          .OnComplete(NameFadeReset))
+                          .SetAutoKill(false)
+                          .Pause();
+    }
+
+    private void NameFadeReset()
+    {
+        _nextTMP.transform.position = _nextTextInitPos;
+        _nameGroup.transform.position = _nameGroupInitPos;
+        _orderChangePanel.DOFade(0, 0.25f)
+                         .OnComplete(() => _orderChangePanel.gameObject.SetActive(false));
+    }
+
+    public async UniTask OrderChangeFadeAnimation(float durationTime = 0)
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(durationTime));
+        _orderChangePanel.gameObject.SetActive(true);
+        string nextName = NameLifeManager.Instance.CurrentNameReciever();
+        _nextOrderName.text = nextName.Length > 5 ? nextName.Substring(0, 5) : nextName;
+        _orderChangePanel.DOFade(0.95f, 0.25f)
+                         .SetEase(Ease.InQuint)
+                         .OnComplete(() =>
+                         {
+                             _nextTMPSequence.Restart();
+                             _nameGroupSequence.Restart();
+                             _nameAnimCompletedSubject.OnNext(Unit.Default);
+                         });
+    }
 
     public void Fade(FadeType type, Action callback = null)
     {
@@ -30,10 +103,7 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
             return;
 
         StartCoroutine(ShaderFade(type, callback));
-        
     }
-
-
 
     private IEnumerator ShaderFade(FadeType type, Action callBack = null)
     {

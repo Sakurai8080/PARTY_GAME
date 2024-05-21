@@ -28,6 +28,7 @@ public class TBGameUIPresenter : PresenterBase
                       .Subscribe(_ =>
                       {
                           TBGameManager.Instance.ButtonRandomHide();
+                          FadeManager.Instance.OrderChangeFadeAnimation();
                       }).AddTo(this);
     }
 }

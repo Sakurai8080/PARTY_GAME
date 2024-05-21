@@ -846,7 +846,7 @@ MonoBehaviour:
   _InGameUIsParent: {fileID: 1666386808}
   _backGround: {fileID: 469448338}
   _diceRollButton: {fileID: 1789875155}
-  _inGameTMP: {fileID: 2036087637}
+  _naviTMP: {fileID: 2036087637}
   _diceResultTMP: {fileID: 215431219}
 --- !u!1 &338635363
 GameObject:
@@ -2232,6 +2232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1170871100}
   - component: {fileID: 1170871099}
+  - component: {fileID: 1170871101}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -2316,6 +2317,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1170871101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170871098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &1289293415
 GameObject:
   m_ObjectHideFlags: 0
@@ -3896,7 +3917,7 @@ GameObject:
   - component: {fileID: 2036087636}
   - component: {fileID: 2036087637}
   m_Layer: 0
-  m_Name: InGameExplonation_Text
+  m_Name: Navi_TMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

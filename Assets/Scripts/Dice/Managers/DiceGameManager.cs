@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using System.Linq;
+using UniRx;
 
 /// <summary>
 /// サイコロゲームを管理するマネージャー
@@ -13,6 +14,13 @@ public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
     private List<KeyValuePair<int, string>> _diceResultNameDic = new List<KeyValuePair<int, string>>();
 
     protected override void Awake(){}
+
+    private void Start()
+    {
+        CinemaChineController.Instance.CameraReturnObserver
+                                      .TakeUntilDestroy(this)
+                                      .Subscribe(_ => FadeManager.Instance.OrderChangeFadeAnimation().Forget());
+    }
 
     /// <summary>
     /// サイコロの結果を名前と紐づける処理
