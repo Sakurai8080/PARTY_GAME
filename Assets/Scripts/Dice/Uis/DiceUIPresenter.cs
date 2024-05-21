@@ -1,5 +1,3 @@
-#define DebugTest 
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,9 +18,11 @@ public class DiceUIPresenter : PresenterBase
     [SerializeField]
     private DiceRollButton _diceRollButton = default;
 
+    [Tooltip("次の動作を指示するTMP")]
     [SerializeField]
     private TextMeshProUGUI _naviTMP = default;
 
+    [Tooltip("サイコロの結果を表示するTMP")]
     [SerializeField]
     private DiceResultTMP _diceResultTMP = default;
 
