@@ -17,7 +17,14 @@ public class SecondsUIPresenter : PresenterBase
 
     protected override void Start()
     {
-        base.Start();
+        _activeSwitchButton.OnClickObserver
+                      .Subscribe(_ =>
+                      {
+                          FadeManager.Instance.OrderChangeFadeAnimation().Forget();
+                          ToggleUIsVisibility();
+                          _hideUIGroup.gameObject.SetActive(false);
+                      }).AddTo(this);
+
         _countUpButton.InProgressObservable
                       .TakeUntilDestroy(this)
                       .Subscribe(value=>
@@ -33,5 +40,6 @@ public class SecondsUIPresenter : PresenterBase
                               SecondsController.Instance.ToggleInProgress(value);
                           }
                       });
+
     }
 }

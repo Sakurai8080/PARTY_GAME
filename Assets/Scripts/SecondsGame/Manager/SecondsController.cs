@@ -33,7 +33,10 @@ public class SecondsController : SingletonMonoBehaviour<SecondsController>
     protected override void Awake()
     {
         SetupSecounds();
-        _resetUpCallBack += SetupSecounds;
+        _resetUpCallBack += () =>{
+                                    FadeManager.Instance.OrderChangeFadeAnimation().Forget();
+                                    SetupSecounds();
+                                 };
     }
 
     private void Start()
