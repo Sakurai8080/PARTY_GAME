@@ -31,6 +31,7 @@ public class BombUIPresenter : PresenterBase
                                                  {
                                                      BombUIsAnimationController.Instance.CardSelected(bombAnim);
                                                      bombAnim.SelectedAnimation();
+                                                     _currentOrderUIs.gameObject.SetActive(false);
                                                  }));
     }
 

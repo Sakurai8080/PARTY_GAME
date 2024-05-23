@@ -21,6 +21,7 @@ public class TBGameUIPresenter : PresenterBase
                       .Subscribe(button =>
                       {
                           TBGameManager.Instance.MissButtonChecker(button);
+                          _currentOrderUIs.gameObject.SetActive(false);
                       });
         }
 
@@ -28,7 +29,7 @@ public class TBGameUIPresenter : PresenterBase
                       .Subscribe(_ =>
                       {
                           TBGameManager.Instance.ButtonRandomHide();
-                          FadeManager.Instance.OrderChangeFadeAnimation();
+                          FadeManager.Instance.OrderChangeFadeAnimation().Forget();
                       }).AddTo(this);
     }
 }

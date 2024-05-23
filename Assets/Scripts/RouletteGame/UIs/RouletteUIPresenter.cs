@@ -23,7 +23,13 @@ public class RouletteUIPresenter : PresenterBase
 
     protected override void Start()
     {
-        base.Start();
+        _activeSwitchButton.OnClickObserver
+                  .Subscribe(_ =>
+                  {
+                      ToggleUIsVisibility();
+                      _hideUIGroup.gameObject.SetActive(false);
+                  }).AddTo(this);
+
         _rouletteStartButtonAnim = _rouletteButton.GetComponent<RouletteStartButtonAnim>();
 
         _rouletteButton.RouletteButtonClickObserver.TakeUntilDestroy(this)

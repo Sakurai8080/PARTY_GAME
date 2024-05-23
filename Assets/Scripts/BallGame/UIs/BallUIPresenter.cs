@@ -30,6 +30,7 @@ public class BallUIPresenter : PresenterBase
                              {
                                  if (value)
                                  {
+                                     _currentOrderUIs.gameObject.SetActive(false);
                                      _explonationText.gameObject.SetActive(false);
                                      _fallButton.gameObject.SetActive(true);
                                      _fallButton.GetComponent<Image>().DOFade(1, 0.25f)

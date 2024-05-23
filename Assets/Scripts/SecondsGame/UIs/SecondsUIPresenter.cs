@@ -31,6 +31,7 @@ public class SecondsUIPresenter : PresenterBase
                       {
                           if (value)
                           {
+                              _currentOrderUIs.gameObject.SetActive(false);
                               SecondsController.Instance.ToggleInProgress(value);
                               SecondsController.Instance.SecondsCountUpAsync().Forget();
                           }
@@ -41,5 +42,12 @@ public class SecondsUIPresenter : PresenterBase
                           }
                       });
 
+        FadeManager.Instance.NameAnimCompletedObserver
+                            .TakeUntilDestroy(this)
+                            .Subscribe(_ =>
+                            {
+                                _currentOrderUIs.gameObject.SetActive(true);
+                                _currentOrderUIs.CurrentNameActivator();
+                            });
     }
 }
