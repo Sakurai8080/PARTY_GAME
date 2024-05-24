@@ -1,12 +1,17 @@
 using UnityEngine;
 using UniRx;
 using Cysharp.Threading.Tasks;
+using TMPro;
 
 /// <summary>
 /// ボタンゲームのUIプレゼンター
 /// </summary>
 public class TBGameUIPresenter : PresenterBase
 {
+    [Tooltip("選択を指示する説明用TMP")]
+    [SerializeField]
+    private TextMeshProUGUI _naviTMP = default;
+
     [Tooltip("各セレクトボタン")]
     [SerializeField]
     private TBGameSelectBtn[] _button = default;
@@ -22,6 +27,7 @@ public class TBGameUIPresenter : PresenterBase
                       {
                           TBGameManager.Instance.MissButtonChecker(button);
                           _currentOrderUIs.gameObject.SetActive(false);
+                          _naviTMP.gameObject.SetActive(false);
                       });
         }
 
@@ -31,5 +37,9 @@ public class TBGameUIPresenter : PresenterBase
                           TBGameManager.Instance.ButtonRandomHide();
                           FadeManager.Instance.OrderChangeFadeAnimation().Forget();
                       }).AddTo(this);
+
+        FadeManager.Instance.NameAnimCompletedObserver
+                .TakeUntilDestroy(this)
+                .Subscribe(_ => _naviTMP.gameObject.SetActive(true));
     }
 }
