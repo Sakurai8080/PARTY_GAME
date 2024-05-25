@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine.UI;
 using System.Linq;
 using TMPro;
+using DG.Tweening;
 
 /// <summary>
 /// BombGameのUI同士を仲介するプレゼンター
@@ -34,8 +35,8 @@ public class BombUIPresenter : PresenterBase
                     .TakeUntilDestroy(this)
                     .Subscribe(_ =>
                     {
-                        _naviTMP.gameObject.SetActive(true);
-                        _currentOrderUIs.gameObject.SetActive(true);
+                        _naviTMP.DOFade(1, 0.25f);
+                        _currentOrderUIs.CurrentNameGroupFade(NameFadeType.In);
                         _currentOrderUIs.CurrentNameActivator();
                     });
 
@@ -51,8 +52,8 @@ public class BombUIPresenter : PresenterBase
                                                  {
                                                      BombUIsAnimationController.Instance.CardSelected(bombAnim);
                                                      bombAnim.SelectedAnimation();
-                                                     _currentOrderUIs.gameObject.SetActive(false);
-                                                     _naviTMP.gameObject.SetActive(false);
+                                                     _naviTMP.DOFade(0, 0.25f);
+                                                     _currentOrderUIs.CurrentNameGroupFade(NameFadeType.Out);
                                                  }));
     }
 
