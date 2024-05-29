@@ -54,5 +54,9 @@ public class BallUIPresenter : PresenterBase
                        CinemaChineController.Instance.DollySet(CameraType.cam2, CameraType.cam3);
                        BallController.Instance.RotateBallParent();
                    });
+
+        FadeManager.Instance.NameAnimCompletedObserver
+                            .TakeUntilDestroy(this)
+                            .Subscribe(_ => _explonationText.gameObject.SetActive(true));
     }
 }
