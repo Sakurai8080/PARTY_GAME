@@ -32,7 +32,6 @@ public abstract class PresenterBase : MonoBehaviour
     [SerializeField]
     protected CurrentOrderUIs _currentOrderUIs = default;
 
-
     protected virtual void Start()
     {
         _activeSwitchButton.OnClickObserver
