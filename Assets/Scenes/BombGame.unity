@@ -2416,6 +2416,7 @@ GameObject:
   - component: {fileID: 862555787}
   - component: {fileID: 862555789}
   - component: {fileID: 862555788}
+  - component: {fileID: 862555790}
   m_Layer: 0
   m_Name: Navi_TMP
   m_TagString: Untagged
@@ -2540,6 +2541,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 862555786}
   m_CullTransparentMesh: 1
+--- !u!114 &862555790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862555786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d21e2819a6a24f00a13f016b588b28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tweenData: {fileID: 11400000, guid: b7d493bfa844e4f1d8166798e36047e7, type: 2}
 --- !u!1 &882580981
 GameObject:
   m_ObjectHideFlags: 0

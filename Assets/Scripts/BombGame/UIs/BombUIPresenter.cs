@@ -31,11 +31,13 @@ public class BombUIPresenter : PresenterBase
                         _hideUIGroup.gameObject.SetActive(false);
                     }).AddTo(this);
 
+        NaviTextAnimation naviTextAnimation = _naviTMP.GetComponent<NaviTextAnimation>();
         FadeManager.Instance.NameAnimCompletedObserver
                     .TakeUntilDestroy(this)
                     .Subscribe(_ =>
                     {
                         _naviTMP.DOFade(1, 0.25f);
+                        naviTextAnimation.AnimationStart();
                         _currentOrderUIs.CurrentNameGroupFade(NameFadeType.In);
                         _currentOrderUIs.CurrentNameActivator();
                     });
@@ -50,6 +52,7 @@ public class BombUIPresenter : PresenterBase
                                                  .TakeUntilDestroy(this)
                                                  .Subscribe(bombAnim =>
                                                  {
+                                                     naviTextAnimation.StopAnimation();
                                                      BombUIsAnimationController.Instance.CardSelected(bombAnim);
                                                      bombAnim.SelectedAnimation();
                                                      _naviTMP.DOFade(0, 0.25f);
