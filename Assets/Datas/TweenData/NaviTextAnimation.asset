@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c38e7286ced514ad28ea251e7801c0e8, type: 3}
-  m_Name: TweenAnimation4
+  m_Name: NaviTextAnimation
   m_EditorClassIdentifier: 
   _fadeDuration: 1
   _scaleDuration: 1
   _animationDelayTime: 0.5
-  _fadeEasing: 21
-  _scaleEasing: 0
-  _loopEasing: 9
+  _scaleAmount: 0.9
+  _fadeEasing: 26
+  _scaleEasing: 26
+  _loopEasing: 1
   _loopType: 1
   _loopColor: {r: 0, g: 0, b: 0, a: 0}

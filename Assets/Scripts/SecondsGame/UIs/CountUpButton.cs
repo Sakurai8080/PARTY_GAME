@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using TMPro;
 
 /// <summary>
 /// カウントの操作をするボタン
@@ -15,12 +16,14 @@ public class CountUpButton : MonoBehaviour
     [SerializeField]
     private Button _countUpButton = default;
 
+    TextMeshProUGUI _countToggleTMP;
     private bool _inProgress = false;
 
     private Subject<bool> _inProgressSubject = new Subject<bool>();
 
     private void Start()
     {
+        _countToggleTMP = GetComponentInChildren<TextMeshProUGUI>();
         _countUpButton.OnClickAsObservable()
                       .TakeUntilDestroy(this)
                       .Subscribe(_ =>
@@ -28,5 +31,10 @@ public class CountUpButton : MonoBehaviour
                           _inProgress = !_inProgress;
                           _inProgressSubject.OnNext(_inProgress);
                       });
+    }
+
+    public void TextToggle(bool InProgress)
+    {
+        _countToggleTMP.text = InProgress ? "STOP" : "START";
     }
 }

@@ -41,6 +41,7 @@ public class DiceUIPresenter : PresenterBase
                        .TakeUntilDestroy(this)
                        .Subscribe(_ =>
                        {
+                           _currentOrderUIs.gameObject.SetActive(false);
                            _naviTMP.gameObject.SetActive(false);
                            DiceController.Instance.DiceGenerate();
                            CinemaChineController.Instance.DiceCheckMove();

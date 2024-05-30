@@ -25,8 +25,8 @@ public class RouletteButton : MonoBehaviour
                           .TakeUntilDestroy(this)
                           .Subscribe(_ =>
                           {
-                              _rouletteButtonClickSubject.OnNext(_clickCount);
                               _clickCount++;
+                              _rouletteButtonClickSubject.OnNext(_clickCount);
                           });
     }
 }

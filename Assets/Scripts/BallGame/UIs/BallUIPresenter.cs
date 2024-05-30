@@ -30,6 +30,7 @@ public class BallUIPresenter : PresenterBase
                              {
                                  if (value)
                                  {
+                                     _currentOrderUIs.gameObject.SetActive(false);
                                      _explonationText.gameObject.SetActive(false);
                                      _fallButton.gameObject.SetActive(true);
                                      _fallButton.GetComponent<Image>().DOFade(1, 0.25f)
@@ -53,5 +54,9 @@ public class BallUIPresenter : PresenterBase
                        CinemaChineController.Instance.DollySet(CameraType.cam2, CameraType.cam3);
                        BallController.Instance.RotateBallParent();
                    });
+
+        FadeManager.Instance.NameAnimCompletedObserver
+                            .TakeUntilDestroy(this)
+                            .Subscribe(_ => _explonationText.gameObject.SetActive(true));
     }
 }

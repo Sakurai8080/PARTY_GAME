@@ -1,6 +1,8 @@
 using UnityEngine;
 using UniRx;
 using Cysharp.Threading.Tasks;
+using TMPro;
+using DG.Tweening;
 
 /// <summary>
 /// ルーレット関係のUIプレゼンター
@@ -11,31 +13,44 @@ public class RouletteUIPresenter : PresenterBase
     [SerializeField]
     private RouletteButton _rouletteButton;
 
-    [Tooltip("矢印のアニメーションコンポーネント")]
-    [SerializeField]
-    private ArrowImageAnim _arrowImageAnim;
-
     [Tooltip("ルーレットを描画するコンポーネント")]
     [SerializeField]
     private RouletteMaker _rouletteMaker;
 
+    [Tooltip("カウントアップを説明するTMPのアニメ")]
+    [SerializeField]
+    private NaviTextAnimation _naviTextAnimation;
+
+    private const string _stopNaviText = "ボタンでルーレットストップ。";
+
     private RouletteStartButtonAnim _rouletteStartButtonAnim;
+    private TextMeshProUGUI _naviTMP;
 
     protected override void Start()
     {
-        base.Start();
+        _activeSwitchButton.OnClickObserver
+                  .Subscribe(_ =>
+                  {
+                      ToggleUIsVisibility();
+                      _hideUIGroup.gameObject.SetActive(false);
+                      _naviTextAnimation.AnimationStart();
+                  }).AddTo(this);
+
         _rouletteStartButtonAnim = _rouletteButton.GetComponent<RouletteStartButtonAnim>();
+        _naviTMP = _naviTextAnimation.GetComponent<TextMeshProUGUI>();
 
         _rouletteButton.RouletteButtonClickObserver.TakeUntilDestroy(this)
                                                    .Subscribe(clickCount =>
                                                    {
-                                                       PresenterNotification(clickCount);
-                                                       _rouletteStartButtonAnim.UILoopAnimation(clickCount);
-                                                   });
+                                                       if (clickCount == 1)
+                                                           _naviTMP.text = _stopNaviText;
+                                                       if (clickCount == 2)
+                                                           _naviTMP.DOFade(0, 0.25f)
+                                                                   .SetEase(Ease.Linear);
 
-        _rouletteMaker.RouletteMadeObserver.TakeUntilDestroy(this)
-                                           .Subscribe(_ => _arrowImageAnim.ImagePlayAnimation());
-                                           
+                                                       PresenterNotification(clickCount);
+                                                       _rouletteStartButtonAnim.StopAnimation(clickCount);
+                                                   });
     }
 
     /// <summary>

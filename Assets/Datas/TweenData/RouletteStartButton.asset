@@ -15,8 +15,9 @@ MonoBehaviour:
   _fadeDuration: 0.7
   _scaleDuration: 1
   _animationDelayTime: 0.5
+  _scaleAmount: 0.9
   _fadeEasing: 2
   _scaleEasing: 31
-  _loopEasing: 8
+  _loopEasing: 2
   _loopType: 1
   _loopColor: {r: 0, g: 0, b: 0, a: 0}
