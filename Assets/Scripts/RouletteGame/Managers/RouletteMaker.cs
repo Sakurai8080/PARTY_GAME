@@ -11,8 +11,6 @@ using System;
 /// </summary>
 public class RouletteMaker : MonoBehaviour
 {
-    public IObservable<Unit> RouletteMadeObserver => _rouletteMadeSubject;
-
     [Header("変数")]
     [Tooltip("ルーレットを格納する親")]
     [SerializeField]
@@ -26,7 +24,9 @@ public class RouletteMaker : MonoBehaviour
     [SerializeField]
     private Image _rouletteImage;
 
-    private Subject<Unit> _rouletteMadeSubject = new Subject<Unit>();
+    [Tooltip("矢印のアニメーションコンポーネント")]
+    [SerializeField]
+    private ArrowImageAnim _arrowImageAnim;
 
     private void Start()
     {
@@ -43,9 +43,10 @@ public class RouletteMaker : MonoBehaviour
             obj.GetComponentInChildren<TextMeshProUGUI>().text = currentName;
             obj.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, ((rotatePerRoulette / 2) + rotatePerRoulette * i) - 90);
         }
-            _imageParentTransform.transform.DOScale(1, 1.5f)
-                                           .SetEase(Ease.OutBounce)
-                                           .OnComplete(()=>_rouletteMadeSubject.OnNext(Unit.Default));
+        _imageParentTransform.transform.DOScale(1, 1.5f)
+                                       .SetEase(Ease.OutBounce);
+        _arrowImageAnim.ImagePlayAnimation();
+
     }
 
     /// <summary>

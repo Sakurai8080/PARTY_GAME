@@ -28,6 +28,10 @@ public abstract class PresenterBase : MonoBehaviour
     [SerializeField]
     private GameObject _InGameUIsParent;
 
+    [Tooltip("現在誰の番なのか示すUI")]
+    [SerializeField]
+    protected CurrentOrderUIs _currentOrderUIs = default;
+
     protected virtual void Start()
     {
         _activeSwitchButton.OnClickObserver
@@ -36,6 +40,14 @@ public abstract class PresenterBase : MonoBehaviour
                                ToggleUIsVisibility();
                               _hideUIGroup.gameObject.SetActive(false);
                             }).AddTo(this);
+
+        FadeManager.Instance.NameAnimCompletedObserver
+                    .TakeUntilDestroy(this)
+                    .Subscribe(_ =>
+                    {
+                        _currentOrderUIs.gameObject.SetActive(true);
+                        _currentOrderUIs.CurrentNameActivator();
+                    });
     }
 
     /// <summary>

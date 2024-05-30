@@ -13,6 +13,8 @@ using UnityEngine.UI;
 /// </summary>
 public class BallController : SingletonMonoBehaviour<BallController>
 {
+    public IObservable<Unit> AllBallInstancedObserver => _allBallInstancedSubject;
+
     [Header("変数")]
     [Tooltip("ボールを配置する親オブジェクト")]
     [SerializeField]
@@ -30,13 +32,12 @@ public class BallController : SingletonMonoBehaviour<BallController>
     [SerializeField]
     private List<Color> _ballColor = default;
 
-
     private List<Ball> _ballObjList = new List<Ball>();
     private Dictionary<Ball, string> _ballNameDic = new Dictionary<Ball, string>();
 
-    protected override void Awake()
-    {
-    }
+    private Subject<Unit> _allBallInstancedSubject = new Subject<Unit>();
+
+    protected override void Awake(){}
 
     public void Setup()
     {
@@ -100,7 +101,8 @@ public class BallController : SingletonMonoBehaviour<BallController>
         renderer.material.DOFade(0, 0f);
         ball.gameObject.SetActive(true);
         renderer.material.DOFade(1, 0.75f)
-                         .SetEase(Ease.Linear);
+                         .SetEase(Ease.Linear)
+                         .SetDelay(0.1f);
     }
 
     /// <summary>
@@ -132,5 +134,6 @@ public class BallController : SingletonMonoBehaviour<BallController>
             _ballObjList.Add(currentBall);
             yield return waitTime;
         }
+        _allBallInstancedSubject.OnNext(Unit.Default);
     }
 }

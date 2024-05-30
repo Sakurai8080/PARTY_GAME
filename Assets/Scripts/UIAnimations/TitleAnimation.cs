@@ -5,16 +5,12 @@ using TMPro;
 /// <summary>
 /// テキストを動かすコンポーネント
 /// </summary>
-public class TextAnimation : MonoBehaviour
+public class TitleAnimation : MonoBehaviour
 {
     [Header("変数")]
     [Tooltip("Tweenのスクリタブルオブジェクト")]
     [SerializeField]
     protected TweenData _tweenData;
-
-    //[Tooltip("動かすテキスト")]
-    //[SerializeField]
-    //TextMeshProUGUI _moveText = default;
 
     [Tooltip("弾ませるカウント")]
     [SerializeField]
@@ -23,6 +19,11 @@ public class TextAnimation : MonoBehaviour
     Tween _currentScaleTween;
 
     private void Start()
+    {
+        UiLoopAnimation();
+    }
+
+    private void OnEnable()
     {
         UiLoopAnimation();
     }

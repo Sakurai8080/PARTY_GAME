@@ -4,12 +4,18 @@ using UniRx;
 using Cysharp.Threading.Tasks;
 using UnityEngine.UI;
 using System.Linq;
+using TMPro;
+using DG.Tweening;
 
 /// <summary>
 /// BombGameのUI同士を仲介するプレゼンター
 /// </summary>
 public class BombUIPresenter : PresenterBase
 {
+    [Tooltip("選択を指示する説明用TMP")]
+    [SerializeField]
+    private TextMeshProUGUI _naviTMP = default;
+
     [Tooltip("カードのボタン")]
     [SerializeField]
     private List<Button> _bombButtonList = new List<Button>();
@@ -18,7 +24,24 @@ public class BombUIPresenter : PresenterBase
 
     protected override void Start()
     {
-        base.Start();
+        _activeSwitchButton.OnClickObserver
+                    .Subscribe(_ =>
+                    {
+                        ToggleUIsVisibility();
+                        _hideUIGroup.gameObject.SetActive(false);
+                    }).AddTo(this);
+
+        NaviTextAnimation naviTextAnimation = _naviTMP.GetComponent<NaviTextAnimation>();
+        FadeManager.Instance.NameAnimCompletedObserver
+                    .TakeUntilDestroy(this)
+                    .Subscribe(_ =>
+                    {
+                        _naviTMP.DOFade(1, 0.25f);
+                        naviTextAnimation.AnimationStart();
+                        _currentOrderUIs.CurrentNameGroupFade(NameFadeType.In);
+                        _currentOrderUIs.CurrentNameActivator();
+                    });
+
         _bombButtonList.ForEach(button => _bombSelectButton.Add(button.GetComponent<BombSelectButton>()));
 
         _activeSwitchButton.OnClickObserver
@@ -29,8 +52,11 @@ public class BombUIPresenter : PresenterBase
                                                  .TakeUntilDestroy(this)
                                                  .Subscribe(bombAnim =>
                                                  {
+                                                     naviTextAnimation.StopAnimation();
                                                      BombUIsAnimationController.Instance.CardSelected(bombAnim);
                                                      bombAnim.SelectedAnimation();
+                                                     _naviTMP.DOFade(0, 0.25f);
+                                                     _currentOrderUIs.CurrentNameGroupFade(NameFadeType.Out);
                                                  }));
     }
 

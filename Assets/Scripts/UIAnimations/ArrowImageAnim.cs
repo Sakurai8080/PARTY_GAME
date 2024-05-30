@@ -17,7 +17,8 @@ public class ArrowImageAnim : TweenBase
     public void ImagePlayAnimation()
     {
         _currentScaleTween = transform.DOScale(_tweenData.ScaleAmount, _tweenData.ScaleDuration)
-                                      .SetEase(_tweenData.LoopEasing)
+                                      .SetEase(_tweenData.ScaleEasing)
+                                      .SetDelay(_tweenData.AnimationDelayTime)
                                       .SetLink(gameObject);
     }
 

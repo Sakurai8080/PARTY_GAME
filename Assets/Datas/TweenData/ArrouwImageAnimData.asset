@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ArrouwImageAnimData
   m_EditorClassIdentifier: 
   _fadeDuration: 1
-  _scaleDuration: 1
-  _animationDelayTime: 0.5
+  _scaleDuration: 0.25
+  _animationDelayTime: 1.15
   _scaleAmount: 1
   _fadeEasing: 0
-  _scaleEasing: 27
+  _scaleEasing: 11
   _loopEasing: 29
   _loopType: 1
   _loopColor: {r: 0, g: 0, b: 0, a: 0}
