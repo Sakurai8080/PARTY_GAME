@@ -49,9 +49,9 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
     /// <param name="count">何回押しているか</param>
     public void RouletteRotate(int count)
     {
-        if (count > 1)
+        if (count > 2)
             return;
-        else if (count == 1)
+        else if (count == 2)
         {
             float rondomZvalue = UnityEngine.Random.Range(1080, 1440);
             _currentTween.Kill();
@@ -65,7 +65,7 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                                                          GameManager.Instance.SceneLoader("GameSelect");
                                                      });
         }
-        else if (count == 0)
+        else if (count == 1)
         {
             _currentTween = _rouletteObject.transform.DOLocalRotate(new Vector3(0, 0, 720), 1f,RotateMode.FastBeyond360)
                                                      .SetEase(Ease.InBack)

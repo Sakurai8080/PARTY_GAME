@@ -34,9 +34,9 @@ public class RouletteStartButtonAnim : TweenBase
     /// <param name="clickCount">クリック回数</param>
     public void StopAnimation(int clickCount)
     {
-        if (clickCount > 1)
+        if (clickCount > 2)
             return;
-        else if(clickCount == 1)
+        else if(clickCount == 2)
         {
             _currentScaleTween.Kill();
             _currentScaleTween = transform.DOScale(1, 0.25f)
