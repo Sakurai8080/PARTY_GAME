@@ -24,12 +24,15 @@ public class BallUIPresenter : PresenterBase
     protected override void Start()
     {
         base.Start();
+
+        NaviTextAnimation naviTextAnimation = _explonationText.GetComponent<NaviTextAnimation>();
         BallGameManager.Instance.InGameReady
                              .TakeUntilDestroy(this)
                              .Subscribe(value =>
                              {
                                  if (value)
                                  {
+                                     naviTextAnimation.StopAnimation();
                                      _currentOrderUIs.gameObject.SetActive(false);
                                      _explonationText.gameObject.SetActive(false);
                                      _fallButton.gameObject.SetActive(true);
@@ -57,6 +60,11 @@ public class BallUIPresenter : PresenterBase
 
         FadeManager.Instance.NameAnimCompletedObserver
                             .TakeUntilDestroy(this)
-                            .Subscribe(_ => _explonationText.gameObject.SetActive(true));
+                            .Subscribe(_ =>
+                            {
+                                _explonationText.gameObject.SetActive(true);
+                                naviTextAnimation.AnimationStart();
+                            });
+    
     }
 }
