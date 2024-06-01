@@ -25,12 +25,5 @@ public class ImageAnimtion : TweenBase
                                       .SetEase(_tweenData.LoopEasing)
                                       .SetLoops(-1, _tweenData.LoopType)
                                       .SetLink(gameObject);
-
-
-        _currentFadeTween = _targetImage.DOFade(0.9f, _tweenData.FadeDuration)
-                                         .SetEase(_tweenData.LoopEasing)
-                                         .SetLoops(-1, _tweenData.LoopType)
-                                         .SetLink(gameObject);
-                                         
     }
 }
