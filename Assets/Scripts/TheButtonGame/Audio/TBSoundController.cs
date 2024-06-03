@@ -9,18 +9,18 @@ public class TBSoundController : MonoBehaviour
 
     void Start()
     {
-        TBGameManager.Instance.TurnChangeObserver
-                              .TakeUntilDestroy(this)
-                              .Subscribe(activeAmount => ButtonAmountCheck(activeAmount));
+        FadeManager.Instance.NameAnimFadeCompletedObserver
+                            .TakeUntilDestroy(this)
+                            .Subscribe(_ => ButtonAmountCheck());
     }
 
     /// <summary>
     /// ボタンの数に応じてSEを変更する。
     /// </summary>
-    /// <param name="activeButtonAmount">出現するボタンの数</param>
-    private void ButtonAmountCheck(int activeButtonAmount)
+    private void ButtonAmountCheck()
     {
-        switch (activeButtonAmount)
+        int currentActiveButtonAmount = TBGameManager.Instance.CurrentActiveAmount;
+        switch (currentActiveButtonAmount)
         {
             case 2:
                 _se = SEType.Fifty;
@@ -38,7 +38,7 @@ public class TBSoundController : MonoBehaviour
                 _se = SEType.OneHundred;
                 break;
             default:
-                Debug.LogError($"<colot=red>ボタンの数:{activeButtonAmount}</color> が使用範囲外です。");
+                Debug.LogError($"<colot=red>ボタンの数:{currentActiveButtonAmount}</color> が使用範囲外です。");
                 break;
         }
         OnSound(_se);
