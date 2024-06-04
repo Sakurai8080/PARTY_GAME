@@ -58,7 +58,7 @@ public class BallUIPresenter : PresenterBase
                        BallController.Instance.RotateBallParent();
                    });
 
-        FadeManager.Instance.NameAnimCompletedObserver
+        FadeManager.Instance.NameAnimStartObserver
                             .TakeUntilDestroy(this)
                             .Subscribe(_ =>
                             {

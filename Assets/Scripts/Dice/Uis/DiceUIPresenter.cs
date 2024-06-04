@@ -57,7 +57,7 @@ public class DiceUIPresenter : PresenterBase
                                .TakeUntilDestroy(this)
                                .Subscribe(result => _diceResultTMP.FadeTMP(result));
 
-        FadeManager.Instance.NameAnimCompletedObserver
+        FadeManager.Instance.NameAnimStartObserver
                             .TakeUntilDestroy(this)
                             .Subscribe(_ =>
                             {

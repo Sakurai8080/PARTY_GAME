@@ -42,7 +42,7 @@ public class Dice : MonoBehaviour
         _initPosition = transform.position;
         _rd = GetComponent<Rigidbody>();
         _diceStopSubject.TakeUntilDestroy(this).Subscribe(_ => CheckResult());
-        FadeManager.Instance.NameAnimCompletedObserver
+        FadeManager.Instance.NameAnimStartObserver
                             .TakeUntilDestroy(this)
                             .Subscribe(async _ =>
                             {
