@@ -5,7 +5,6 @@ using UniRx;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
 using TMPro;
-
 /// <summary>
 /// ルーレットを管理するコントローラー
 /// </summary>
@@ -15,10 +14,6 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
     [Tooltip("ルーレットプレハブ")]
     [SerializeField]
     private GameObject _rouletteObject;
-
-    [Tooltip("回転開始ボタンのTMP")]
-    [SerializeField]
-    private TextMeshProUGUI _rotateStartTMP;
 
     private Tween _currentTween;
     private Dictionary<double, string> _angleNameDic = new Dictionary<double, string>();
@@ -53,14 +48,16 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
             return;
         else if (count == 2)
         {
-            float rondomZvalue = UnityEngine.Random.Range(1080, 1440);
+            Ease easeType =  Ease.OutBack;
+            RouletteFinishEaseDecide(out easeType, UnityEngine.Random.Range(0,3));
+            Debug.Log(easeType);
+            float randomZvalue = UnityEngine.Random.Range(720, 2000);
             _currentTween.Kill();
-            _currentTween = _rouletteObject.transform.DOLocalRotate(new Vector3(0, 0, rondomZvalue), 4f, RotateMode.FastBeyond360)
-                                                     .SetEase(Ease.OutBack)
+            _currentTween = _rouletteObject.transform.DOLocalRotate(new Vector3(0, 0, randomZvalue), 4f, RotateMode.FastBeyond360)
+                                                     .SetEase(easeType)
                                                      .OnComplete(async () =>
                                                      {
                                                          DeterminePerson();
-                                                         _rotateStartTMP.DOColor(Color.blue, 0);
                                                          await UniTask.Delay(TimeSpan.FromSeconds(1));
                                                          GameManager.Instance.SceneLoader("GameSelect");
                                                      });
@@ -79,6 +76,20 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
         }
     }
 
+    private void RouletteFinishEaseDecide(out Ease changedEase, int randomNum)
+    {
+        Debug.Log(randomNum);
+        switch(randomNum)
+        {
+            case 0: changedEase = Ease.OutBack;
+                break;
+            case 1: changedEase = Ease.OutBounce;
+                break;
+            default:changedEase = Ease.OutCirc;
+                break;
+        }
+    }
+    
     /// <summary>
     /// 回り終わったあとの負け判定
     /// </summary>
