@@ -14,6 +14,7 @@ public class NaviTextAnimation : MonoBehaviour
 
     public void AnimationStart()
     {
+        Dispose();
         UiLoopAnimation();
     }
 
@@ -43,6 +44,5 @@ public class NaviTextAnimation : MonoBehaviour
     {
         _currentScaleTween?.Kill();
         _currentScaleTween = null;
-        Debug.Log(_currentScaleTween);
     }
 }

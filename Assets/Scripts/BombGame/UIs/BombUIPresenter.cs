@@ -32,7 +32,7 @@ public class BombUIPresenter : PresenterBase
                     }).AddTo(this);
 
         NaviTextAnimation naviTextAnimation = _naviTMP.GetComponent<NaviTextAnimation>();
-        FadeManager.Instance.NameAnimCompletedObserver
+        FadeManager.Instance.NameAnimStartObserver
                     .TakeUntilDestroy(this)
                     .Subscribe(_ =>
                     {

@@ -41,7 +41,7 @@ public abstract class PresenterBase : MonoBehaviour
                               _hideUIGroup.gameObject.SetActive(false);
                             }).AddTo(this);
 
-        FadeManager.Instance.NameAnimCompletedObserver
+        FadeManager.Instance.NameAnimStartObserver
                     .TakeUntilDestroy(this)
                     .Subscribe(_ =>
                     {

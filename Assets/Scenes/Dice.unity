@@ -844,11 +844,11 @@ MonoBehaviour:
   _activeSwitchButton: {fileID: 1361319192}
   _inGameUIGroup: {fileID: 1496233463}
   _InGameUIsParent: {fileID: 1666386808}
+  _currentOrderUIs: {fileID: 866721131}
   _backGround: {fileID: 469448338}
   _diceRollButton: {fileID: 1789875155}
   _naviTMP: {fileID: 2036087637}
   _diceResultTMP: {fileID: 215431219}
-  _currentOrderUIs: {fileID: 866721131}
 --- !u!1 &338635363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,6 +1685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentName: {fileID: 1265338245}
+  _currentNameBack: {fileID: 0}
 --- !u!1 &909384405
 GameObject:
   m_ObjectHideFlags: 0
@@ -3250,7 +3251,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496233460}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -3409,7 +3410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1666386809
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3687,7 +3688,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.9098039}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -4181,13 +4182,14 @@ GameObject:
   - component: {fileID: 2036087635}
   - component: {fileID: 2036087636}
   - component: {fileID: 2036087637}
+  - component: {fileID: 2036087638}
   m_Layer: 0
   m_Name: Navi_TMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2036087635
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4245,8 +4247,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 16777215
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4305,6 +4307,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2036087638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036087634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d21e2819a6a24f00a13f016b588b28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tweenData: {fileID: 11400000, guid: b7d493bfa844e4f1d8166798e36047e7, type: 2}
 --- !u!1 &2057532170
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,7 +24,6 @@ public class DiceRollButton : MonoBehaviour
                    .Subscribe(_ =>
                    {
                        _rollButton.interactable = false;
-                       _rollButton.gameObject.SetActive(false);
                        _rollSubject.OnNext(Unit.Default);
                    });
     }
