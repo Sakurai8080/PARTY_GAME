@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using TMPro;
+using DG.Tweening;
 
 /// <summary>
 /// サイコロゲームのプレゼンター
@@ -29,6 +30,9 @@ public class DiceUIPresenter : PresenterBase
     protected override void Start()
     {
         base.Start();
+
+        NaviTextAnimation naviTextAnimation = _naviTMP.GetComponent<NaviTextAnimation>();
+
         _activeSwitchButton.OnClickObserver
                        .TakeUntilDestroy(this)
                        .Subscribe(_ =>
@@ -42,21 +46,24 @@ public class DiceUIPresenter : PresenterBase
                        .Subscribe(_ =>
                        {
                            _currentOrderUIs.gameObject.SetActive(false);
-                           _naviTMP.gameObject.SetActive(false);
+                           naviTextAnimation.StopAnimation();
                            DiceController.Instance.DiceGenerate();
                            CinemaChineController.Instance.DiceCheckMove();
+                           _naviTMP.DOFade(0, 0.25f);
+                           _diceRollButton.gameObject.SetActive(false);
                        });
 
         DiceController.Instance.CaliculatedObserver
                                .TakeUntilDestroy(this)
                                .Subscribe(result => _diceResultTMP.FadeTMP(result));
 
-        FadeManager.Instance.NameAnimCompletedObserver
+        FadeManager.Instance.NameAnimStartObserver
                             .TakeUntilDestroy(this)
                             .Subscribe(_ =>
                             {
                                 _diceRollButton.gameObject.SetActive(true);
-                                _naviTMP.gameObject.SetActive(true);
+                                _naviTMP.DOFade(1, 0.25f);
+                                naviTextAnimation.AnimationStart();
                                 _diceRollButton.GetComponent<Button>().interactable = true;
                             });
     }

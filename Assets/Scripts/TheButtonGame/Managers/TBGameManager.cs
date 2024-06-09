@@ -13,6 +13,7 @@ using Cysharp.Threading.Tasks;
 public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
 {
     public IObservable<int> TurnChangeObserver => _turnChangeSubject;
+    public int CurrentActiveAmount => _sqeezeButtonAmount;
 
     [Header("変数")]
     [Tooltip("操作するボタンのリスト")]
@@ -22,6 +23,8 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
     private Dictionary<Button, bool> _allButtonDic = new Dictionary<Button, bool>();
 
     private Subject<int> _turnChangeSubject = new Subject<int>();
+
+    private int _sqeezeButtonAmount = 0;
 
     protected override void Awake()
     {
@@ -66,14 +69,14 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
         _allButtonList.ForEach(button => button.gameObject.SetActive(false));
         int maxActiveAmount = _allButtonList.Count();
         int activeButtonAmount = RandomAmountPass(maxActiveAmount);
-        int sqeezeButtonAmount = (activeButtonAmount <= 2) ? RandomAmountPass(maxActiveAmount) : activeButtonAmount;
-        for (int i = 0; i < sqeezeButtonAmount; i++)
+        _sqeezeButtonAmount = (activeButtonAmount <= 2) ? RandomAmountPass(maxActiveAmount) : activeButtonAmount;
+        for (int i = 0; i < _sqeezeButtonAmount; i++)
         {
             _allButtonList[i].gameObject.SetActive(true);
         }
-        _turnChangeSubject.OnNext(sqeezeButtonAmount);
-        int missButtonIndex = UnityEngine.Random.Range(0, sqeezeButtonAmount);
-        if (sqeezeButtonAmount != 1)
+        _turnChangeSubject.OnNext(_sqeezeButtonAmount);
+        int missButtonIndex = UnityEngine.Random.Range(0, _sqeezeButtonAmount);
+        if (_sqeezeButtonAmount != 1)
         {
             MissButtonSetter(_allButtonList[missButtonIndex]);
         }
@@ -81,7 +84,7 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
 
     private void NextOrderActivetor()
     {
-        FadeManager.Instance.OrderChangeFadeAnimation();
+        FadeManager.Instance.OrderChangeFadeAnimation().Forget();
     }
 
     /// <summary>

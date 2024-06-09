@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UniRx;
+using UnityEngine;
 
 /// <summary>
 /// 全イメージに使えるアニメーションコンポーネント
@@ -8,7 +9,14 @@ public class ImageAnimtion : TweenBase
 {
     protected override void OnEnable()
     {
+        Dispose();
         UiLoopAnimation();
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        transform.DOScale(Vector3.one, 0);
     }
 
     protected override void PlayAnimation()
@@ -25,12 +33,5 @@ public class ImageAnimtion : TweenBase
                                       .SetEase(_tweenData.LoopEasing)
                                       .SetLoops(-1, _tweenData.LoopType)
                                       .SetLink(gameObject);
-
-
-        _currentFadeTween = _targetImage.DOFade(0.9f, _tweenData.FadeDuration)
-                                         .SetEase(_tweenData.LoopEasing)
-                                         .SetLoops(-1, _tweenData.LoopType)
-                                         .SetLink(gameObject);
-                                         
     }
 }

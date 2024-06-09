@@ -60,7 +60,7 @@ public class SecondsUIPresenter : PresenterBase
                           }
                       });
 
-        FadeManager.Instance.NameAnimCompletedObserver
+        FadeManager.Instance.NameAnimStartObserver
                             .TakeUntilDestroy(this)
                             .Subscribe(_ =>
                             {

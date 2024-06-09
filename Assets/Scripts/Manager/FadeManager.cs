@@ -14,7 +14,8 @@ using UniRx;
 public class FadeManager : SingletonMonoBehaviour<FadeManager>
 {
      
-    public IObservable<Unit> NameAnimCompletedObserver => _nameAnimCompletedSubject;
+    public IObservable<Unit> NameAnimStartObserver => _nameAnimStartSubject;
+    public IObservable<Unit> NameAnimFadeCompletedObserver => _nameAnimFadeCompletedSubject;
 
     [Header("変数")]
     [Tooltip("フェードにかける時間")]
@@ -48,7 +49,8 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
     private Sequence _nextTMPSequence;
     private Sequence _nameGroupSequence;
 
-    private Subject<Unit> _nameAnimCompletedSubject = new Subject<Unit>();
+    private Subject<Unit> _nameAnimStartSubject = new Subject<Unit>();
+    private Subject<Unit> _nameAnimFadeCompletedSubject = new Subject<Unit>();
 
     private void Start()
     {
@@ -66,6 +68,7 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
                         .Pause();
 
         _nameGroupSequence = DOTween.Sequence();
+
         _nameGroupSequence.Append(_nameGroup.transform.DOLocalMoveX(0, 0.25f).SetEase(Ease.OutQuad).SetDelay(0.25f))
                           .Append(_nameGroup.transform.DOLocalMoveX(400, 0.25f).SetEase(Ease.InBack).SetDelay(2.5f)
                           .OnComplete(NameFadeReset))
@@ -77,8 +80,12 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
     {
         _nextTMP.transform.position = _nextTextInitPos;
         _nameGroup.transform.position = _nameGroupInitPos;
+        _nameAnimFadeCompletedSubject.OnNext(Unit.Default);
         _orderChangePanel.DOFade(0, 0.25f)
-                         .OnComplete(() => _orderChangePanel.gameObject.SetActive(false));
+                         .OnComplete(() =>
+                         {
+                             _orderChangePanel.gameObject.SetActive(false);
+                         });
     }
 
     public async UniTask OrderChangeFadeAnimation(float durationTime = 0)
@@ -93,7 +100,7 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
                          {
                              _nextTMPSequence.Restart();
                              _nameGroupSequence.Restart();
-                             _nameAnimCompletedSubject.OnNext(Unit.Default);
+                             _nameAnimStartSubject.OnNext(Unit.Default);
                          });
     }
 
