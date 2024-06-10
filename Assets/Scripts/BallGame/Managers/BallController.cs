@@ -111,7 +111,7 @@ public class BallController : SingletonMonoBehaviour<BallController>
     /// <param name="rigidbody">ボール飛ばすため</param>
     private void RandomForce(Rigidbody rigidbody)
     {
-        float randomXforce  = UnityEngine.Random.Range(-10f, 10f), randomZforce = UnityEngine.Random.Range(-10f, 15f);
+        float randomXforce  = UnityEngine.Random.Range(-12f, 12f), randomZforce = UnityEngine.Random.Range(-10f, 16f);
         rigidbody.AddForce(randomXforce, 1, randomZforce);
     }
 
@@ -121,7 +121,7 @@ public class BallController : SingletonMonoBehaviour<BallController>
     /// <returns>生成間隔</returns>
     private IEnumerator BallInstance()
     {
-        WaitForSeconds waitTime = new WaitForSeconds(0.5f);
+        WaitForSeconds waitTime = new WaitForSeconds(0.35f);
         _ballParent.gameObject.SetActive(true);
 
         for (int i = 0; i < NameLifeManager.Instance.GamePlayerAmount; i++)
