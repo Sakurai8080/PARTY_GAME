@@ -108,4 +108,10 @@ public class BallUIsController : MonoBehaviour
                      callBack?.Invoke();
                  });
     }
+
+    public void GoalTextChange()
+    {
+        int order = BallController.Instance.GoaledBallCount;
+        _nameTMP.text = order.ToString();
+    }
 }

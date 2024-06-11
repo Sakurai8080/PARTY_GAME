@@ -15,6 +15,8 @@ public class BallController : SingletonMonoBehaviour<BallController>
 {
     public IObservable<Unit> AllBallInstancedObserver => _allBallInstancedSubject;
 
+    public int GoaledBallCount => _goaledBallCount;
+
     [Header("変数")]
     [Tooltip("ボールを配置する親オブジェクト")]
     [SerializeField]
@@ -34,6 +36,8 @@ public class BallController : SingletonMonoBehaviour<BallController>
 
     private List<Ball> _ballObjList = new List<Ball>();
     private Dictionary<Ball, string> _ballNameDic = new Dictionary<Ball, string>();
+
+    private int _goaledBallCount = 0;
 
     private Subject<Unit> _allBallInstancedSubject = new Subject<Unit>();
 
@@ -63,21 +67,32 @@ public class BallController : SingletonMonoBehaviour<BallController>
         rigidbodies = _ballObjList.Select(x => x.GetComponent<Rigidbody>()).ToList();
         rigidbodies.ForEach(x => x.useGravity = true);
         rigidbodies.ForEach(x => RandomForce(x));
+        ClearBallList();
+    }
+
+    private void ClearBallList()
+    {
+        _ballObjList.Clear();
     }
 
     /// <summary>
     /// ボールが脱出したときの処理
     /// </summary>
-    /// <param name="removeball">負けを逃れたボール</param>
-    public void BallListRemover(Ball removeball)
+    /// <param name="removeBall">負けを逃れたボール</param>
+    public void BallGoalChecker(Ball AddBall)
     {
-        _ballObjList.Remove(removeball);
-        if (_ballObjList.Count() <= 1)
-        {
-            string remainingName = _ballNameDic[_ballObjList[0]];
-            NameLifeManager.Instance.ReduceLife(remainingName);
-            GameManager.Instance.SceneLoader("GameSelect");
-        }
+        _ballObjList.Add(AddBall);
+        if (_ballObjList.Count != NameLifeManager.Instance.GamePlayerAmount)
+            return;
+        
+        string remainName = _ballNameDic[AddBall];
+        NameLifeManager.Instance.ReduceLife(remainName);
+        BallGameManager.Instance.SceneLoadAsync(1.5f).Forget();
+    }
+
+    public void GoaledBallCountUp()
+    {
+        _goaledBallCount++;
     }
 
     /// <summary>
