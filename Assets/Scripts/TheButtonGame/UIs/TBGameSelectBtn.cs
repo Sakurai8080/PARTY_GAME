@@ -8,7 +8,7 @@ using UniRx;
 /// </summary>
 public class TBGameSelectBtn : MonoBehaviour
 {
-    public IObservable<Button> SelectedObsever => _selectedSubject;
+    public IObservable<Button> SelectedObserver => _selectedSubject;
 
     [Header("変数")]
     [Tooltip("選択するボタン")]

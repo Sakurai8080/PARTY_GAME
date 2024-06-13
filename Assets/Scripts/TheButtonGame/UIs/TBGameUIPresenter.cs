@@ -29,7 +29,7 @@ public class TBGameUIPresenter : PresenterBase
 
         for (int i = 0; i < _button.Length; i++)
         {
-            _button[i].SelectedObsever
+            _button[i].SelectedObserver
                       .TakeUntilDestroy(this)
                       .Subscribe(button =>
                       {
