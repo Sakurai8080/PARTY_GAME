@@ -92,7 +92,7 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
     {
         await UniTask.Delay(TimeSpan.FromSeconds(durationTime));
         _orderChangePanel.gameObject.SetActive(true);
-        string nextName = NameLifeManager.Instance.CurrentNameReciever();
+        string nextName = NameLifeManager.Instance.CurrentNameReceiver();
         _nextOrderName.text = nextName.Length > 5 ? nextName.Substring(0, 5) : nextName;
         _orderChangePanel.DOFade(0.95f, 0.25f)
                          .SetEase(Ease.InQuint)

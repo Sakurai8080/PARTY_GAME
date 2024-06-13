@@ -79,7 +79,7 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
     /// </summary>
     public void AfterExplosion()
     {
-        string loseName = NameLifeManager.Instance.CurrentNameReciever();
+        string loseName = NameLifeManager.Instance.CurrentNameReceiver();
         NameLifeManager.Instance.ReduceLife(loseName);
         Debug.Log(loseName);
         NameLifeManager.Instance.NameListOrderChange();
@@ -91,7 +91,7 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
     /// </summary>
     public void AfterAppleSelect()
     {
-        string lifeUpName = NameLifeManager.Instance.CurrentNameReciever();
+        string lifeUpName = NameLifeManager.Instance.CurrentNameReceiver();
         NameLifeManager.Instance.IncreaseLife(lifeUpName);
         Debug.Log(lifeUpName);
         NameLifeManager.Instance.NameListOrderChange();

@@ -101,7 +101,7 @@ public class BallController : SingletonMonoBehaviour<BallController>
     /// <param name="ball">名前と紐づけるためのボール</param>
     public void BallAddDictionary(Ball ball)
     {
-        _ballNameDic.Add(ball, NameLifeManager.Instance.CurrentNameReciever());
+        _ballNameDic.Add(ball, NameLifeManager.Instance.CurrentNameReceiver());
     }
 
     /// <summary>
