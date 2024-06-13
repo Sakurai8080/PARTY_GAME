@@ -45,7 +45,6 @@ public class TBGameUIPresenter : PresenterBase
                       .Subscribe(_ =>
                       {
                           FadeManager.Instance.OrderChangeFadeAnimation().Forget();
-                          TBGameManager.Instance.ButtonRandomHide();
                           _initCoverImage.gameObject.SetActive(true);
                       }).AddTo(this);
 
