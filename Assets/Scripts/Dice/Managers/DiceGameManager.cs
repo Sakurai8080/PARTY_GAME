@@ -29,7 +29,7 @@ public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
     /// <returns></returns>
     public async UniTask ResultReciever(int currentResult)
     {
-        string currentName = NameLifeManager.Instance.CurrentNameReciever();
+        string currentName = NameLifeManager.Instance.CurrentNameReceiver();
         _diceResultNameDic.Add(new KeyValuePair<int, string>(currentResult, currentName));
         Debug.Log($"{currentName}:{currentResult}");
         NameLifeManager.Instance.NameListOrderChange();

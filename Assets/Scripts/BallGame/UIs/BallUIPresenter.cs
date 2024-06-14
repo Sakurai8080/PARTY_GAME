@@ -63,8 +63,10 @@ public class BallUIPresenter : PresenterBase
                             .Subscribe(_ =>
                             {
                                 _explonationText.gameObject.SetActive(true);
-                                naviTextAnimation.AnimationStart();
                             });
+
+        BallController.Instance.AllBallInstancedObserver
+                                .Subscribe(_=> naviTextAnimation.AnimationStart());
     
     }
 }
