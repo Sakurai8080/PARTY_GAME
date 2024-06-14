@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 /// <summary>
 /// ボールの機能
@@ -15,7 +16,8 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        _ballUIsController.TextFadeSwitcher(0,0);
-        BallController.Instance.BallListRemover(this);
+        BallController.Instance.GoaledBallCountUp();
+        _ballUIsController.GoalTextChange();
+        BallController.Instance.BallGoalChecker(this);
     }
 }

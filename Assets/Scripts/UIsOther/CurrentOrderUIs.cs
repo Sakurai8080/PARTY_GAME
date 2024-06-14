@@ -19,7 +19,7 @@ public class CurrentOrderUIs : MonoBehaviour
 
     public void CurrentNameActivator()
     {
-        string recieveName = NameLifeManager.Instance.CurrentNameReciever();
+        string recieveName = NameLifeManager.Instance.CurrentNameReceiver();
         _currentName.text =  recieveName.Length > 5 ? recieveName.Substring(0, 5) : recieveName;
     }
 

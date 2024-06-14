@@ -82,7 +82,7 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
     /// 順序が1番目のプレイヤーを取得
     /// </summary>
     /// <returns></returns>
-    public string CurrentNameReciever()
+    public string CurrentNameReceiver()
     {
         return _nameList[_currentOrder];
     }

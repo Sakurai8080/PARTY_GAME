@@ -68,7 +68,7 @@ public class BallUIsController : MonoBehaviour
     /// </summary>
     private void TextSetup()
     {
-        string currentName = NameLifeManager.Instance.CurrentNameReciever();
+        string currentName = NameLifeManager.Instance.CurrentNameReceiver();
         _nameTMP.text = currentName.Length >= 3 ? currentName.Substring(0, 3) : currentName;
         _nameTMP.DOFade(1, 0.25f);
     }
@@ -107,5 +107,11 @@ public class BallUIsController : MonoBehaviour
                      await UniTask.Delay(TimeSpan.FromSeconds(6));
                      callBack?.Invoke();
                  });
+    }
+
+    public void GoalTextChange()
+    {
+        int order = BallController.Instance.GoaledBallCount;
+        _nameTMP.text = order.ToString();
     }
 }
