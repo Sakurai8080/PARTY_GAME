@@ -104,9 +104,10 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
         if (isMiss)
         {
             string loseName = NameLifeManager.Instance.CurrentNameReceiver();
-            NameLifeManager.Instance.ReduceLife(loseName);
+            int restLife = NameLifeManager.Instance.ReduceLife(loseName);
+            string sceneName = restLife <= 0 ? "Result" : "GameSelect";
             NameLifeManager.Instance.NameListOrderChange();
-            GameManager.Instance.SceneLoader("GameSelect");
+            GameManager.Instance.SceneLoader(sceneName);
             return;
         }
         else
