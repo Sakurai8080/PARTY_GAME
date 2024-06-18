@@ -57,9 +57,10 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                                                      .SetEase(easeType)
                                                      .OnComplete(async () =>
                                                      {
-                                                         DeterminePerson();
+                                                         int restLife = DeterminePerson();
                                                          await UniTask.Delay(TimeSpan.FromSeconds(1));
-                                                         GameManager.Instance.SceneLoader("GameSelect");
+                                                         string sceneName = restLife <= 0? "Result" : "GameSelect";
+                                                         GameManager.Instance.SceneLoader(sceneName);
                                                      });
         }
         else if (count == 1)
@@ -93,7 +94,7 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
     /// <summary>
     /// 回り終わったあとの負け判定
     /// </summary>
-    private void DeterminePerson()
+    private int DeterminePerson()
     {
         RectTransform stopRectTransform = _rouletteObject.GetComponent<RectTransform>();
         float angle = stopRectTransform.rotation.eulerAngles.z;
@@ -108,8 +109,8 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                 if (angle <= _angleList[_peopleAmount - 1 - i])
                 {
                     double finaleRotateAmount = _angleList[_peopleAmount - 1 - i];
-                    NameLifeManager.Instance.ReduceLife(_angleNameDic[finaleRotateAmount]);
-                    break;
+                    int restLife = NameLifeManager.Instance.ReduceLife(_angleNameDic[finaleRotateAmount]);
+                    return restLife;
                 }
             }
             catch
@@ -117,5 +118,6 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                 Debug.LogError($"回転の値が正しくありません。");
             }
         }
+        return 0;
     }
 }
