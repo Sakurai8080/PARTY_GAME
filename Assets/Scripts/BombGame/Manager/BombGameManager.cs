@@ -80,8 +80,8 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
     public void AfterExplosion()
     {
         string loseName = NameLifeManager.Instance.CurrentNameReceiver();
-        int restLife = NameLifeManager.Instance.ReduceLife(loseName);
-        string sceneName = restLife <= 0 ? "Result" : "GameSelect";
+        NameLifeManager.Instance.ReduceLife(loseName);
+        string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 
         NameLifeManager.Instance.NameListOrderChange();
         GameManager.Instance.SceneLoader(sceneName);
     }

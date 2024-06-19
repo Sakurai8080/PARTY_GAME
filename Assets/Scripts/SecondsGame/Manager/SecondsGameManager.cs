@@ -19,8 +19,6 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
     private List<KeyValuePair<TimeSpan, string>> _timeNameDic = new List<KeyValuePair<TimeSpan, string>>();
     private int _currentCompleteAmount  = 0;
 
-    private int _restLife = 0;
-
     protected override void Awake(){}
 
     /// <summary>
@@ -112,7 +110,7 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
     /// <param name="maxGap">10秒との差</param>
     private void LosePlayerProcess(int order,TimeSpan maxGap)
     {
-        _restLife = NameLifeManager.Instance.ReduceLife(_timeNameDic[order].Value);
+        NameLifeManager.Instance.ReduceLife(_timeNameDic[order].Value);
         Debug.Log($"{_timeNameDic[order].Value}は{maxGap}で負け");
     }
 
@@ -122,7 +120,7 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
     private async UniTask DelayAndLoadSceneTask()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(4));
-        string sceneName = _restLife <= 0 ? "Result" : "GameSelect";
+        string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 
         GameManager.Instance.SceneLoader(sceneName);
     }
 }

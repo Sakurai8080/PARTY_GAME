@@ -37,7 +37,7 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
     /// 負けたプレイヤーのライフを減らす処理
     /// </summary>
     /// <param name="loseName">負けたプレイヤーの名前</param>
-    public int ReduceLife(string loseName)
+    public void ReduceLife(string loseName)
     {
         _nameLifeDic[loseName]--;
          
@@ -50,7 +50,6 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
         {
             _finallyLoseName = loseName;
         }
-        return _nameLifeDic[loseName];
     }
 
     /// <summary>

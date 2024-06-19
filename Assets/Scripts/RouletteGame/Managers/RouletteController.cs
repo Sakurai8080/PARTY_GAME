@@ -5,6 +5,8 @@ using UniRx;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
 using TMPro;
+using System.Linq;
+
 /// <summary>
 /// ルーレットを管理するコントローラー
 /// </summary>
@@ -57,9 +59,9 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                                                      .SetEase(easeType)
                                                      .OnComplete(async () =>
                                                      {
-                                                         int restLife = DeterminePerson();
+                                                         DeterminePerson();
                                                          await UniTask.Delay(TimeSpan.FromSeconds(1));
-                                                         string sceneName = restLife <= 0? "Result" : "GameSelect";
+                                                         string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 
                                                          GameManager.Instance.SceneLoader(sceneName);
                                                      });
         }
@@ -94,7 +96,7 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
     /// <summary>
     /// 回り終わったあとの負け判定
     /// </summary>
-    private int DeterminePerson()
+    private void DeterminePerson()
     {
         RectTransform stopRectTransform = _rouletteObject.GetComponent<RectTransform>();
         float angle = stopRectTransform.rotation.eulerAngles.z;
@@ -109,8 +111,7 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                 if (angle <= _angleList[_peopleAmount - 1 - i])
                 {
                     double finaleRotateAmount = _angleList[_peopleAmount - 1 - i];
-                    int restLife = NameLifeManager.Instance.ReduceLife(_angleNameDic[finaleRotateAmount]);
-                    return restLife;
+                    NameLifeManager.Instance.ReduceLife(_angleNameDic[finaleRotateAmount]);
                 }
             }
             catch
@@ -118,6 +119,5 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                 Debug.LogError($"回転の値が正しくありません。");
             }
         }
-        return 0;
     }
 }

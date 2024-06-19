@@ -54,9 +54,9 @@ public class BallGameManager : SingletonMonoBehaviour<BallGameManager>
         _inGame.Value = onValid;
     }
 
-    public async UniTask SceneLoadAsync(float delayTime, int restLife)
+    public async UniTask SceneLoadAsync(float delayTime)
     {
-        string sceneName = restLife <= 0 ? "Result" : "GameSelect";
+        string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 
         await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
         GameManager.Instance.SceneLoader(sceneName);
     }

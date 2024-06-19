@@ -86,8 +86,8 @@ public class BallController : SingletonMonoBehaviour<BallController>
             return;
         
         string remainName = _ballNameDic[AddBall];
-        int restLife = NameLifeManager.Instance.ReduceLife(remainName);
-        BallGameManager.Instance.SceneLoadAsync(1.5f, restLife).Forget();
+        NameLifeManager.Instance.ReduceLife(remainName);
+        BallGameManager.Instance.SceneLoadAsync(1.5f).Forget();
     }
 
     public void GoaledBallCountUp()
