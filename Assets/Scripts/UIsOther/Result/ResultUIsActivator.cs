@@ -9,6 +9,9 @@ using UniRx;
 using TMPro;
 using System.Threading;
 
+/// <summary>
+/// 結果を表示するためのコンポーネント
+/// </summary>
 public class ResultUIsActivator : MonoBehaviour
 {
     [Header("変数")]
@@ -16,26 +19,30 @@ public class ResultUIsActivator : MonoBehaviour
     [SerializeField]
     private List<LifeImage> _nameLifeUIList = new List<LifeImage>();
 
-    [Tooltip("")]
+    [Tooltip("負けた人を表示するUIグループ")]
     [SerializeField]
     private CanvasGroup _loseNameUIGroup = default;
 
-    [Tooltip("")]
+    [Tooltip("次のシーンに移行するためのボタン")]
     [SerializeField]
     private CanvasGroup _ButtonUIGroup = default;
 
-    [Tooltip("")]
+    [Tooltip("負けた人を表示するTMP")]
     [SerializeField]
     private TextMeshProUGUI _loseNameTMP = default;
 
+    private CancellationTokenSource _cts;
 
-    // Start is called before the first frame update
     void Start()
     {
-        var cts = new CancellationTokenSource();
-        ResultUIsActiveTask(cts.Token).Forget();
+        _cts = new CancellationTokenSource();
+        ResultUIsActiveTask(_cts.Token).Forget();
     }
 
+    /// <summary>
+    /// 結果を順番に表示するタスク
+    /// </summary>
+    /// <param name="cancellationToken"></param>
     private async UniTask ResultUIsActiveTask(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -60,17 +67,33 @@ public class ResultUIsActivator : MonoBehaviour
             _ButtonUIGroup.DOFade(1,1f)
                           .SetEase(Ease.Linear);
         }
+        catch(OperationCanceledException)
+        {
+            Debug.Log("結果表示中にタスクはキャンセルされました。");
+            CancelToken();
+        }
         catch(Exception ex)
         {
             Debug.LogException(ex);
+            CancelToken();
+        }
+        finally
+        {
+            CancelToken();
         }
         await UniTask.Delay(0);
     }
     
-    private void CancelToken(CancellationTokenSource cancellationTokenSource)
+    private void CancelToken()
     {
-        cancellationTokenSource?.Cancel();
-        cancellationTokenSource?.Dispose();
+        _cts?.Cancel();
+        _cts?.Dispose();
+        _cts = null;
 
+    }
+
+    private void OnDestroy()
+    {
+        CancelToken();
     }
 }
