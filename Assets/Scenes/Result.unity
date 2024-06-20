@@ -1415,8 +1415,9 @@ GameObject:
   - component: {fileID: 509521498}
   - component: {fileID: 509521497}
   - component: {fileID: 509521496}
+  - component: {fileID: 509521499}
   m_Layer: 0
-  m_Name: Retry_Button
+  m_Name: TITLE_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1525,6 +1526,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 509521494}
   m_CullTransparentMesh: 1
+--- !u!114 &509521499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509521494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fff235343db341709bf53ae2a3f0560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transitionButton: {fileID: 509521496}
 --- !u!1 &548534393
 GameObject:
   m_ObjectHideFlags: 0
@@ -3903,6 +3917,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1506971616}
+  - component: {fileID: 1506971618}
   - component: {fileID: 1506971617}
   m_Layer: 0
   m_Name: HUD_Manager
@@ -3951,6 +3966,20 @@ MonoBehaviour:
   _loseNameUIGroup: {fileID: 1751064963}
   _ButtonUIGroup: {fileID: 1869789786}
   _loseNameTMP: {fileID: 856586331}
+--- !u!114 &1506971618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506971615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16dcb41c117c4eb79ed842ec602e097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _titleTransButton: {fileID: 509521499}
+  _restartButton: {fileID: 1970067491}
 --- !u!1 &1509524161
 GameObject:
   m_ObjectHideFlags: 0
@@ -5407,8 +5436,9 @@ GameObject:
   - component: {fileID: 1970067490}
   - component: {fileID: 1970067489}
   - component: {fileID: 1970067488}
+  - component: {fileID: 1970067491}
   m_Layer: 0
-  m_Name: Title_Button
+  m_Name: RETRY_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5517,6 +5547,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1970067486}
   m_CullTransparentMesh: 1
+--- !u!114 &1970067491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970067486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fff235343db341709bf53ae2a3f0560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transitionButton: {fileID: 1970067488}
 --- !u!1 &1989912889
 GameObject:
   m_ObjectHideFlags: 0
