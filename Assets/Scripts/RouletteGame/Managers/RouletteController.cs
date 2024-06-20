@@ -112,6 +112,7 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                 {
                     double finaleRotateAmount = _angleList[_peopleAmount - 1 - i];
                     NameLifeManager.Instance.ReduceLife(_angleNameDic[finaleRotateAmount]);
+                    break;
                 }
             }
             catch
