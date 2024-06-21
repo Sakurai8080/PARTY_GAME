@@ -60,10 +60,7 @@ public class BallUIPresenter : PresenterBase
 
         FadeManager.Instance.NameAnimStartObserver
                             .TakeUntilDestroy(this)
-                            .Subscribe(_ =>
-                            {
-                                _explonationText.gameObject.SetActive(true);
-                            });
+                            .Subscribe(_ => _explonationText.gameObject.SetActive(true));
 
         BallController.Instance.AllBallInstancedObserver
                                 .Subscribe(_=> naviTextAnimation.AnimationStart());

@@ -36,6 +36,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         {
             AudioManager.Instance.PlayBGM(bgm);
         }
+        else if (sceneName == "Result")
+        {
+            AudioManager.Instance.PlayBGM(BGMType.Result);
+        }   
     }
 
     /// <summary>

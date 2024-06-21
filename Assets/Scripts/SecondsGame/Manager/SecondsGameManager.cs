@@ -120,6 +120,7 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
     private async UniTask DelayAndLoadSceneTask()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(4));
-        GameManager.Instance.SceneLoader("GameSelect");
+        string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 
+        GameManager.Instance.SceneLoader(sceneName);
     }
 }

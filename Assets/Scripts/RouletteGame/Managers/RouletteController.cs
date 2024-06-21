@@ -5,6 +5,8 @@ using UniRx;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
 using TMPro;
+using System.Linq;
+
 /// <summary>
 /// ルーレットを管理するコントローラー
 /// </summary>
@@ -59,7 +61,8 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                                                      {
                                                          DeterminePerson();
                                                          await UniTask.Delay(TimeSpan.FromSeconds(1));
-                                                         GameManager.Instance.SceneLoader("GameSelect");
+                                                         string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 
+                                                         GameManager.Instance.SceneLoader(sceneName);
                                                      });
         }
         else if (count == 1)

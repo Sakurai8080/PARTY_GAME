@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Dice.unity
     guid: 9bcc2fbe4f8324d7a8cf492f095a836d
+  - enabled: 1
+    path: Assets/Scenes/Result.unity
+    guid: a151ecf2f3bd64087bdcc989550f0a4c
   m_configObjects: {}
