@@ -11,11 +11,13 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
     public List<string> NameList => _nameList;
     public Dictionary<string, int> NameLifeDic => _nameLifeDic;
     public int GamePlayerAmount => _gamePlayerAmount;
+    public string FinallyLoseName => _finallyLoseName;
     
     private List<string> _nameList = new List<string>();
     private Dictionary<string, int> _nameLifeDic = new Dictionary<string, int>();
     private int _gamePlayerAmount = 0;
     private int _currentOrder = 0;
+    private string _finallyLoseName = default;
 
     /// <summary>
     /// 名前とライフポイント3の初期設定
@@ -38,10 +40,16 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
     public void ReduceLife(string loseName)
     {
         _nameLifeDic[loseName]--;
-        //TODO:0になったらゲームマネージャーでゲームオーバーを呼び出す
-
+         
         foreach (var item in _nameLifeDic.Keys)
+        {
             Debug.Log($"{item} : {_nameLifeDic[item]}");
+        }
+
+        if (_nameLifeDic[loseName] <= 0)
+        {
+            _finallyLoseName = loseName;
+        }
     }
 
     /// <summary>

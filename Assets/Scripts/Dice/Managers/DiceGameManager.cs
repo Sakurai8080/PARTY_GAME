@@ -35,16 +35,17 @@ public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
         NameLifeManager.Instance.NameListOrderChange();
         if (_diceResultNameDic.Count() >= NameLifeManager.Instance.GamePlayerAmount)
         {
-            loseCheck();
+            LoseCheck();
             await UniTask.Delay(TimeSpan.FromSeconds(4));
-            GameManager.Instance.SceneLoader("GameSelect");
+            string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 
+            GameManager.Instance.SceneLoader(sceneName);
         }
     }
 
     /// <summary>
     /// 最終的に負けたプレイヤーの確認
     /// </summary>
-    private void loseCheck()
+    private void LoseCheck()
     {
         _diceResultNameDic.Sort((x,y)=> x.Key.CompareTo(y.Key));
 
