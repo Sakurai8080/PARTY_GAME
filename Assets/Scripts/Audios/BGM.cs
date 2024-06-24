@@ -16,5 +16,6 @@ public enum BGMType
     None,
     InitSetting,
     InGame,
-    Result
+    Result,
+    Title
 }
