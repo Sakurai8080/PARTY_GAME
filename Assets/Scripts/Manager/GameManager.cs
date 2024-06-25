@@ -19,10 +19,19 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     protected override void Awake()
     {
-        //DontDestroyOnLoad(gameObject);
         base.Awake();
         for (int i = 0; i < _gameTypeList.Count(); i++)
             _gameTypeDic.Add((GameType)i, false);
+    }
+
+    public void GameReset()
+    {
+        int gameTypeCount = System.Enum.GetValues(typeof(GameType)).Length;
+
+        for (int i = 0; i < gameTypeCount; i++)
+        {
+            _gameTypeDic[(GameType)i] = false;
+        }
     }
 
     /// <summary>
