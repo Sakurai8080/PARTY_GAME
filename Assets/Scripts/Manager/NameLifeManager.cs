@@ -19,12 +19,23 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
     private int _currentOrder = 0;
     private string _finallyLoseName = default;
 
+    public void Resetlife()
+    {
+        if (_nameLifeDic.Count > 0)
+        {
+            _nameLifeDic = _nameLifeDic.ToDictionary(pair => pair.Key, pair => pair.Value >= 3 ? pair.Value : 3);
+        }
+    }
+
     /// <summary>
     /// 名前とライフポイント3の初期設定
     /// </summary>
     /// <param name="names">参加者の名前</param>
     public void Setup(HashSet<string> names)
     {
+        _nameLifeDic?.Clear();
+        _nameList?.Clear();
+
         if (names.Count() >= 1)
         {
             _gamePlayerAmount = names.Count();
