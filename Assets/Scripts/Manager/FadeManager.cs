@@ -7,6 +7,7 @@ using DG.Tweening;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UniRx;
+using System.Linq;
 
 /// <summary>
 /// 画面のフェードを管理するクラス
@@ -41,6 +42,26 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
     [Tooltip("名前表示周りのグループ")]
     [SerializeField]
     private GameObject _nameGroup = default;
+
+    [Tooltip("")]
+    [SerializeField]
+    private Image _loseActivePanel = default;
+
+    [Tooltip("")]
+    [SerializeField]
+    private TextMeshProUGUI _loseThemaTMP = default;
+
+    [Tooltip("")]
+    [SerializeField]
+    private TextMeshProUGUI _loseNameTMP = default;
+
+    [Tooltip("")]
+    [SerializeField]
+    private CanvasGroup _loseLifeImageGroup = default;
+
+    [Tooltip("")]
+    [SerializeField]
+    private List<Image> _loseLifeList = new();
 
     private readonly int _progressId = Shader.PropertyToID("_progress");
     private bool _isFading = false;
@@ -130,6 +151,74 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
         _isFading = false;
 
         callBack?.Invoke();
+    }
+
+    public async UniTask LoseNameFade(string loseName, Action callBack = null)
+    {
+        await LoseNameFade(new List<string> { loseName }, callBack);
+    }
+
+    public async UniTask LoseNameFade(List<string> loseNameList, Action callBack = null)
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(1.5f));
+
+        _loseActivePanel.gameObject.SetActive(true);
+        _loseActivePanel.DOFade(0.95f, 0.25f).SetEase(Ease.Linear);
+        _loseThemaTMP.DOFade(1, 0.25f).SetEase(Ease.Linear);
+
+        try
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(1.25f));
+
+            for (int i = 0; i < loseNameList.Count; i++)
+            {
+                _loseNameTMP.text = loseNameList[i];
+                await _loseNameTMP.DOFade(1, 0.25f)
+                                  .SetEase(Ease.Linear)
+                                  .AsyncWaitForCompletion();
+
+                int lifeCount = NameLifeManager.Instance.NamefromLifePass(loseNameList[i]) + 1;
+
+                for (int j = 0; j < 3; j++)
+                    _loseLifeList[j].DOFade(1, 0);
+
+                await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+
+                for (int j = 0; j < lifeCount; j++)
+                    _loseLifeList[j].gameObject.SetActive(true);
+
+
+                await _loseLifeImageGroup.DOFade(1, 0.75f)
+                                         .AsyncWaitForCompletion();
+
+                await _loseLifeList[lifeCount - 1].DOFade(0, 0.75f)
+                                                  .AsyncWaitForCompletion();
+                await UniTask.Delay(TimeSpan.FromSeconds(1.25f));
+
+                _loseNameTMP.DOFade(0, 0.25f);
+                _loseLifeImageGroup.DOFade(0, 0.25f);
+
+                await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+
+                for (int j = 0; j < lifeCount; j++)
+                    _loseLifeList[j].gameObject.SetActive(false);
+
+
+                if (i == loseNameList.Count - 1)
+                {
+                    _loseActivePanel.DOFade(0f, 0.25f).SetEase(Ease.Linear);
+                    _loseThemaTMP.DOFade(0f, 0.25f).SetEase(Ease.Linear);
+                    await UniTask.Delay(TimeSpan.FromSeconds(2));
+                    _loseActivePanel.gameObject.SetActive(false);
+
+                    callBack?.Invoke();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.Log($"負けたプレイヤー表示中にエラー発生:{ex}");
+        }
     }
 }
 
