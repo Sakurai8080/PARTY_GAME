@@ -9,6 +9,7 @@ using System.Linq;
 /// </summary>
 public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
 {
+
     public int CurrentCompleteAmount => _currentCompleteAmount;
 
     [Header("変数")]
@@ -18,6 +19,9 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
 
     private List<KeyValuePair<TimeSpan, string>> _timeNameDic = new List<KeyValuePair<TimeSpan, string>>();
     private int _currentCompleteAmount  = 0;
+    private List<string> _loseNameList = new();
+
+    private Action _loseFadeCompletedCallBack;
 
     protected override void Awake(){}
 
@@ -53,11 +57,18 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
     /// </summary>
     private void ResultCheck()
     {
+        if (_loseNameList.Count() >= 1)
+            _loseNameList.Clear();
+
         IEnumerable<TimeSpan> timeGaps = _timeNameDic.Select(x => CalculateTimeGap(x.Key));
         var (maxGap, maxGapOrders) = GetMaxGapAndOrders(timeGaps);
-        maxGapOrders.ForEach(order => LosePlayerProcess(order,maxGap));
+        maxGapOrders.ForEach(order =>
+                    {
+                        LosePlayerProcess(order, maxGap);
+                        LoseNameAddList(order);
+                    });
         _nameSecondsDisplay.FinalResultTextChange(maxGapOrders.ToArray());
-        DelayAndLoadSceneTask().Forget();
+        DelayAndLoadSceneTask();
     }
 
     /// <summary>
@@ -115,12 +126,21 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
     }
 
     /// <summary>
+    /// 負けた人をリストに格納する
+    /// </summary>
+    /// <param name="order">負けた人の要素数</param>
+    private void LoseNameAddList(int order)
+    {
+        _loseNameList.Add(_timeNameDic[order].Value);
+    }
+
+    /// <summary>
     /// ゲーム選択画面への推移 
     /// </summary>
-    private async UniTask DelayAndLoadSceneTask()
+    private void DelayAndLoadSceneTask()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(4));
         string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 
-        GameManager.Instance.SceneLoader(sceneName);
+        _loseFadeCompletedCallBack = ()=> GameManager.Instance.SceneLoader(sceneName);
+        FadeManager.Instance.LoseNameFade(_loseNameList, _loseFadeCompletedCallBack).Forget();
     }
 }
