@@ -35,6 +35,7 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
     {
         _nameLifeDic?.Clear();
         _nameList?.Clear();
+        _currentOrder = 0;
 
         if (names.Count() >= 1)
         {
