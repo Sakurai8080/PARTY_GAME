@@ -22,6 +22,8 @@ public class BallGameManager : SingletonMonoBehaviour<BallGameManager>
     private ReactiveProperty<bool> _inGameReady = new ReactiveProperty<bool>();
     private int _chooseBallCount = 0;
 
+    private Action _loseFadeCompletedCallBack;
+
     protected override void Awake(){}
 
     private void Start()
@@ -32,7 +34,7 @@ public class BallGameManager : SingletonMonoBehaviour<BallGameManager>
     }
 
     /// <summary>
-    /// ボタンを全て選択されたら通知
+    /// ボタンが全て選択されたら通知
     /// </summary>
     public void ChooseBall()
     {
@@ -54,10 +56,10 @@ public class BallGameManager : SingletonMonoBehaviour<BallGameManager>
         _inGame.Value = onValid;
     }
 
-    public async UniTask SceneLoadAsync(float delayTime)
+    public void SceneLoadAfterFade(string loseName)
     {
         string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 
-        await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
-        GameManager.Instance.SceneLoader(sceneName);
+        _loseFadeCompletedCallBack = ()=> GameManager.Instance.SceneLoader(sceneName);
+        FadeManager.Instance.LoseNameFade(loseName, _loseFadeCompletedCallBack).Forget();
     }
 }
