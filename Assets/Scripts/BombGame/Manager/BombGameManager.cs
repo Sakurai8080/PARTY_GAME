@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,8 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
     private Dictionary<Image, BoxContents> _allBombdic = new Dictionary<Image, BoxContents>();
     private bool _onExplosion = false;
 
+    private Action _loseFadeCompletedCallBack;
+
     protected override void Awake() { }
 
     private void Start()
@@ -23,6 +26,7 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
                                            .TakeUntilDestroy(this)
                                            .Subscribe(_ =>FadeManager.Instance.OrderChangeFadeAnimation().Forget());
     }
+
     /// <summary>
     /// カード選択時のハズレチェック
     /// </summary>
@@ -46,7 +50,7 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
 
         for (int i = 0; i < inCount; i++)
         {
-            int randomIndex = Random.Range(0, availableCards.Count());
+            int randomIndex = UnityEngine.Random.Range(0, availableCards.Count());
             Image inBombImage = availableCards[randomIndex];
             _allBombdic[inBombImage] = (BoxContents)i+1;
             Debug.Log($"ボムは<color=yellow>{inBombImage}</color>番目のカード");
@@ -83,7 +87,8 @@ public class BombGameManager : SingletonMonoBehaviour<BombGameManager>
         NameLifeManager.Instance.ReduceLife(loseName);
         string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 
         NameLifeManager.Instance.NameListOrderChange();
-        GameManager.Instance.SceneLoader(sceneName);
+        _loseFadeCompletedCallBack = () => GameManager.Instance.SceneLoader(sceneName);
+        FadeManager.Instance.LoseNameFade(loseName, _loseFadeCompletedCallBack).Forget();
     }
 
     /// <summary>
