@@ -53,7 +53,7 @@ public class ResultUIsActivator : MonoBehaviour
             for (int i = 0; i < NameLifeManager.Instance.GamePlayerAmount; i++)
             {
                 _nameLifeUIList[i].gameObject.SetActive(true);
-                await UniTask.Delay(TimeSpan.FromMilliseconds(500));
+                await UniTask.Delay(TimeSpan.FromMilliseconds(450));
             }
             
             _loseNameTMP.text = NameLifeManager.Instance.FinallyLoseName;
