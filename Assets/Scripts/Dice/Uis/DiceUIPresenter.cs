@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UniRx;
 using TMPro;
 using DG.Tweening;
+using Cysharp.Threading.Tasks;
 
 /// <summary>
 /// サイコロゲームのプレゼンター

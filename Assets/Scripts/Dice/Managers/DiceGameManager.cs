@@ -11,11 +11,15 @@ using UniRx;
 /// </summary>
 public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
 {
+
+    [Tooltip("サイコロの結果を表示するコンポーネント")]
+    [SerializeField]
+    private DiceResultTMP _diceResultTMP = default;
+
     private List<KeyValuePair<int, string>> _diceResultNameDic = new List<KeyValuePair<int, string>>();
     private List<string> _loseNameList = new();
 
     private Action _loseFadeCompletedCallBack;
-
 
     protected override void Awake(){}
 
@@ -23,7 +27,17 @@ public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
     {
         CinemaChineController.Instance.CameraReturnObserver
                                       .TakeUntilDestroy(this)
-                                      .Subscribe(_ => FadeManager.Instance.OrderChangeFadeAnimation().Forget());
+                                      .Subscribe(returnCount =>
+                                      {
+                                          if (returnCount < NameLifeManager.Instance.GamePlayerAmount)
+                                          {
+                                              FadeManager.Instance.OrderChangeFadeAnimation().Forget();
+                                          }
+                                      });
+
+        _diceResultTMP.ResultInActiveObserver
+                      .TakeUntilDestroy(this)
+                      .Subscribe(_ => SceneLoadAfterFade());
     }
 
     /// <summary>
@@ -37,10 +51,14 @@ public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
         _diceResultNameDic.Add(new KeyValuePair<int, string>(currentResult, currentName));
         Debug.Log($"{currentName}:{currentResult}");
         NameLifeManager.Instance.NameListOrderChange();
+    }
+
+    private void SceneLoadAfterFade()
+    {
         if (_diceResultNameDic.Count() >= NameLifeManager.Instance.GamePlayerAmount)
         {
             LoseCheck();
-            string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 
+            string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0) ? "Result" : "GameSelect";
             _loseFadeCompletedCallBack = () => GameManager.Instance.SceneLoader(sceneName);
             FadeManager.Instance.LoseNameFade(_loseNameList, _loseFadeCompletedCallBack).Forget();
         }

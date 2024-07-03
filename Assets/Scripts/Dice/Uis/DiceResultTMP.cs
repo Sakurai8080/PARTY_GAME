@@ -15,8 +15,12 @@ using System.Linq;
 /// </summary>
 public class DiceResultTMP : MonoBehaviour
 {
+    public IObservable<Unit> ResultInActiveObserver => _resultInactivedSubject;
+
     [SerializeField]
     private TextMeshProUGUI _resultTMP = default;
+
+    private Subject<Unit> _resultInactivedSubject = new Subject<Unit>();
 
     /// <summary>
     /// TMPのフェード機能
@@ -28,10 +32,13 @@ public class DiceResultTMP : MonoBehaviour
         _resultTMP.DOFade(1, 0.5f)
                   .SetEase(Ease.InFlash)
                   .SetDelay(2)
-                  .OnComplete(() =>
+                  .OnComplete(async () =>
                   {
-                      _resultTMP.DOFade(0, 0.5f)
-                                .SetDelay(2);
+                      await _resultTMP.DOFade(0, 0.5f)
+                                      .SetDelay(2)
+                                      .AsyncWaitForCompletion();
+
+                      _resultInactivedSubject.OnNext(Unit.Default);
                   });
     }
 }

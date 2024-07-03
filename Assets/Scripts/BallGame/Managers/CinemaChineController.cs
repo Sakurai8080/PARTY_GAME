@@ -15,7 +15,7 @@ using Cinemachine;
 public class CinemaChineController : SingletonMonoBehaviour<CinemaChineController>
 {
 
-    public IObservable<Unit> CameraReturnObserver => _cameraReturnSubject;
+    public IObservable<int> CameraReturnObserver => _cameraReturnSubject;
 
     [Header("変数")]
     [Tooltip("シネマシーンカメラ")]
@@ -34,7 +34,7 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
     private const int PRIORITY_AMOUNT = 11;
     private int _returnCount = 0;
 
-    private Subject<Unit> _cameraReturnSubject = new Subject<Unit>();
+    private Subject<int> _cameraReturnSubject = new Subject<int>();
 
     protected override void Awake()
     {
@@ -60,18 +60,18 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
     public void DiceCheckMove(Action callBack = null)
     {
         _returnCount++;
-        callBack += () => CameraReturnMove();
+        callBack += () => CameraReturnMove(_returnCount);
         if (_returnCount >= NameLifeManager.Instance.GamePlayerAmount)
             callBack = null;
         _dolly = _cameraDic[CameraType.cam2].GetCinemachineComponent<CinemachineTrackedDolly>();
-        DollyMoveTask(2, 2, 5,Ease.OutExpo ,() => CameraReturnMove(callBack)).Forget();
+        DollyMoveTask(2, 2, 5,Ease.OutExpo ,callBack).Forget();
     }
 
     /// <summary>
     /// カメラを元の位置に戻す処理
     /// </summary>
     /// <param name="callBack">挙動後のコールバック</param>
-    private void CameraReturnMove(Action callBack = null)
+    private void CameraReturnMove(int returnCount, Action callBack = null)
     {
         _pathPositionMin = _dolly.m_Path.MinPos;
         DOTween.To(() => _dolly.m_PathPosition,
@@ -80,7 +80,7 @@ public class CinemaChineController : SingletonMonoBehaviour<CinemaChineControlle
         .SetEase(Ease.InFlash);
         //ToDo:コールバックは無くしてUniRxだけにする。
         callBack?.Invoke();
-        _cameraReturnSubject.OnNext(Unit.Default);
+        _cameraReturnSubject.OnNext(returnCount);
     }
 
     /// <summary>
