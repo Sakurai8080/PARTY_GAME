@@ -57,6 +57,8 @@ public class ResultUIsActivator : MonoBehaviour
             }
             
             _loseNameTMP.text = NameLifeManager.Instance.FinallyLoseName;
+            _loseNameTMP.text = _loseNameTMP.text.Length > 5 ? _loseNameTMP.text.Substring(0, 5) : _loseNameTMP.text;
+
             await UniTask.Delay(TimeSpan.FromMilliseconds(1000));
             
             _loseNameUIGroup.DOFade(1,1f)

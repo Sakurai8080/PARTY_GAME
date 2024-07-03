@@ -173,6 +173,8 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
             for (int i = 0; i < loseNameList.Count; i++)
             {
                 _loseNameTMP.text = loseNameList[i];
+                _loseNameTMP.text = _loseNameTMP.text.Length > 5 ? _loseNameTMP.text.Substring(0, 5) : _loseNameTMP.text;
+
                 await _loseNameTMP.DOFade(1, 0.25f)
                                   .SetEase(Ease.Linear)
                                   .AsyncWaitForCompletion();
