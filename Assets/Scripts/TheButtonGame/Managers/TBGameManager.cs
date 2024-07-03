@@ -15,6 +15,8 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
     public IObservable<int> TurnChangeObserver => _turnChangeSubject;
     public int CurrentActiveAmount => _squeezeButtonAmount;
 
+    private Action _loseFadeCompletedCallBack;
+
     [Header("変数")]
     [Tooltip("操作するボタンのリスト")]
     [SerializeField]
@@ -107,7 +109,8 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
             NameLifeManager.Instance.ReduceLife(loseName);
             string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 
             NameLifeManager.Instance.NameListOrderChange();
-            GameManager.Instance.SceneLoader(sceneName);
+            _loseFadeCompletedCallBack = () => GameManager.Instance.SceneLoader(sceneName);
+            FadeManager.Instance.LoseNameFade(loseName, _loseFadeCompletedCallBack).Forget();
             return;
         }
         else

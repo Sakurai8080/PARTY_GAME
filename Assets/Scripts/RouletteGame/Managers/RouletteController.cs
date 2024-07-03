@@ -21,6 +21,9 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
     private Dictionary<double, string> _angleNameDic = new Dictionary<double, string>();
     private List<float> _angleList = new List<float>();
     private int _peopleAmount = 0;
+    private string _loseName = default;
+
+    private Action _loseFadeCompletedCallBack;
 
     protected override void Awake(){}
 
@@ -57,12 +60,12 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
             _currentTween.Kill();
             _currentTween = _rouletteObject.transform.DOLocalRotate(new Vector3(0, 0, randomZvalue), 4f, RotateMode.FastBeyond360)
                                                      .SetEase(easeType)
-                                                     .OnComplete(async () =>
+                                                     .OnComplete(() =>
                                                      {
                                                          DeterminePerson();
-                                                         await UniTask.Delay(TimeSpan.FromSeconds(1));
                                                          string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 
-                                                         GameManager.Instance.SceneLoader(sceneName);
+                                                         _loseFadeCompletedCallBack = ()=>  GameManager.Instance.SceneLoader(sceneName);
+                                                         FadeManager.Instance.LoseNameFade(_loseName, _loseFadeCompletedCallBack).Forget();
                                                      });
         }
         else if (count == 1)
@@ -111,7 +114,8 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
                 if (angle <= _angleList[_peopleAmount - 1 - i])
                 {
                     double finaleRotateAmount = _angleList[_peopleAmount - 1 - i];
-                    NameLifeManager.Instance.ReduceLife(_angleNameDic[finaleRotateAmount]);
+                    _loseName = _angleNameDic[finaleRotateAmount];
+                    NameLifeManager.Instance.ReduceLife(_loseName);
                     break;
                 }
             }

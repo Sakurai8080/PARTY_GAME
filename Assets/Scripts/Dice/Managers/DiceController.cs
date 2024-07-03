@@ -86,7 +86,7 @@ public class DiceController : SingletonMonoBehaviour<DiceController>
     /// <param name="res">合計の結果</param>
     private void ResultPass(int res)
     {
-        DiceGameManager.Instance.ResultReciever(res).Forget();
+        DiceGameManager.Instance.ResultReciever(res);
     }
 
     /// <summary>

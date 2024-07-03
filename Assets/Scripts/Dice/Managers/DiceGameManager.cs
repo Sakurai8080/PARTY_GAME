@@ -11,7 +11,15 @@ using UniRx;
 /// </summary>
 public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
 {
+
+    [Tooltip("サイコロの結果を表示するコンポーネント")]
+    [SerializeField]
+    private DiceResultTMP _diceResultTMP = default;
+
     private List<KeyValuePair<int, string>> _diceResultNameDic = new List<KeyValuePair<int, string>>();
+    private List<string> _loseNameList = new();
+
+    private Action _loseFadeCompletedCallBack;
 
     protected override void Awake(){}
 
@@ -19,7 +27,17 @@ public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
     {
         CinemaChineController.Instance.CameraReturnObserver
                                       .TakeUntilDestroy(this)
-                                      .Subscribe(_ => FadeManager.Instance.OrderChangeFadeAnimation().Forget());
+                                      .Subscribe(returnCount =>
+                                      {
+                                          if (returnCount < NameLifeManager.Instance.GamePlayerAmount)
+                                          {
+                                              FadeManager.Instance.OrderChangeFadeAnimation().Forget();
+                                          }
+                                      });
+
+        _diceResultTMP.ResultInActiveObserver
+                      .TakeUntilDestroy(this)
+                      .Subscribe(_ => SceneLoadAfterFade());
     }
 
     /// <summary>
@@ -27,18 +45,22 @@ public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
     /// </summary>
     /// <param name="currentResult">サイコロの和の結果</param>
     /// <returns></returns>
-    public async UniTask ResultReciever(int currentResult)
+    public void ResultReciever(int currentResult)
     {
         string currentName = NameLifeManager.Instance.CurrentNameReceiver();
         _diceResultNameDic.Add(new KeyValuePair<int, string>(currentResult, currentName));
         Debug.Log($"{currentName}:{currentResult}");
         NameLifeManager.Instance.NameListOrderChange();
+    }
+
+    private void SceneLoadAfterFade()
+    {
         if (_diceResultNameDic.Count() >= NameLifeManager.Instance.GamePlayerAmount)
         {
             LoseCheck();
-            await UniTask.Delay(TimeSpan.FromSeconds(4));
-            string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 
-            GameManager.Instance.SceneLoader(sceneName);
+            string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0) ? "Result" : "GameSelect";
+            _loseFadeCompletedCallBack = () => GameManager.Instance.SceneLoader(sceneName);
+            FadeManager.Instance.LoseNameFade(_loseNameList, _loseFadeCompletedCallBack).Forget();
         }
     }
 
@@ -50,10 +72,10 @@ public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
         _diceResultNameDic.Sort((x,y)=> x.Key.CompareTo(y.Key));
 
         int minkey = _diceResultNameDic[0].Key;
-        List<string> loseNames = _diceResultNameDic.Where(entry => entry.Key == minkey)
+        _loseNameList = _diceResultNameDic.Where(entry => entry.Key == minkey)
                                                    .Select(entry => entry.Value)
                                                    .ToList();
-        loseNames.ForEach(name => Debug.Log(name));
-        loseNames.ForEach(name => NameLifeManager.Instance.ReduceLife(name));
+        _loseNameList.ForEach(name => Debug.Log(name));
+        _loseNameList.ForEach(name => NameLifeManager.Instance.ReduceLife(name));
     }
 }
