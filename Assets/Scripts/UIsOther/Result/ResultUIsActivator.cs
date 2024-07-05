@@ -49,6 +49,9 @@ public class ResultUIsActivator : MonoBehaviour
 
         try
         {
+            _loseNameTMP.text = NameLifeManager.Instance.FinallyLoseName;
+            _loseNameTMP.text = _loseNameTMP.text.Length > 5 ? _loseNameTMP.text.Substring(0, 5) : _loseNameTMP.text;
+
             await UniTask.Delay(TimeSpan.FromMilliseconds(500));
             for (int i = 0; i < NameLifeManager.Instance.GamePlayerAmount; i++)
             {
@@ -56,9 +59,6 @@ public class ResultUIsActivator : MonoBehaviour
                 await UniTask.Delay(TimeSpan.FromMilliseconds(450));
             }
             
-            _loseNameTMP.text = NameLifeManager.Instance.FinallyLoseName;
-            _loseNameTMP.text = _loseNameTMP.text.Length > 5 ? _loseNameTMP.text.Substring(0, 5) : _loseNameTMP.text;
-
             await UniTask.Delay(TimeSpan.FromMilliseconds(1000));
             
             _loseNameUIGroup.DOFade(1,1f)
