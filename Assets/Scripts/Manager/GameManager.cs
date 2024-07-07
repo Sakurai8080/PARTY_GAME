@@ -24,6 +24,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             _gameTypeDic.Add((GameType)i, false);
     }
 
+    /// <summary>
+    /// リザルト画面でゲームリセットしたときのゲーム状態の初期化機能
+    /// </summary>
     public void GameReset()
     {
         int gameTypeCount = System.Enum.GetValues(typeof(GameType)).Length;
