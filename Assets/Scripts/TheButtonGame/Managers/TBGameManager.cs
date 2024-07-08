@@ -15,18 +15,17 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
     public IObservable<int> TurnChangeObserver => _turnChangeSubject;
     public int CurrentActiveAmount => _squeezeButtonAmount;
 
-    private Action _loseFadeCompletedCallBack;
-
     [Header("変数")]
     [Tooltip("操作するボタンのリスト")]
     [SerializeField]
     private List<Button> _allButtonList = new List<Button>();
 
     private Dictionary<Button, bool> _allButtonDic = new Dictionary<Button, bool>();
+    private int _squeezeButtonAmount = 0;
 
     private Subject<int> _turnChangeSubject = new Subject<int>();
+    private Action _loseFadeCompletedCallBack;
 
-    private int _squeezeButtonAmount = 0;
 
     protected override void Awake()
     {
@@ -91,6 +90,9 @@ public class TBGameManager : SingletonMonoBehaviour<TBGameManager>
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void NextOrderActivator()
     {
         FadeManager.Instance.OrderChangeFadeAnimation().Forget();
