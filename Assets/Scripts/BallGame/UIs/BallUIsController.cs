@@ -56,6 +56,9 @@ public class BallUIsController : MonoBehaviour
                            BallGameManager.Instance.ChooseBall();
                            NameLifeManager.Instance.NameListOrderChange();
                        });
+
+        _targetBall.GoaledObserver.TakeUntilDestroy(this)
+                                  .Subscribe(_ => GoalTextChange());
     }
 
     void OnGUI()

@@ -1,23 +1,20 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UniRx;
+using System;
 
 /// <summary>
 /// ボールの機能
 /// </summary>
 public class Ball : MonoBehaviour
 {
-    private BallUIsController _ballUIsController;
+    public IObservable<Ball> GoaledObserver => _goaledSubject;
 
-    private void Start()
-    {
-        _ballUIsController = GetComponentInChildren<BallUIsController>();
-    }
+    private Subject<Ball> _goaledSubject = new Subject<Ball>();
 
     private void OnTriggerEnter(Collider other)
     {
-        BallController.Instance.GoaledBallCountUp();
-        _ballUIsController.GoalTextChange();
-        BallController.Instance.BallGoalChecker(this);
+        _goaledSubject.OnNext(this);
     }
 }
