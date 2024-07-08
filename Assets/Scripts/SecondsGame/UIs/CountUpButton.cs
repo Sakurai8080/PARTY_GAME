@@ -33,6 +33,10 @@ public class CountUpButton : MonoBehaviour
                       });
     }
 
+    /// <summary>
+    /// カウントを操作するボタンテキストの切り替え機能
+    /// </summary>
+    /// <param name="InProgress">秒数が進んでいるか否か</param>
     public void TextToggle(bool InProgress)
     {
         _countToggleTMP.text = InProgress ? "STOP" : "START";
