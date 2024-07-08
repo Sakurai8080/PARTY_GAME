@@ -82,6 +82,11 @@ public class RouletteController : SingletonMonoBehaviour<RouletteController>
         }
     }
 
+    /// <summary>
+    /// ルーレットが終わるときの挙動決定
+    /// </summary>
+    /// <param name="changedEase">変更するEase</param>
+    /// <param name="randomNum">Easeを決定するためのランダムの値</param>
     private void RouletteFinishEaseDecide(out Ease changedEase, int randomNum)
     {
         Debug.Log(randomNum);
