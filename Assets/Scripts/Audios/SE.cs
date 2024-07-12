@@ -19,4 +19,10 @@ public enum SEType
     SeventyFive,
     Eighty,
     OneHundred,
+    Choose,
+    Decide1,
+    Decide2,
+    Decide3,
+    Tap,
+    Cancel,
 }

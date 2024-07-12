@@ -56,6 +56,9 @@ public class BallUIsController : MonoBehaviour
                            BallGameManager.Instance.ChooseBall();
                            NameLifeManager.Instance.NameListOrderChange();
                        });
+
+        _targetBall.GoaledObserver.TakeUntilDestroy(this)
+                                  .Subscribe(_ => GoalTextChange());
     }
 
     void OnGUI()
@@ -109,6 +112,9 @@ public class BallUIsController : MonoBehaviour
                  });
     }
 
+    /// <summary>
+    /// ゴール後に順位を表示する機能
+    /// </summary>
     public void GoalTextChange()
     {
         int order = BallController.Instance.GoaledBallCount;

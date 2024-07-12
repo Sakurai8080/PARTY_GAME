@@ -56,13 +56,18 @@ public class InitSettingPresenter : MonoBehaviour
                                                      {
                                                          _joinAmount = chooseNum;
                                                          _titlePeopleAmountTMP.JoinAmountTMPControl(chooseNum);
-                                                         NextButtonState(transitionButton,true);
+                                                         NextButtonState(transitionButton, true);
+                                                         AudioManager.Instance.PlaySE(SEType.Choose);
                                                      }));
 
         _transitionButton.NextClickObserver
                          .TakeUntilDestroy(this)
-                         .Subscribe(clickCount => NextTransitionButtonClick(clickCount));
-                         
+                         .Subscribe(clickCount =>
+                         {
+                             NextTransitionButtonClick(clickCount);
+                             AudioManager.Instance.PlaySE(SEType.Decide1);
+                         });
+
         _namedFailButton.OnClickObserver
                         .TakeUntilDestroy(this)
                         .Subscribe(_ => _nameSettingFailPopUp.NamedFailSwitch(false));
@@ -78,6 +83,7 @@ public class InitSettingPresenter : MonoBehaviour
                        {
                            _nameSettingFailPopUp.NamedFailSwitch(true);
                            NextButtonState(transitionButton, false);
+                           AudioManager.Instance.PlaySE(SEType.Cancel);
                        });
     }
 

@@ -23,6 +23,7 @@ public class SecondsGameManager : SingletonMonoBehaviour<SecondsGameManager>
 
     private Action _loseFadeCompletedCallBack;
 
+
     protected override void Awake(){}
 
     /// <summary>

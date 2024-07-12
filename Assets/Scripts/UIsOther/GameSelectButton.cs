@@ -29,6 +29,7 @@ public class GameSelectButton : MonoBehaviour
                              {
                                  GameTransition(_gameType);
                                  GameManager.Instance.GameSelected(_gameType);
+                                 AudioManager.Instance.PlaySE(SEType.Choose);
                              });
     }
 

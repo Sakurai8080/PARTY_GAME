@@ -21,6 +21,9 @@ public class RouletteStartButtonAnim : TweenBase
                                       .OnComplete(()=> UILoopAnimation());
     }
 
+    /// <summary>
+    /// ボタンをループさせるための処理
+    /// </summary>
     private void UILoopAnimation()
     {
         _currentScaleTween = transform.DOScale(0.8f, _tweenData.ScaleDuration)

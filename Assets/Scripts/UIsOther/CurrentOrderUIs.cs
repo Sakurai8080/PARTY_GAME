@@ -17,12 +17,19 @@ public class CurrentOrderUIs : MonoBehaviour
     [SerializeField]
     private Image _currentNameBack = default;
 
+    /// <summary>
+    /// 現在の順番の名前を取得
+    /// </summary>
     public void CurrentNameActivator()
     {
         string recieveName = NameLifeManager.Instance.CurrentNameReceiver();
         _currentName.text =  recieveName.Length > 5 ? recieveName.Substring(0, 5) : recieveName;
     }
 
+    /// <summary>
+    /// 順番変更の際の名前表示機能
+    /// </summary>
+    /// <param name="type">フェードアウトorイン</param>
     public void CurrentNameGroupFade(NameFadeType type)
     {
         float endValue = type == NameFadeType.In ? 1f : 0;
