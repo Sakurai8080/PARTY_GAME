@@ -19,6 +19,9 @@ public class NameLifeManager : SingletonMonoBehaviour<NameLifeManager>
     private int _currentOrder = 0;
     private string _finallyLoseName = default;
 
+    /// <summary>
+    /// リザルト画面でゲームリセットしたときのライフの初期化機能
+    /// </summary>
     public void Resetlife()
     {
         if (_nameLifeDic.Count > 0)

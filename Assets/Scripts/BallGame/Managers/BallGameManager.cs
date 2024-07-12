@@ -56,6 +56,10 @@ public class BallGameManager : SingletonMonoBehaviour<BallGameManager>
         _inGame.Value = onValid;
     }
 
+    /// <summary>
+    /// ゲーム終了後のシーン選択と負けた人を表示する機能
+    /// </summary>
+    /// <param name="loseName">負けた名前</param>
     public void SceneLoadAfterFade(string loseName)
     {
         string sceneName = NameLifeManager.Instance.NameLifeDic.Values.Contains(0)? "Result" : "GameSelect"; 

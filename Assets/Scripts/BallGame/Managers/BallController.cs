@@ -14,7 +14,6 @@ using UnityEngine.UI;
 public class BallController : SingletonMonoBehaviour<BallController>
 {
     public IObservable<Unit> AllBallInstancedObserver => _allBallInstancedSubject;
-
     public int GoaledBallCount => _goaledBallCount;
 
     [Header("変数")]
@@ -36,10 +35,10 @@ public class BallController : SingletonMonoBehaviour<BallController>
 
     private List<Ball> _ballObjList = new List<Ball>();
     private Dictionary<Ball, string> _ballNameDic = new Dictionary<Ball, string>();
-
-    private int _goaledBallCount = 0;
+    private int _goaledBallCount = 1;
 
     private Subject<Unit> _allBallInstancedSubject = new Subject<Unit>();
+
 
     protected override void Awake(){}
 
@@ -62,6 +61,11 @@ public class BallController : SingletonMonoBehaviour<BallController>
     /// </summary>
     public void OnAllGravity()
     {
+        _ballObjList.ForEach(ball => ball.GoaledObserver.Subscribe(ball =>
+                                                        {
+                                                            BallGoalChecker(ball);
+                                                            GoaledBallCountUp();
+                                                        }));
         List<Rigidbody> rigidbodies = new List<Rigidbody>();
         rigidbodies.Clear();
         rigidbodies = _ballObjList.Select(x => x.GetComponent<Rigidbody>()).ToList();
@@ -70,6 +74,9 @@ public class BallController : SingletonMonoBehaviour<BallController>
         ClearBallList();
     }
 
+    /// <summary>
+    /// ボールを落としたらリストを空にする。順位確認のため。
+    /// </summary>
     private void ClearBallList()
     {
         _ballObjList.Clear();
@@ -90,6 +97,9 @@ public class BallController : SingletonMonoBehaviour<BallController>
         BallGameManager.Instance.SceneLoadAfterFade(loseName);
     }
 
+    /// <summary>
+    /// ゴールしたら順位を上げていく。
+    /// </summary>
     public void GoaledBallCountUp()
     {
         _goaledBallCount++;

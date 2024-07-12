@@ -44,6 +44,10 @@ public class TBSoundController : MonoBehaviour
         OnSound(_se);
     }
 
+    /// <summary>
+    /// SE再生
+    /// </summary>
+    /// <param name="se">ボタンの数に応じたSE</param>
     private void OnSound(SEType se)
     {
         AudioManager.Instance.PlaySE(se);

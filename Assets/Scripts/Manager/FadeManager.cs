@@ -80,6 +80,9 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
         _nameGroupInitPos = _nameGroup.transform.position;
     }
 
+    /// <summary>
+    /// 順番変更時アニメーションのシーケンス作成
+    /// </summary>
     private void InitializeSequence()
     {
         _nextTMPSequence = DOTween.Sequence();
@@ -97,6 +100,9 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
                           .Pause();
     }
 
+    /// <summary>
+    /// 順番変更時アニメーションの初期化
+    /// </summary>
     private void NameFadeReset()
     {
         _nextTMP.transform.position = _nextTextInitPos;
@@ -109,6 +115,11 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
                          });
     }
 
+    /// <summary>
+    /// 順番変更時のフェードアニメーション機能
+    /// </summary>
+    /// <param name="durationTime"></param>
+    /// <returns></returns>
     public async UniTask OrderChangeFadeAnimation(float durationTime = 0)
     {
         await UniTask.Delay(TimeSpan.FromSeconds(durationTime));
@@ -125,6 +136,11 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
                          });
     }
 
+    /// <summary>
+    /// シーン変更時のフェード呼び出し
+    /// </summary>
+    /// <param name="type">フェードイン or フェードアウト</param>
+    /// <param name="callback">フェード後の処理</param>
     public void Fade(FadeType type, Action callback = null)
     {
         if (_isFading)
@@ -133,6 +149,11 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
         StartCoroutine(ShaderFade(type, callback));
     }
 
+    /// <summary>
+    /// シーン変更時のシェーダーグラフのフェード操作用
+    /// </summary>
+    /// <param name="type">フェードイン or フェードアウト</param>
+    /// <param name="callback">フェード後の処理</param>
     private IEnumerator ShaderFade(FadeType type, Action callBack = null)
     {
         (float currentValue, float endValue) = type == FadeType.In ? (0f, 1f) : (1f, 0);
@@ -153,11 +174,21 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
         callBack?.Invoke();
     }
 
+    /// <summary>
+    /// 負けた人を表示するフェード機能(オーバーライド)
+    /// </summary>
+    /// <param name="loseName">負けた人の名前(負け人数1人)</param>
+    /// <param name="callBack">フェード終了時のコールバック</param>
     public async UniTask LoseNameFade(string loseName, Action callBack = null)
     {
         await LoseNameFade(new List<string> { loseName }, callBack);
     }
 
+    /// <summary>
+    /// 負けた人を表示するフェード機能
+    /// </summary>
+    /// <param name="loseName">負けた人の名前(複数人受付可能)</param>
+    /// <param name="callBack">フェード終了時のコールバック</param>
     public async UniTask LoseNameFade(List<string> loseNameList, Action callBack = null)
     {
         await UniTask.Delay(TimeSpan.FromSeconds(1.5f));
@@ -173,6 +204,8 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
             for (int i = 0; i < loseNameList.Count; i++)
             {
                 _loseNameTMP.text = loseNameList[i];
+                _loseNameTMP.text = _loseNameTMP.text.Length > 5 ? _loseNameTMP.text.Substring(0, 5) : _loseNameTMP.text;
+
                 await _loseNameTMP.DOFade(1, 0.25f)
                                   .SetEase(Ease.Linear)
                                   .AsyncWaitForCompletion();

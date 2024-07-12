@@ -2107,10 +2107,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Test
+  m_text: "\u3066\u3059\u3068"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c9039045a0ce14ce3ba6cdd0497e07a3, type: 2}
-  m_sharedMaterial: {fileID: 817006570909355351, guid: c9039045a0ce14ce3ba6cdd0497e07a3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f160866a897c7447994b6c200f5d59eb, type: 2}
+  m_sharedMaterial: {fileID: -6289384667801655249, guid: f160866a897c7447994b6c200f5d59eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

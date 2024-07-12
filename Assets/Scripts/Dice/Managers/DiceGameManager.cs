@@ -53,6 +53,10 @@ public class DiceGameManager : SingletonMonoBehaviour<DiceGameManager>
         NameLifeManager.Instance.NameListOrderChange();
     }
 
+    /// <summary>
+    /// ゲーム終了後のシーン選択と負けた人を表示する機能
+    /// </summary>
+    /// <param name="loseName">負けた名前</param>
     private void SceneLoadAfterFade()
     {
         if (_diceResultNameDic.Count() >= NameLifeManager.Instance.GamePlayerAmount)

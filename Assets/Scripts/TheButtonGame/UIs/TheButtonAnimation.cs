@@ -23,6 +23,9 @@ public class TheButtonAnimation : MonoBehaviour
         StopAnimation();
     }
 
+    /// <summary>
+    /// 各ボタンのアニメーションスタート処理 
+    /// </summary>
     private void AnimationStart()
     {
         Dispose();
