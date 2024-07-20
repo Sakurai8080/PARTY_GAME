@@ -46,6 +46,7 @@ public class InitSettingPresenter : MonoBehaviour
     private NextTMPAnimController _nextTMPAnimController = default;
 
     private int _joinAmount = 0;
+    private bool _namedCorrect = false;
 
     void Start()
     {
@@ -59,14 +60,6 @@ public class InitSettingPresenter : MonoBehaviour
                                                          NextButtonState(transitionButton, true);
                                                          AudioManager.Instance.PlaySE(SEType.Choose);
                                                      }));
-
-        _transitionButton.NextClickObserver
-                         .TakeUntilDestroy(this)
-                         .Subscribe(clickCount =>
-                         {
-                             NextTransitionButtonClick(clickCount);
-                             AudioManager.Instance.PlaySE(SEType.Decide1);
-                         });
 
         _namedFailButton.OnClickObserver
                         .TakeUntilDestroy(this)
@@ -85,6 +78,15 @@ public class InitSettingPresenter : MonoBehaviour
                            NextButtonState(transitionButton, false);
                            AudioManager.Instance.PlaySE(SEType.Cancel);
                        });
+
+        _transitionButton.NextClickObserver
+                 .TakeUntilDestroy(this)
+                 .Subscribe(clickCount =>
+                 {
+                     if (clickCount < 2 || !_namedCorrect)
+                         AudioManager.Instance.PlaySE(SEType.Decide1);
+                     NextTransitionButtonClick(clickCount);
+                 });
     }
 
     /// <summary>
@@ -101,7 +103,7 @@ public class InitSettingPresenter : MonoBehaviour
             _nextTMPAnimController.TMPAnimationSwitcher(false);
         }
         else
-            _nameInputField.NameAndCountChecker();
+            _namedCorrect = _nameInputField.NameAndCountChecker();
     }
 
     /// <summary>

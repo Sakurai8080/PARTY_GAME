@@ -32,6 +32,25 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
     private Color _resetColor = default;
     private Subject<Unit> _orderChangeSubject = new Subject<Unit>();
 
+    protected override void Awake() { }
+
+    private void Start()
+    {
+        if (_allTweenList.Count >= 1 || _allBombButton.Count >= 1)
+        {
+            ResetUp();
+        }
+    }
+
+    /// <summary>
+    /// 重複の追加を防ぐためのリストリセット
+    /// </summary>
+    private void ResetUp()
+    {
+        _allTweenList?.Clear();
+        _allBombButton?.Clear();
+    }
+
     /// <summary>
     /// 初期値設定
     /// </summary>
@@ -41,6 +60,7 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
     {
         AddListButton(buttons);
         InteractableValidTask(true, 2.5f).Forget();
+
     }
 
     /// <summary>
@@ -115,6 +135,7 @@ public class BombUIsAnimationController : SingletonMonoBehaviour<BombUIsAnimatio
     public void AddListButton(List<Button> buttons)
     {
         _allBombButton.AddRange(buttons);
+        Debug.Log($"Addされた{_allTweenList.Count} : {_allBombButton.Count} ");
     }
 
     /// <summary>

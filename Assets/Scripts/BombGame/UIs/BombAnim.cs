@@ -72,17 +72,17 @@ public class BombAnim : TweenBase
         switch (_boxContent)
         {
             case BoxContents.None:
-                _selectedCallBack += BombGameManager.Instance.AfterEmptySelected;
+                _selectedCallBack = BombGameManager.Instance.AfterEmptySelected;
                 NonBombAnimation((int)duration + 1, _selectedCallBack).Forget();
                 break;
 
             case BoxContents.Bomb:
-                _selectedCallBack += BombGameManager.Instance.AfterExplosion;
+                _selectedCallBack = BombGameManager.Instance.AfterExplosion;
                 InBoxAnimation((int)duration + 1, _selectedCallBack).Forget();
                 break;
 
             case BoxContents.Apple:
-                _selectedCallBack += BombGameManager.Instance.AfterAppleSelect;
+                _selectedCallBack = BombGameManager.Instance.AfterAppleSelect;
                 InBoxAnimation((int)duration + 1, _selectedCallBack).Forget();
                 break;
 
