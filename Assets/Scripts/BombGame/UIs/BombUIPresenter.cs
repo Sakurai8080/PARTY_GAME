@@ -22,8 +22,12 @@ public class BombUIPresenter : PresenterBase
 
     private List<BombSelectButton> _bombSelectButton = new List<BombSelectButton>();
 
+
     protected override void Start()
     {
+
+        _bombSelectButton?.Clear();
+
         _activeSwitchButton.OnClickObserver
                     .Subscribe(_ =>
                     {

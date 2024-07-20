@@ -34,7 +34,7 @@ public class NameInputField : MonoBehaviour
     /// <summary>
     /// 名付け完了後に問題が無いか確認
     /// </summary>
-    public void NameAndCountChecker()
+    public bool NameAndCountChecker()
     {
         _namesSet.Clear();
         for (int i = 0; i < _gamePlayerAmount; i++)
@@ -45,9 +45,10 @@ public class NameInputField : MonoBehaviour
         if (_namesSet.Count() != _gamePlayerAmount)
         {
             _namedFailSubject.OnNext(Unit.Default);
-            return;
+            return false;
         }
         NamedSetupComplete();
+        return true;
     }
 
     /// <summary>
